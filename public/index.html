@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Meta data -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+    <meta content="Azea - Admin Panel HTML template" name="description" />
+    <meta content="Spruko Private Limited" name="author" />
+    <meta name="keywords" content="admin, admin template, dashboard, admin dashboard, responsive, bootstrap, bootstrap 5, admin theme, admin themes, bootstrap admin template, scss, ui, crm, modern, flat" />
+
+    <!-- Title -->
+    <title>Dashboard EWA</title>
+
+    <!--Favicon -->
+    <link rel="icon" href="/images/brand/favicon.ico" type="image/x-icon" />
+
+    <!--Bootstrap css -->
+    <link id="style" href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Style css -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/dark.css" rel="stylesheet" />
+    <link href="/css/skin-modes.css" rel="stylesheet" />
+
+    <!-- Animate css -->
+    <link href="/css/animated.css" rel="stylesheet" />
+
+    <!-- P-scroll bar css-->
+    <link href="/plugins/p-scrollbar/p-scrollbar.css" rel="stylesheet" />
+
+    <!---Icons css-->
+    <link href="/css/icons.css" rel="stylesheet" />
+
+    <!-- Simplebar css -->
+    <link rel="stylesheet" href="/plugins/simplebar/css/simplebar.css" />
+
+    <!-- INTERNAL Morris Charts css -->
+    <link href="/plugins/morris/morris.css" rel="stylesheet" />
+
+    <!--INTERNAl Prism Css -->
+    <link href="/plugins/prism/prism.css" rel="stylesheet" />
+
+    <!-- INTERNAL Select2 css -->
+    <link href="/plugins/select2/select2.min.css" rel="stylesheet" />
+
+    <!-- Data table css -->
+    <link href="/plugins/datatables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="/plugins/datatables/Responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+
+    <!---Icons css-->
+    <link href="/css/icons.css" rel="stylesheet" />
+
+    <!-- Color Skin css -->
+    <link id="theme" href="/colors/color1.css" rel="stylesheet" type="text/css" />
+
+    <!-- Data table css -->
+    <link href="/plugins/datatables/DataTables/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="/plugins/datatables/Buttons/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+    <link href="/plugins/datatables/Responsive/css/responsive.bootstrap5.min.css" rel="stylesheet" />
+
+    <!-- Slect2 css -->
+    <link href="/plugins/select2/select2.min.css" rel="stylesheet" />
+
+    <!-- Color Skin css -->
+    <link id="theme" href="/colors/color1.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body class="app sidebar-mini">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Jquery js-->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Bootstrap5 js-->
+    <script src="/plugins/bootstrap/popper.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!--Othercharts js-->
+    <script src="/plugins/othercharts/jquery.sparkline.min.js"></script>
+
+    <!-- Circle-progress js-->
+    <script src="/js/circle-progress.min.js"></script>
+
+    <!-- Jquery-rating js-->
+    <script src="/plugins/rating/jquery.rating-stars.js"></script>
+
+    <!--Sidemenu js-->
+    <script src="/plugins/sidemenu/sidemenu.js"></script>
+
+    <!-- P-scroll js-->
+    <script src="/plugins/p-scrollbar/p-scrollbar.js"></script>
+    <script src="/plugins/p-scrollbar/p-scroll1.js"></script>
+    <script src="/plugins/p-scrollbar/p-scroll.js"></script>
+
+    <!--INTERNAl Clipboard js -->
+    <script src="/plugins/clipboard/clipboard.min.js"></script>
+    <script src="/plugins/clipboard/clipboard.js"></script>
+
+    <!-- INTERNAl Prism js -->
+    <script src="/plugins/prism/prism.js"></script>
+
+    <!--INTERNAL Flot Charts js-->
+    <script src="/plugins/flot/jquery.flot.js"></script>
+    <script src="/plugins/flot/jquery.flot.fillbetween.js"></script>
+    <script src="/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="/js/dashboard.sampledata.js"></script>
+    <script src="/js/chart.flot.sampledata.js"></script>
+
+    <!-- INTERNAL Chart js -->
+    <script src="/plugins/chart/chart.bundle.js"></script>
+    <script src="/plugins/chart/utils.js"></script>
+
+    <!-- INTERNAL Apexchart js -->
+    <script src="/js/apexcharts.js"></script>
+
+    <!--INTERNAL Moment js-->
+    <script src="/plugins/moment/moment.js"></script>
+
+    <!--INTERNAL Index js-->
+    <script src="/js/index1.js"></script>
+
+    <!-- INTERNAL Data tables -->
+    <script src="/plugins/datatables/DataTables/js/jquery.dataTables.js"></script>
+    <script src="/plugins/datatables/DataTables/js/dataTables.bootstrap5.js"></script>
+    <script src="/plugins/datatables/Responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/plugins/datatables/Responsive/js/responsive.bootstrap5.min.js"></script>
+    <script src="/plugins/datatables/Buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/plugins/datatables/Buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/plugins/datatables/JSZip/jszip.min.js"></script>
+    <script src="/plugins/datatables/pdfmake/pdfmake.min.js"></script>
+    <script src="/plugins/datatables/pdfmake/vfs_fonts.js"></script>
+    <script src="/plugins/datatables/Buttons/js/buttons.html5.min.js"></script>
+    <script src="/plugins/datatables/Buttons/js/buttons.print.min.js"></script>
+    <script src="/plugins/datatables/Buttons/js/buttons.colVis.min.js"></script>
+    <script src="/plugins/datatables/Responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/plugins/datatables/Responsive/js/responsive.bootstrap5.min.js"></script>
+    <script src="/js/datatables.js"></script>
+
+    <!-- INTERNAL Select2 js -->
+    <script src="/plugins/select2/select2.full.min.js"></script>
+    <script src="/js/select2.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="/plugins/simplebar/js/simplebar.min.js"></script>
+
+    <!-- Rounded bar chart js-->
+    <script src="/js/rounded-barchart.js"></script>
+
+    <!-- Custom js-->
+    <!-- <script src="/js/script.js"></script> -->
+  </body>
+</html>
