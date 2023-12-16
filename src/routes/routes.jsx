@@ -9,6 +9,7 @@ import ChangePassword from "../components/pages/Dashboard/changePassword/ChangeP
 import EditProfile from "../components/pages/Dashboard/editProfile/EditProfile";
 import Employee from "../components/pages/Employee/employeeList/EmployeeList";
 import AddEmployee from "../components/pages/Employee/addEmployee/AddEmployee";
+import AddEmployeeBulk from "../components/pages/Employee/addEmployee/AddEmployeeDataBulk";
 import EditEmployee from "../components/pages/Employee/editEmployee/EditEmployee";
 import Candidate from "../components/pages/Employee/candidateList/Candidate";
 import DetailEmployee from "../components/pages/Employee/detailEmployee/DetailEmployee";
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/add-employee",
         element: <AddEmployee />,
+      },
+      {
+        path: "/add-employee-excel",
+        element: <AddEmployeeBulk />,
       },
       {
         path: "/detail-employee/:id",

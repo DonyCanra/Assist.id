@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createEmployee } from "../../../../store/actions/thunks";
 
 export default function AddEmployee() {
@@ -52,9 +52,11 @@ export default function AddEmployee() {
               </div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <button className="btn btn-secondary">
-                    <i className="fe fe-plus me-2"></i> Add New Data Bulk
-                  </button>
+                  <Link to="/add-employee-excel">
+                    <button className="btn btn-secondary">
+                      <i className="fe fe-plus me-2"></i> Add New Data Bulk
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
