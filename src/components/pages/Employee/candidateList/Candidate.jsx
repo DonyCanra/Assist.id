@@ -15,8 +15,8 @@ export default function Candidate() {
   // console.log(dataTable, "<<< dataaa");
   const [inputDefault] = useState({
     isCandidate: "Yes",
-    registeredStatus: "Notregistered",
     employeeStatus: "",
+    registeredStatus: "",
     name: "",
     nik: "",
     email: "",

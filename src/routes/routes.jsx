@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         element: <ChangePassword />,
       },
       {
-        path: "/edit-profile",
+        path: "/edit-profile/:id",
         element: <EditProfile />,
       },
       {

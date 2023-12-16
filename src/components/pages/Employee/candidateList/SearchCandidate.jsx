@@ -11,8 +11,8 @@ export default function SearchComponent() {
     nik: "",
     email: "",
     phoneNumber: "",
-    // employeeStatus: true,
-    // registeredStatus: true,
+    employeeStatus: true,
+    registeredStatus: true,
     page: 1,
     limit: 10,
   });

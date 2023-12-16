@@ -9,9 +9,13 @@ import userReducer from "./reducers/userReducer";
 import detailEmployeeReducer from "./reducers/detailEmployeeReducer";
 import detailUserReducer from "./reducers/detailUserReducer";
 import detailFeeReducer from "./reducers/detailFeeReducer";
+import profileReducer from "./reducers/profileReducer";
+import imagesReducer from "./reducers/imagesReducer";
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
+  profile: profileReducer,
+  images: imagesReducer,
   employees: employeeReducer,
   employee: detailEmployeeReducer,
   candidates: candidateReducer,

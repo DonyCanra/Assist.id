@@ -14,12 +14,12 @@ export default function Employee() {
   // console.log(dataTable, "<<< dataaa");
   const [inputDefault] = useState({
     isCandidate: "No",
-    employeeStatus: "Active",
-    registeredStatus: "Not Registered",
+    employeeStatus: "",
+    registeredStatus: "",
     name: "",
     nik: "",
     email: "",
-    phoneNumber: "081212121212",
+    phoneNumber: "",
     page: 1,
     limit: 10,
   });

@@ -3,6 +3,8 @@ export const USER_LOGIN_SUCCESSS = "users/loginSuccess";
 
 // Action Type Dashboard
 export const DASHBOARD_FETCH_SUCCESS = "dashboard/fetchSuccess";
+export const PROFILE_FETCH_SUCCESS = "profile/fetchSuccess";
+export const IMAGE_CONVERT_SUCCESS = "images/convertSuccess";
 
 // Action Type Employee
 export const EMPLOYEE_FETCH_SUCCESS = "employee/fetchSuccess";

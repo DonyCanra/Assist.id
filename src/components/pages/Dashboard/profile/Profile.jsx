@@ -1,6 +1,26 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProfile } from "../../../../store/actions/thunks";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const { profile } = useSelector((state) => {
+    return state.profile;
+  });
+  // console.log(profile, "profile");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleEditClick = () => {
+    // Pindah ke halaman edit dengan parameter id
+    navigate(`/edit-profile/${profile.id}`);
+  };
+
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
+
   return (
     <>
       <div className="page-header">
@@ -9,11 +29,18 @@ export default function Profile() {
         </div>
         <div className="page-rightheader">
           <div className="btn-list">
-            <Link className="btn btn-warning" to="/edit-profile">
+            <a
+              onClick={(event) => {
+                event.preventDefault();
+                handleEditClick();
+              }}
+              className="btn btn-warning"
+              href="/"
+            >
               {/* <button className="btn btn-secondary"> */}
               <i className="fe fe-edit me-2"></i> Edit
               {/* </button> */}
-            </Link>
+            </a>
             <Link className="btn btn-secondary" to="/change-password">
               {/* <button className="btn btn-primary"> */}
               <i className="fe fe-lock me-2 fs-14"></i> Change Password
@@ -37,17 +64,17 @@ export default function Profile() {
                 <tr>
                   <th scope="row">Name</th>
                   <td className="text-center w-8"> : </td>
-                  <td> John Doe has login</td>
+                  <td> {profile.name}</td>
                 </tr>
                 <tr className="border-bottom">
                   <th scope="row">Phone Number</th>
                   <td className="text-center w-8"> : </td>
-                  <td> 081234567890</td>
+                  <td> {profile.phoneNumber}</td>
                 </tr>
                 <tr className="border-bottom">
                   <th scope="row">Email</th>
                   <td className="text-center w-8"> : </td>
-                  <td> Johndoe@email.com</td>
+                  <td> {profile.email}</td>
                 </tr>
               </div>
             </div>
