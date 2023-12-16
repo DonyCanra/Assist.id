@@ -10,6 +10,7 @@ import {
   employeeDetailSuccess,
   employeeUpdateSuccess,
   candidateFetchSuccess,
+  candidateApproveSuccess,
   feeFetchSuccess,
   feeDetailSuccess,
   userFetchSuccess,
@@ -389,6 +390,37 @@ export function fetchCandidate(input) {
     }
   };
 }
+
+export function approveCandidate(id) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-Time": unixTimes,
+        },
+      };
+      // console.log("input", input);
+      const response = await axios.get(`${BASE_URL}/dashboard/employee/approve/${id}`, config);
+
+      const data = response.data;
+      console.log(data, "<< data");
+      return dispatch(candidateApproveSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
+    }
+  };
+}
+
 export function fetchFee(input) {
   return async (dispatch) => {
     try {

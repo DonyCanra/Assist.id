@@ -10,6 +10,7 @@ import {
   EMPLOYEE_DETAIL_SUCCESS,
   EMPLOYEE_UPDATE_SUCCESS,
   CANDIDATE_FETCH_SUCCESS,
+  CANDIDATE_APPROVED_SUCCESS,
   FEE_FETCH_SUCCESS,
   FEE_DETAIL_SUCCESS,
   ROLE_FETCH_SUCCESS,
@@ -95,6 +96,13 @@ export const employeeUpdateSuccess = (data) => {
 export const candidateFetchSuccess = (data) => {
   return {
     type: CANDIDATE_FETCH_SUCCESS,
+    payload: data,
+  };
+};
+
+export const candidateApproveSuccess = (data) => {
+  return {
+    type: CANDIDATE_APPROVED_SUCCESS,
     payload: data,
   };
 };

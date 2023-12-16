@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCandidate } from "../../../../store/actions/thunks";
 import SearchComponent from "./SearchCandidate";
@@ -8,7 +8,6 @@ import Row from "./CandidateTableRaw";
 
 export default function Candidate() {
   const { candidates } = useSelector((state) => {
-    console.log(state.candidates, "<<state candi");
     return state.candidates;
   });
   const dataTable = candidates.data;
@@ -24,6 +23,7 @@ export default function Candidate() {
     page: 1,
     limit: 10,
   });
+
 
   const dispatch = useDispatch();
 

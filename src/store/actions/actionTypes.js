@@ -14,6 +14,7 @@ export const EMPLOYEE_CREATE_SUCCESS = "employee/createSuccess";
 export const EMPLOYEE_DETAIL_SUCCESS = "employee/fetchDetailSuccess";
 export const EMPLOYEE_UPDATE_SUCCESS = "employee/updateSuccess";
 export const CANDIDATE_FETCH_SUCCESS = "candidate/fetchSuccess";
+export const CANDIDATE_APPROVED_SUCCESS = "candidate/approveSuccess";
 
 // Action Type Fee
 export const FEE_FETCH_SUCCESS = "fee/fetchSuccess";
