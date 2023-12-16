@@ -1,5 +1,4 @@
 // import { Link } from "react-router-dom";
-import "./changePassword.css";
 
 export default function ChangePassword() {
   return (

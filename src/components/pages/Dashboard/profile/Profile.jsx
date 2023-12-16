@@ -1,13 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProfile } from "../../../../store/actions/thunks";
+import { fetchLogactivity, fetchProfile } from "../../../../store/actions/thunks";
 import { Link, useNavigate } from "react-router-dom";
+import Row from "./LogactivityTableRaw";
 
 export default function Profile() {
   const { profile } = useSelector((state) => {
     return state.profile;
   });
+
+  const { logactivity } = useSelector((state) => {
+    return state.logactivity;
+  });
   // console.log(profile, "profile");
+  console.log(logactivity, "logactivity");
+
+  const dataTable = logactivity.data;
+
+  const [input] = useState({
+    page: 1,
+    limit: 10,
+  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +33,10 @@ export default function Profile() {
   useEffect(() => {
     dispatch(fetchProfile());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchLogactivity(input));
+  }, [dispatch, input]);
 
   return (
     <>
@@ -154,36 +171,9 @@ export default function Profile() {
                   </tr>
                 </thead>
                 <tbody style={{ color: "#fff" }}>
-                  <tr className="border-bottom">
-                    <th scope="row">1</th>
-                    <td>Login</td>
-                    <td>John Doe has login</td>
-                    <td>10 Aug 2023 at 18:31</td>
-                  </tr>
-                  <tr className="border-bottom">
-                    <th scope="row">1</th>
-                    <td>Login</td>
-                    <td>John Doe has login</td>
-                    <td>10 Aug 2023 at 18:31</td>
-                  </tr>
-                  <tr className="border-bottom">
-                    <th scope="row">1</th>
-                    <td>Login</td>
-                    <td>John Doe has login</td>
-                    <td>10 Aug 2023 at 18:31</td>
-                  </tr>
-                  <tr className="border-bottom">
-                    <th scope="row">1</th>
-                    <td>Login</td>
-                    <td>John Doe has login</td>
-                    <td>10 Aug 2023 at 18:31</td>
-                  </tr>
-                  <tr className="border-bottom">
-                    <th scope="row">1</th>
-                    <td>Login</td>
-                    <td>John Doe has login</td>
-                    <td>10 Aug 2023 at 18:31</td>
-                  </tr>
+                  {dataTable?.map((logactivity, index) => {
+                    return <Row key={index} logactivity={logactivity} index={index} />;
+                  })}
                 </tbody>
               </table>
             </div>

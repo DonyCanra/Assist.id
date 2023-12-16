@@ -2,8 +2,9 @@ import {
   USER_LOGIN_SUCCESSS,
   DASHBOARD_FETCH_SUCCESS,
   PROFILE_FETCH_SUCCESS,
-  PROFILE_UPDATE_SUCCESS,
+  LOGACTIVITY_FETCH_SUCCESS,
   IMAGE_CONVERT_SUCCESS,
+  PROFILE_UPDATE_SUCCESS,
   EMPLOYEE_FETCH_SUCCESS,
   EMPLOYEE_CREATE_SUCCESS,
   EMPLOYEE_DETAIL_SUCCESS,
@@ -37,6 +38,13 @@ export const dashboardFetchSuccess = (data) => {
 export const profileFetchSuccess = (data) => {
   return {
     type: PROFILE_FETCH_SUCCESS,
+    payload: data,
+  };
+};
+
+export const logactivityFetchSuccess = (data) => {
+  return {
+    type: LOGACTIVITY_FETCH_SUCCESS,
     payload: data,
   };
 };

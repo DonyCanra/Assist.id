@@ -1,7 +1,21 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { fetchProfile } from "../../store/actions/thunks";
 
 export default function Navbar() {
+  const { profile } = useSelector((state) => {
+    return state.profile;
+  });
+  console.log(profile, "navbar");
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
+
   const logout = () => {
     localStorage.clear();
     navigate("/login");
@@ -32,13 +46,13 @@ export default function Navbar() {
                     <div className="dropdown profile-dropdown d-flex">
                       <a href="/" className="nav-link pe-0 leading-none" data-bs-toggle="dropdown">
                         <span className="header-avatar1">
-                          <img src="/images/users/2.jpg" alt="img" className="avatar avatar-md brround" />
+                          <img src={profile.avatar} alt="img" className="avatar avatar-md brround" />
                         </span>
                       </a>
                       <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow animated">
                         <div className="text-center">
-                          <div className="text-center user pb-0 font-weight-bold">Username</div>
-                          <span className="text-center user-semi-title">Full-ngestack Developer</span>
+                          <div className="text-center user pb-0 font-weight-bold">{profile.name}</div>
+                          <span className="text-center user-semi-title">{profile.role}</span>
                           <div className="dropdown-divider"></div>
                         </div>
                         <Link to="/profile">

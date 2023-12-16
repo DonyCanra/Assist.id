@@ -11,10 +11,12 @@ import detailUserReducer from "./reducers/detailUserReducer";
 import detailFeeReducer from "./reducers/detailFeeReducer";
 import profileReducer from "./reducers/profileReducer";
 import imagesReducer from "./reducers/imagesReducer";
+import logactivityReducer from "./reducers/logactivityReducer";
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   profile: profileReducer,
+  logactivity: logactivityReducer,
   image: imagesReducer,
   employees: employeeReducer,
   employee: detailEmployeeReducer,

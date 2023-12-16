@@ -2,6 +2,7 @@ import {
   usersLoginSuccess,
   dashboardFetchSuccess,
   profileFetchSuccess,
+  logactivityFetchSuccess,
   imagesConvertSuccess,
   profileUpdateSuccess,
   employeeFetchSuccess,
@@ -22,6 +23,7 @@ import Swal from "sweetalert2";
 import { SHA256 } from "crypto-js";
 import unixTimestampInSeconds from "../../utils/unixTimestampInSeconds";
 import { thunk } from "redux-thunk";
+import { redirect } from "react-router-dom";
 
 // URL SERVER
 const BASE_URL = process.env.REACT_APP_URL;
@@ -76,8 +78,14 @@ export function login(input) {
       configureToast("success", "Login Success", "Wellcome to EWA Dahboard");
       return dispatch(usersLoginSuccess(response.data));
     } catch (error) {
+      // console.log("Request Failed: ", error.response.data.error.code);
       // console.log("Request Failed: ", error.response.data.error.messageData);
       const msgError = error.response.data.error.messageData;
+      // const codeError = error.response.data.error.code;
+      // if(codeError === 511){
+      //   configureToast("warning", "", msgError);
+      //   throw error;
+      // }
       configureToast("warning", "", msgError);
       throw error;
     }
@@ -102,7 +110,14 @@ export function fetchDashboard(input) {
       return dispatch(dashboardFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -124,7 +139,43 @@ export function fetchProfile() {
       return dispatch(profileFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
+    }
+  };
+}
+
+export function fetchLogactivity(input) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-time": unixTimes,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/dashboard/log-activity`, input, config);
+
+      const data = response.data.data;
+      console.log(data, "<< data");
+      return dispatch(logactivityFetchSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -147,7 +198,14 @@ export function convertImages(input) {
       return dispatch(imagesConvertSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -170,8 +228,14 @@ export function updateProfile(input) {
       return dispatch(profileUpdateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -195,8 +259,14 @@ export function fetchEmployee(input) {
       return dispatch(employeeFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -218,8 +288,14 @@ export function fetchDetailEmployee(id) {
       return dispatch(employeeDetailSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -242,8 +318,14 @@ export function createEmployee(input) {
       return dispatch(employeeCreateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -266,8 +348,14 @@ export function updateEmployee(input) {
       return dispatch(employeeUpdateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -290,8 +378,14 @@ export function fetchCandidate(input) {
       return dispatch(candidateFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -335,8 +429,14 @@ export function fetchDetailFee(transactionNo) {
       return dispatch(feeDetailSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -382,8 +482,14 @@ export function fetchUser(input) {
       return dispatch(userFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -406,8 +512,14 @@ export function fetchDetailUser(id) {
       return dispatch(userDetailSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -431,8 +543,14 @@ export function createUser(input) {
       return dispatch(userCreateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
@@ -456,8 +574,14 @@ export function updateUser(input) {
       return dispatch(userUpdateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
-      throw error;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
     }
   };
 }
