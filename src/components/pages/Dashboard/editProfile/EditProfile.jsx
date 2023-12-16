@@ -1,62 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProfile } from "../../../../store/actions/thunks";
-// import { useNavigate } from "react-router-dom";
+import { fetchProfile, updateProfile } from "../../../../store/actions/thunks";
+import ImageUploader from "./ImageUploader";
+import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 // import "./Employee.css";
 
 export default function EditProfile() {
-  const { profile } = useSelector((state) => {
-    return state.profile;
-  });
-  console.log(profile, "profile");
+  const { profile } = useSelector((state) => state.profile);
+  const { image } = useSelector((state) => state.image);
+  console.log(image, "<< image");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [input, setInput] = useState({
     name: "",
     phoneNumber: "",
-    email: "",
     avatar: "",
   });
-
-  function separateBase64String(base64String) {
-    const commaIndex = base64String.indexOf(",");
-
-    if (commaIndex !== -1) {
-      // const header = base64String.slice(0, commaIndex + 1);
-      const body = base64String.slice(commaIndex + 1);
-
-      return body;
-    } else {
-      // Handle jika string tidak mengandung koma
-      return null;
-    }
-  }
-
-  console.log(input.avatar, "<<< avatar");
-
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    // Lakukan validasi atau manipulasi lainnya jika diperlukan
-    setSelectedImage(file);
-  };
-
-  const handleUpload = () => {
-    const file = selectedImage;
-
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onloadend = () => {
-        // Set nilai Base64 ke state
-        setInput({
-          avatar: separateBase64String(reader.result),
-        });
-      };
-    }
-  };
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -71,29 +32,28 @@ export default function EditProfile() {
       setInput({
         name: profile.name,
         phoneNumber: profile.phoneNumber,
-        email: profile.email,
-        avatar: profile.avatar,
       });
     }
   }, [profile]);
-
-  // const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProfile());
   }, [dispatch]);
 
-  // const handleUpdateEmployee = async (event) => {
-  //   event.preventDefault();
-  //   event.persist();
-  //   try {
-  //     await dispatch(updateEmployee(dataInput));
-  //     navigate("/employee");
-  //   } catch (error) {
-  //     console.error("Error updating employee:", error);
-  //   }
-  // };
+  input.avatar = image.fileName;
+  console.log(input, "sebelum update");
+
+  const handleUpdateProfile = async (event) => {
+    event.preventDefault();
+    event.persist();
+    try {
+      await dispatch(updateProfile(input));
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
+
   return (
     <>
       <div className="row">
@@ -112,53 +72,36 @@ export default function EditProfile() {
                 borderRadius: "5px",
               }}
             >
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">
-                    Name <span className="text-red">*</span>
-                  </label>
-                  <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="" />
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">
-                    Phone Number <span className="text-red">*</span>
-                  </label>
-                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="" />
-                </div>
-              </div>
-
-              <div>
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-                <button onClick={handleUpload}>Upload</button>
-                {selectedImage && (
-                  <div>
-                    <p>Preview:</p>
-                    <img src={URL.createObjectURL(selectedImage)} alt="Preview" style={{ maxWidth: "100%", height: "auto" }} />
+              <form onSubmit={handleUpdateProfile}>
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label className="form-label">
+                      Name <span className="text-red">*</span>
+                    </label>
+                    <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="" />
                   </div>
-                )}
-              </div>
-
-              <div className="col-lg-12 col-xl-8">
-                <button onClick={handleUpload} class="btn btn-pill btn-dark mb-2">
-                  Choose File
-                </button>
-                {selectedImage && (
-                  <div className="box-widget widget-user">
-                    <div className="widget-user-image1 d-xl-flex d-block">
-                      <img alt="" className="avatar" style={{ borderRadius: "20px" }} src={URL.createObjectURL(selectedImage)} />
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="col-sm-6 col-md-6">
-                <div className="form-group">
-                  <div className="form-group"></div>
                 </div>
-                <button className="btn btn-danger">Cancel</button>
-                <button className="btn btn-primary ms-1">Confirm</button>
-              </div>
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label className="form-label">
+                      Phone Number <span className="text-red">*</span>
+                    </label>
+                    <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="" />
+                  </div>
+                </div>
+
+                <ImageUploader profile={profile} />
+
+                <div className="col-sm-6 col-md-6">
+                  <div className="form-group">
+                    <div className="form-group"></div>
+                  </div>
+                  <button className="btn btn-danger">Cancel</button>
+                  <button className="btn btn-primary ms-1" type="submit">
+                    Confirm
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

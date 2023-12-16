@@ -57,7 +57,7 @@ export default function Profile() {
           </div>
           <div className="card box-widget widget-user">
             <div className="widget-user-image1 d-xl-flex mx-auto mt-5 d-block">
-              <img alt="User Avatar" className="avatar brround p-0" src="https://media.suara.com/pictures/653x366/2022/06/21/37726-megawati.jpg" />
+              <img alt="User Avatar" className="avatar brround p-0" src={profile.avatar} />
             </div>
             <div className="card-body text-left">
               <div className="" style={{ margin: "20px 10px" }}>

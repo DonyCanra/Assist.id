@@ -15,7 +15,7 @@ import imagesReducer from "./reducers/imagesReducer";
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   profile: profileReducer,
-  images: imagesReducer,
+  image: imagesReducer,
   employees: employeeReducer,
   employee: detailEmployeeReducer,
   candidates: candidateReducer,

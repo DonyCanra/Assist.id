@@ -2,7 +2,6 @@
   "name": "ewa-dashboard",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://192.168.152.143:9000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",

@@ -2,6 +2,8 @@ import {
   usersLoginSuccess,
   dashboardFetchSuccess,
   profileFetchSuccess,
+  imagesConvertSuccess,
+  profileUpdateSuccess,
   employeeFetchSuccess,
   employeeCreateSuccess,
   employeeDetailSuccess,
@@ -22,7 +24,8 @@ import unixTimestampInSeconds from "../../utils/unixTimestampInSeconds";
 import { thunk } from "redux-thunk";
 
 // URL SERVER
-const BASE_URL = "https://vendor.bayarind.id:8088";
+const BASE_URL = process.env.REACT_APP_URL;
+// const BASE_URL = "https://vendor.bayarind.id:8088";
 
 // Fungsi untuk konfigurasi Toast
 const configureToast = (type, title, message) => {
@@ -114,7 +117,7 @@ export function fetchProfile() {
         },
       };
 
-      const response = await axios.get(`${BASE_URL}//dashboard/users/profile`, config);
+      const response = await axios.get(`${BASE_URL}/dashboard/users/profile`, config);
 
       const data = response.data.data;
       console.log(data, "<< data");
@@ -122,6 +125,53 @@ export function fetchProfile() {
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       configureToast("warning", "", msgError);
+    }
+  };
+}
+
+export function convertImages(input) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-time": unixTimes,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/dashboard/upload/file`, input, config);
+
+      const data = response.data.data;
+      console.log(data, "<< data");
+      return dispatch(imagesConvertSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      configureToast("warning", "", msgError);
+    }
+  };
+}
+
+export function updateProfile(input) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-Time": unixTimes,
+        },
+      };
+      const response = await axios.put(`${BASE_URL}/dashboard/users/update-profile`, input, config);
+
+      const data = response.data;
+      console.log(data, "<< data");
+      configureToast("success", "Updated Success", "Profile has been updated");
+      return dispatch(profileUpdateSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      configureToast("warning", "", msgError);
+      throw error;
     }
   };
 }

@@ -5,6 +5,7 @@ export const USER_LOGIN_SUCCESSS = "users/loginSuccess";
 export const DASHBOARD_FETCH_SUCCESS = "dashboard/fetchSuccess";
 export const PROFILE_FETCH_SUCCESS = "profile/fetchSuccess";
 export const IMAGE_CONVERT_SUCCESS = "images/convertSuccess";
+export const PROFILE_UPDATE_SUCCESS = "profile/updateSuccess";
 
 // Action Type Employee
 export const EMPLOYEE_FETCH_SUCCESS = "employee/fetchSuccess";

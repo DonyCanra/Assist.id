@@ -2,6 +2,8 @@ import {
   USER_LOGIN_SUCCESSS,
   DASHBOARD_FETCH_SUCCESS,
   PROFILE_FETCH_SUCCESS,
+  PROFILE_UPDATE_SUCCESS,
+  IMAGE_CONVERT_SUCCESS,
   EMPLOYEE_FETCH_SUCCESS,
   EMPLOYEE_CREATE_SUCCESS,
   EMPLOYEE_DETAIL_SUCCESS,
@@ -14,7 +16,6 @@ import {
   USER_DETAIL_SUCCESS,
   USER_CREATE_SUCCESS,
   USER_UPDATE_SUCCESS,
-  IMAGE_CONVERT_SUCCESS,
 } from "./actionTypes";
 
 // Action Creator Auth
@@ -43,6 +44,13 @@ export const profileFetchSuccess = (data) => {
 export const imagesConvertSuccess = (data) => {
   return {
     type: IMAGE_CONVERT_SUCCESS,
+    payload: data,
+  };
+};
+
+export const profileUpdateSuccess = (data) => {
+  return {
+    type: PROFILE_UPDATE_SUCCESS,
     payload: data,
   };
 };
