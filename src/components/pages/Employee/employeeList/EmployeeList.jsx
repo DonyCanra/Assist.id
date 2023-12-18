@@ -126,9 +126,9 @@ export default function Employee() {
               }}
             >
               <div className="table-responsive">
-                <table className="table table-bordered card-table table-vcenter text-nowrap">
+                <table className="table table-bordered card-table table-vcenter text-nowrap border-botom">
                   <thead className="text-center">
-                    <tr className="border-top">
+                    <tr className="border-top border-botom">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Name</th>
                       <th className="wd-20p border-bottom-0">NIK</th>
@@ -183,7 +183,7 @@ export default function Employee() {
                           ))}
                           <li
                             className={inputDefault.page === employees.totalPage ? "paginate_button page-item disabled" : "paginate_button page-item"}
-                            onClick={() => inputDefault.page < employees.totalPage && handlePageChange(inputDefault.page - 1)}
+                            onClick={() => inputDefault.page < employees.totalPage && handlePageChange(inputDefault.page + 1)}
                           >
                             <Link href="#" aria-controls="example2" data-dt-idx={pageCount + 1} tabindex="0" className="page-link">
                               Next

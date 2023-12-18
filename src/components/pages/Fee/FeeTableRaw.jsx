@@ -9,7 +9,7 @@ export default function Row({ fee, index }) {
   };
   return (
     <>
-      <tr>
+      <tr className="border-bottom border-top">
         <td>{index + 1}</td>
         <td>{fee.transactionDate}</td>
         <td>{fee.transactionNo}</td>

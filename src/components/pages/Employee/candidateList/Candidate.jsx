@@ -164,7 +164,7 @@ export default function Candidate() {
                           ))}
                           <li
                             className={inputDefault.page === candidates.totalPage ? "paginate_button page-item disabled" : "paginate_button page-item"}
-                            onClick={() => inputDefault.page < candidates.totalPage && handlePageChange(inputDefault.page - 1)}
+                            onClick={() => inputDefault.page < candidates.totalPage && handlePageChange(inputDefault.page + 1)}
                           >
                             <Link href="#" aria-controls="example2" data-dt-idx={pageCount + 1} tabindex="0" className="page-link">
                               Next

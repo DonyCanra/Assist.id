@@ -26,12 +26,15 @@ export default function SearchComponent() {
 
   const handleReset = () => {
     setInput({
+      isCandidate: "No",
+      employeeStatus: "Active",
+      registeredStatus: "Notregistered",
       name: "",
       nik: "",
       email: "",
       phoneNumber: "",
-      employeeStatus: "",
-      registeredStatus: "",
+      page: 1,
+      limit: 10,
     });
   };
 
@@ -82,11 +85,11 @@ export default function SearchComponent() {
               <div className="row row-sm">
                 <div className="col-lg">
                   <label className="form-label">Name</label>
-                  <input value={input.name} onChange={handleChange} name="name" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.name} onChange={handleChange} name="name" className="form-control mb-4" placeholder="Input name" type="text" />
                 </div>
                 <div className="col-lg">
                   <label className="form-label">Phone Number</label>
-                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input phone number" type="text" />
                 </div>
                 <div className="col-lg mb-3">
                   <label className="form-label">Registered Status</label>
@@ -104,18 +107,18 @@ export default function SearchComponent() {
                   >
                     <option value="">Open this select menu</option>
                     <option value="Registered">Registered</option>
-                    <option value="Not Registered">Not Registered</option>
+                    <option value="Notregistered">Not Registered</option>
                   </select>
                 </div>
               </div>
               <div className="row row-sm">
                 <div className="col-lg">
                   <label className="form-label">NIK</label>
-                  <input value={input.nik} onChange={handleChange} name="nik" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.nik} onChange={handleChange} name="nik" className="form-control mb-4" placeholder="Input NIK" type="text" />
                 </div>
                 <div className="col-lg">
                   <label className="form-label">Email</label>
-                  <input value={input.email} onChange={handleChange} name="email" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.email} onChange={handleChange} name="email" className="form-control mb-4" placeholder="Input email" type="text" />
                 </div>
                 <div className="col-lg mb-3">
                   <label className="form-label">Employee Status</label>

@@ -7,12 +7,12 @@ export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
     isCandidate: "Yes",
+    employeeStatus: "Active",
+    registeredStatus: "Notregistered",
     name: "",
     nik: "",
     email: "",
     phoneNumber: "",
-    employeeStatus: true,
-    registeredStatus: true,
     page: 1,
     limit: 10,
   });
@@ -27,11 +27,13 @@ export default function SearchComponent() {
 
   const handleReset = () => {
     setInput({
-      status: "kandidat",
+      isCandidate: "Yes",
       name: "",
       nik: "",
       email: "",
       phoneNumber: "",
+      employeeStatus: "Active",
+      registeredStatus: "Notregistered",
       page: 1,
       limit: 10,
     });
@@ -42,8 +44,7 @@ export default function SearchComponent() {
 
   const handleFilter = async (event) => {
     event.preventDefault();
-    await dispatch(fetchEmployee(input, "<<<<"));
-    // navigate("/employee");
+    await dispatch(fetchEmployee(input));
   };
 
   const toggleCardVisibility = () => {
@@ -86,11 +87,11 @@ export default function SearchComponent() {
               <div className="row row-sm">
                 <div className="col-lg">
                   <label className="form-label">Name</label>
-                  <input value={input.name} onChange={handleChange} name="name" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.name} onChange={handleChange} name="name" className="form-control mb-4" placeholder="Input name" type="text" />
                 </div>
                 <div className="col-lg">
                   <label className="form-label">Phone Number</label>
-                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input phone number" type="text" />
                 </div>
                 <div className="col-lg mb-3">
                   <label className="form-label">Registered Status</label>
@@ -115,18 +116,18 @@ export default function SearchComponent() {
               <div className="row row-sm">
                 <div className="col-lg">
                   <label className="form-label">NIK</label>
-                  <input value={input.nik} onChange={handleChange} name="nik" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.nik} onChange={handleChange} name="nik" className="form-control mb-4" placeholder="Input nik" type="text" />
                 </div>
                 <div className="col-lg">
                   <label className="form-label">Email</label>
-                  <input value={input.email} onChange={handleChange} name="email" className="form-control mb-4" placeholder="Input box" type="text" />
+                  <input value={input.email} onChange={handleChange} name="email" className="form-control mb-4" placeholder="Input email" type="text" />
                 </div>
                 <div className="col-lg mb-3">
                   <label className="form-label">Employee Status</label>
                   <select
                     value={input.employeeStatus}
                     onChange={handleChange}
-                    name="status"
+                    name="employeeStatus"
                     className="form-select"
                     aria-label="select example"
                     style={{

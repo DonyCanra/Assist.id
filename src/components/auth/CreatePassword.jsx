@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { createPassword } from "../../store/actions/thunks";
 
 export default function CreatePassword() {
   const [input, setInput] = useState({
@@ -16,6 +18,24 @@ export default function CreatePassword() {
       ...input,
       [name]: value,
     });
+  };
+
+  const { email } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const inputData = {
+    email: email,
+    password: input.password,
+    confirmPassword: input.confirmPassword,
+  };
+
+  console.log(inputData, "<< inputData");
+
+  const handleCreatePassword = async (event) => {
+    event.preventDefault();
+    await dispatch(createPassword(inputData));
+    navigate("/login");
   };
 
   const togglePasswordVisibility = () => {
@@ -43,7 +63,7 @@ export default function CreatePassword() {
                           <h1 className="mb-2">Create Password</h1>
                           {/* <!-- <a href="javascript:void(0);" className="">Create Password</a> --> */}
                         </div>
-                        <form className="mt-5">
+                        <form onSubmit={handleCreatePassword} className="mt-5">
                           <div className="input-group mb-4">
                             <div className="input-group" id="Password-toggle1">
                               <Link className="input-group-text" onClick={togglePasswordVisibility}>
@@ -61,7 +81,9 @@ export default function CreatePassword() {
                             </div>
                           </div>
                           <div className="form-group text-center mb-3">
-                            <button className="btn btn-primary btn-lg w-100 br-7">Create</button>
+                            <button className="btn btn-primary btn-lg w-100 br-7" type="submit">
+                              Create
+                            </button>
                           </div>
                         </form>
                       </div>

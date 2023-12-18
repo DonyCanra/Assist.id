@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../../../../store/actions/thunks";
+import { createUser, resendEmail } from "../../../../store/actions/thunks";
 
 export default function AddUser() {
   const [input, setInput] = useState({
@@ -9,7 +9,7 @@ export default function AddUser() {
     phoneNumber: "",
     email: "",
     role: "",
-    status: false,
+    status: true,
   });
 
   const handleChange = (event) => {
@@ -31,7 +31,8 @@ export default function AddUser() {
     try {
       if (input.status) input.status = "Active";
       else input.status = "InActive";
-      await dispatch(createUser(input, "<<<<")); // Sesuaikan parameter sesuai kebutuhan
+      await dispatch(createUser(input)); // Sesuaikan parameter sesuai kebutuhan
+      await dispatch(resendEmail(input.email)); // Sesuaikan parameter sesuai kebutuhan
       navigate("/users");
     } catch (error) {
       console.error("Error creating user:", error);

@@ -10,8 +10,11 @@ export default function Login() {
     email: "",
     password: "",
   });
-
+  
   const [showPassword, setShowPassword] = useState(false);
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -24,9 +27,7 @@ export default function Login() {
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
 
   const handleLogin = async (event) => {
     event.preventDefault();

@@ -98,7 +98,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/create-password",
+    path: "/create-password/:email",
     element: <CreatePassword />,
   },
   {

@@ -7,7 +7,6 @@ export default function Navbar() {
   const { profile } = useSelector((state) => {
     return state.profile;
   });
-  console.log(profile, "navbar");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -1,5 +1,7 @@
 import {
   usersLoginSuccess,
+  usersResendPasswordSuccess,
+  usersCreatePasswordSuccess,
   dashboardFetchSuccess,
   profileFetchSuccess,
   logactivityFetchSuccess,
@@ -25,6 +27,7 @@ import { SHA256 } from "crypto-js";
 import unixTimestampInSeconds from "../../utils/unixTimestampInSeconds";
 import { thunk } from "redux-thunk";
 import { redirect } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 // URL SERVER
 const BASE_URL = process.env.REACT_APP_URL;
@@ -79,14 +82,75 @@ export function login(input) {
       configureToast("success", "Login Success", "Wellcome to EWA Dahboard");
       return dispatch(usersLoginSuccess(response.data));
     } catch (error) {
-      // console.log("Request Failed: ", error.response.data.error.code);
-      // console.log("Request Failed: ", error.response.data.error.messageData);
       const msgError = error.response.data.error.messageData;
-      // const codeError = error.response.data.error.code;
-      // if(codeError === 511){
-      //   configureToast("warning", "", msgError);
-      //   throw error;
-      // }
+      configureToast("warning", "", msgError);
+      throw error;
+    }
+  };
+}
+
+export function resendEmail(input) {
+  return async (dispatch) => {
+    try {
+      // console.log(input.email, "<<<resend");
+      const unixTimes = unixTimestampInSeconds();
+
+      var setSignatureSha = SHA256(input.email).toString();
+
+      const config = {
+        headers: {
+          "X-SIGNATURE": setSignatureSha,
+          "X-Time": unixTimes,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/ewa/resend-email`, input, config);
+      console.log(response, "response");
+      configureToast("success", "", "Please check Email to reset password!");
+      return dispatch(usersResendPasswordSuccess(response.data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      configureToast("warning", "", msgError);
+      throw error;
+    }
+  };
+}
+
+export function createPassword(input) {
+  return async (dispatch) => {
+    try {
+      // console.log(input, "<<< inputtt");
+
+      const token = input.email;
+      const decoded = jwtDecode(token);
+
+      const unixTimes = unixTimestampInSeconds();
+
+      var setSignatureSha = SHA256(decoded.email).toString();
+      var setTokenSha = SHA256(input.password).toString();
+      var setConfirmTokenSha = SHA256(input.confirmPassword).toString();
+
+      const dataInput = {
+        email: decoded.email,
+        password: setTokenSha,
+        confirmPassword: setConfirmTokenSha,
+      };
+
+      // console.log(dataInput, "<< data Input before axios");
+
+      const config = {
+        headers: {
+          "X-SIGNATURE": setSignatureSha,
+          "X-Time": unixTimes,
+          "X-Access-Key": input.email,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/ewa/password-create`, dataInput, config);
+      configureToast("success", "", "Password has been created");
+      return dispatch(usersCreatePasswordSuccess(response.data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
       configureToast("warning", "", msgError);
       throw error;
     }

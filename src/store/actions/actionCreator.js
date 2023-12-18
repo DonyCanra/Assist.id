@@ -1,5 +1,7 @@
 import {
   USER_LOGIN_SUCCESSS,
+  USER_RESEND_EMAIL_SUCCESSS,
+  USER_CREATE_PASSWORD_SUCCESSS,
   DASHBOARD_FETCH_SUCCESS,
   PROFILE_FETCH_SUCCESS,
   LOGACTIVITY_FETCH_SUCCESS,
@@ -24,6 +26,20 @@ import {
 export const usersLoginSuccess = (data) => {
   return {
     type: USER_LOGIN_SUCCESSS,
+    payload: data,
+  };
+};
+
+export const usersResendPasswordSuccess = (data) => {
+  return {
+    type: USER_RESEND_EMAIL_SUCCESSS,
+    payload: data,
+  };
+};
+
+export const usersCreatePasswordSuccess = (data) => {
+  return {
+    type: USER_CREATE_PASSWORD_SUCCESSS,
     payload: data,
   };
 };
