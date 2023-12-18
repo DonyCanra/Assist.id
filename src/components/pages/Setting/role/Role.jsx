@@ -33,9 +33,9 @@ export default function UserList() {
               }}
             >
               <div className="table-responsive">
-                <table className="table table-bordered text-nowrap" id="example2">
-                  <thead>
-                    <tr>
+                <table className="table table-bordered card-table table-vcenter text-nowrap">
+                  <thead text-center>
+                    <tr className="border-top">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Role Name</th>
                       <th className="wd-25p border-bottom-0">Status</th>

@@ -12,7 +12,7 @@ export default function Employee() {
   });
   const dataTable = employees.data;
   // console.log(dataTable, "<<< dataaa");
-  const [inputDefault] = useState({
+  const [inputDefault, setInputDefault] = useState({
     isCandidate: "No",
     employeeStatus: "",
     registeredStatus: "",
@@ -24,7 +24,16 @@ export default function Employee() {
     limit: 10,
   });
 
+  const pageCount = employees.totalPage; // Jumlah halaman yang ingin ditampilkan
+
   const dispatch = useDispatch();
+
+  const handlePageChange = (page) => {
+    setInputDefault((prevInput) => ({
+      ...prevInput,
+      page,
+    }));
+  };
 
   useEffect(() => {
     dispatch(fetchEmployee(inputDefault));
@@ -109,7 +118,7 @@ export default function Employee() {
             <SearchComponent />
 
             <div
-              className="card-body"
+              className="card-body border-bottom"
               style={{
                 margin: "20px 20px 20px 20px",
                 background: "#2B2E3F",
@@ -117,9 +126,9 @@ export default function Employee() {
               }}
             >
               <div className="table-responsive">
-                <table className="table table-bordered text-nowrap" id="example2">
+                <table className="table table-bordered card-table table-vcenter text-nowrap">
                   <thead className="text-center">
-                    <tr>
+                    <tr className="border-top">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Name</th>
                       <th className="wd-20p border-bottom-0">NIK</th>
@@ -148,6 +157,43 @@ export default function Employee() {
                     })}
                   </tbody>
                 </table>
+              </div>
+              <div className="row row-sm">
+                <div className="col-lg">
+                  <div className="page-header">
+                    <div className="page-leftheader">
+                      <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                        Showing 1 to {inputDefault.page} of {employees.totalPage} entries
+                      </div>
+                    </div>
+                    <div className="page-rightheader">
+                      <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                        <ul className="pagination">
+                          <li className={inputDefault.page === 1 ? "paginate_button page-item disabled" : "paginate_button page-item"} onClick={() => inputDefault.page > 1 && handlePageChange(inputDefault.page - 1)}>
+                            <Link href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" className="page-link">
+                              Previous
+                            </Link>
+                          </li>
+                          {[...Array(pageCount)]?.map((_, index) => (
+                            <li key={index} className={`paginate_button page-item ${inputDefault.page === index + 1 ? "active" : ""}`} onClick={() => handlePageChange(index + 1)}>
+                              <Link href="#" aria-controls="example2" data-dt-idx={index + 1} tabindex="0" className="page-link">
+                                {index + 1}
+                              </Link>
+                            </li>
+                          ))}
+                          <li
+                            className={inputDefault.page === employees.totalPage ? "paginate_button page-item disabled" : "paginate_button page-item"}
+                            onClick={() => inputDefault.page < employees.totalPage && handlePageChange(inputDefault.page - 1)}
+                          >
+                            <Link href="#" aria-controls="example2" data-dt-idx={pageCount + 1} tabindex="0" className="page-link">
+                              Next
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

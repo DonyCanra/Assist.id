@@ -19,7 +19,7 @@ export default function Row({ candidate, index }) {
 
   return (
     <>
-      <tr>
+      <tr className="border-bottom border-top">
         <td>{index + 1}</td>
         <td>{candidate.name}</td>
         <td>{candidate.nik}</td>

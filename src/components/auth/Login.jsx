@@ -11,12 +11,18 @@ export default function Login() {
     password: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (event) => {
     const { value, name } = event.target;
     setInput({
       ...input,
       [name]: value,
     });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   const dispatch = useDispatch();
@@ -57,10 +63,10 @@ export default function Login() {
                           </div>
                           <div className="input-group mb-4">
                             <div className="input-group" id="Password-toggle1">
-                              <a href="/" className="input-group-text">
-                                <i className="fe fe-eye" aria-hidden="true"></i>
-                              </a>
-                              <input value={input.password} name="password" onChange={handleChange} className="form-control" type="password" placeholder="Confirm Password" />
+                              <Link className="input-group-text" onClick={togglePasswordVisibility}>
+                                <i className={`fe ${showPassword ? "fe-eye" : "fe-eye-off"}`} aria-hidden="true"></i>
+                              </Link>
+                              <input value={input.password} name="password" onChange={handleChange} type={showPassword ? "text" : "password"} className="form-control" placeholder="Confirm Password" />
                             </div>
                           </div>
                           <div className="form-group text-center mb-3">

@@ -1,4 +1,30 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 export default function CreatePassword() {
+  const [input, setInput] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setInput({
+      ...input,
+      [name]: value,
+    });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
+  };
   return (
     <>
       <div className="page">
@@ -20,18 +46,18 @@ export default function CreatePassword() {
                         <form className="mt-5">
                           <div className="input-group mb-4">
                             <div className="input-group" id="Password-toggle1">
-                              <a href="/" className="input-group-text">
-                                <i className="fe fe-eye" aria-hidden="true"></i>
-                              </a>
-                              <input className="form-control" type="password" placeholder="Create Password" />
+                              <Link className="input-group-text" onClick={togglePasswordVisibility}>
+                                <i className={`fe ${showPassword ? "fe-eye" : "fe-eye-off"}`} aria-hidden="true"></i>
+                              </Link>
+                              <input value={input.password} name="password" onChange={handleChange} type={showPassword ? "text" : "password"} className="form-control" placeholder="Input Password" />
                             </div>
                           </div>
                           <div className="input-group mb-4">
                             <div className="input-group" id="Password-toggle1">
-                              <a href="/" className="input-group-text">
-                                <i className="fe fe-eye" aria-hidden="true"></i>
-                              </a>
-                              <input className="form-control" type="password" placeholder="Confirm Password" />
+                              <Link className="input-group-text" onClick={toggleConfirmPasswordVisibility}>
+                                <i className={`fe ${showConfirmPassword ? "fe-eye" : "fe-eye-off"}`} aria-hidden="true"></i>
+                              </Link>
+                              <input value={input.confirmPassword} name="confirmPassword" onChange={handleChange} type={showConfirmPassword ? "text" : "password"} className="form-control" placeholder="Confirm Password" />
                             </div>
                           </div>
                           <div className="form-group text-center mb-3">

@@ -16,7 +16,7 @@ export default function Row({ employee, index }) {
 
   return (
     <>
-      <tr>
+      <tr className="border-bottom">
         <td>{index + 1}</td>
         <td>{employee.name}</td>
         <td>{employee.nik}</td>
