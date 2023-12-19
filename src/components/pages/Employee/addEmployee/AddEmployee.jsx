@@ -13,6 +13,15 @@ export default function AddEmployee() {
     employeeStatus: true,
   });
 
+  // State untuk melacak pesan kesalahan
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    nik: "",
+    phoneNumber: "",
+    email: "",
+    maxAmount: "",
+  });
+
   input.maxAmount = parseFloat(input.maxAmount);
   const dataInput = {
     data: [input],
@@ -25,6 +34,12 @@ export default function AddEmployee() {
       ...prevInput,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
+    setErrorMessages((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
 
   const dispatch = useDispatch();
@@ -32,15 +47,34 @@ export default function AddEmployee() {
 
   const handleCreateEmployee = async (event) => {
     event.preventDefault();
-    event.persist(); // Memastikan event tetap tersedia setelah fungsi asinkron selesai
+    event.persist();
+
+    // Validasi sebelum membuat karyawan
+    const validationErrors = validateInput(input);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrorMessages(validationErrors);
+      return;
+    }
 
     try {
-      await dispatch(createEmployee(dataInput, "<<<<")); // Sesuaikan parameter sesuai kebutuhan
+      await dispatch(createEmployee(dataInput, "<<<<"));
       navigate("/employee");
     } catch (error) {
       console.error("Error creating employee:", error);
     }
   };
+
+  // Fungsi untuk validasi input
+  const validateInput = (data) => {
+    const errors = {};
+    for (const key in data) {
+      if (data.hasOwnProperty(key) && !data[key]) {
+        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      }
+    }
+    return errors;
+  };
+
   return (
     <>
       <div className="row">
@@ -75,7 +109,8 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Name <span className="text-red">*</span>
                     </label>
-                    <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="Input name employee" required />
+                    <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="Input name employee" />
+                    <p className="text-danger">{errorMessages.name}</p>
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -83,7 +118,8 @@ export default function AddEmployee() {
                     <label className="form-label">
                       NIK <span className="text-red">*</span>
                     </label>
-                    <input value={input.nik} onChange={handleChange} name="nik" type="text" className="form-control" placeholder="Input NIK employee" required />
+                    <input value={input.nik} onChange={handleChange} name="nik" type="text" className="form-control" placeholder="Input NIK employee" />
+                    <p className="text-danger">{errorMessages.nik}</p>
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -91,7 +127,8 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Phone Number <span className="text-red">*</span>
                     </label>
-                    <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="Input phone number employee" required />
+                    <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="Input phone number employee" />
+                    <p className="text-danger">{errorMessages.phoneNumber}</p>
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -99,7 +136,8 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Email <span className="text-red">*</span>
                     </label>
-                    <input value={input.email} onChange={handleChange} name="email" type="email" className="form-control" placeholder="Input email empoyee" required />
+                    <input value={input.email} onChange={handleChange} name="email" type="email" className="form-control" placeholder="Input email empoyee" />
+                    <p className="text-danger">{errorMessages.email}</p>
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -107,7 +145,8 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Max Amount <span className="text-red">*</span>
                     </label>
-                    <input value={input.maxAmount} onChange={handleChange} name="maxAmount" type="number" className="form-control" placeholder="Input max amount employee" required/>
+                    <input value={input.maxAmount} onChange={handleChange} name="maxAmount" type="number" className="form-control" placeholder="Input max amount employee" />
+                    <p className="text-danger">{errorMessages.maxAmount}</p>
                   </div>
                 </div>
                 <div className="col-sm-6 col-md-6">

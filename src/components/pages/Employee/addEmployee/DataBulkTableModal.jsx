@@ -1,8 +1,18 @@
 import Modal from "react-bootstrap/Modal";
+import Row from "./DataBulkTableRaw";
 
 export default function ModalCandidate(props) {
+  console.log(props, "<props");
+
   const { dataBulk } = props;
-  console.log(dataBulk, "<< excel");
+  console.log(dataBulk, "<<<bulk");
+
+  // const { data } = props;
+  const dataTable = dataBulk;
+  const dataRow = dataTable.data;
+
+  console.log(dataRow, "<< dataTable");
+
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header style={{ background: "#2B2E3F", borderRadius: "20px 20px 0px 0px" }} closeButton>
@@ -26,6 +36,9 @@ export default function ModalCandidate(props) {
                   </tr>
                 </thead>
                 <tbody style={{ color: "#fff" }}>
+                  {/* {dataRow?.map((employee, index) => {
+                    return <Row key={index} employee={employee} index={index} />;
+                  })} */}
                   <tr className="border-bottom">
                     <td>1</td>
                     <td>Dony Canra</td>
@@ -42,9 +55,6 @@ export default function ModalCandidate(props) {
                       </svg>
                     </td>
                   </tr>
-                  {/* {dataTable?.map((logactivity, index) => {
-                    return <Row key={index} logactivity={logactivity} index={index} />;
-                  })} */}
                 </tbody>
               </table>
             </div>

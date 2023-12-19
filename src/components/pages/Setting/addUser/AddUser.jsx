@@ -12,12 +12,26 @@ export default function AddUser() {
     status: true,
   });
 
+  // State untuk melacak pesan kesalahan pada setiap input
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+    role: "",
+  });
+
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
     setInput((prevInput) => ({
       ...prevInput,
       [name]: type === "checkbox" ? checked : value,
+    }));
+
+    // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
+    setErrorMessages((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
     }));
   };
 
@@ -27,6 +41,13 @@ export default function AddUser() {
   const handleCreateUser = async (event) => {
     event.preventDefault();
     event.persist(); // Memastikan event tetap tersedia setelah fungsi asinkron selesai
+
+    // Validasi wajib pada setiap input
+    const validationErrors = validateInput(input);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrorMessages(validationErrors);
+      return;
+    }
 
     try {
       if (input.status) input.status = "Active";
@@ -38,6 +59,18 @@ export default function AddUser() {
       console.error("Error creating user:", error);
     }
   };
+
+  // Fungsi untuk validasi input
+  const validateInput = (data) => {
+    const errors = {};
+    for (const key in data) {
+      if (data.hasOwnProperty(key) && !data[key]) {
+        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      }
+    }
+    return errors;
+  };
+
   return (
     <>
       <div className="row">
@@ -63,7 +96,8 @@ export default function AddUser() {
                     <label class="form-label">
                       Name <span class="text-red">*</span>
                     </label>
-                    <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" required />
+                    <input type="text" class={`form-control ${errorMessages.name ? "border-red" : ""}`} value={input.name} onChange={handleChange} name="name" placeholder="Input name" />
+                    <p className="text-danger">{errorMessages.name}</p>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -71,7 +105,8 @@ export default function AddUser() {
                     <label class="form-label">
                       Phone Number <span class="text-red">*</span>
                     </label>
-                    <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" required />
+                    <input type="text" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
+                    <p className="text-danger">{errorMessages.phoneNumber}</p>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -79,7 +114,8 @@ export default function AddUser() {
                     <label class="form-label">
                       Email <span class="text-red">*</span>
                     </label>
-                    <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" required />
+                    <input type="email" class={`form-control ${errorMessages.email ? "border-red" : ""}`} value={input.email} onChange={handleChange} name="email" placeholder="Input email" />
+                    <p className="text-danger">{errorMessages.email}</p>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -87,7 +123,8 @@ export default function AddUser() {
                     <label class="form-label">
                       Role <span class="text-red">*</span>
                     </label>
-                    <input type="text" class="form-control" value={input.role} onChange={handleChange} name="role" required />
+                    <input type="text" class={`form-control ${errorMessages.role ? "border-red" : ""}`} value={input.role} onChange={handleChange} name="role" placeholder="Input role" />
+                    <p className="text-danger">{errorMessages.role}</p>
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-6">
@@ -97,7 +134,6 @@ export default function AddUser() {
                     </label>
                     <div className="form-group">
                       <label className="custom-switch">
-                        {/* <span className="custom-switch-description me-2">Check Box</span> */}
                         <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
                         <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
                       </label>

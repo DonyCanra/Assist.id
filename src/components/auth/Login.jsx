@@ -3,40 +3,87 @@ import { useDispatch } from "react-redux";
 import { login } from "../../store/actions/thunks";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-// import { SHA256 } from "crypto-js";
 
 export default function Login() {
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
-  
+
+  // State untuk melacak pesan kesalahan
+  const [errorMessages, setErrorMessages] = useState({
+    email: "",
+    password: "",
+  });
+
+  // State untuk melacak apakah input memiliki kesalahan atau tidak
+  const [errorInputs, setErrorInputs] = useState({
+    email: false,
+    password: false,
+  });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { value, name } = event.target;
-    setInput({
-      ...input,
+
+    setInput((prevInput) => ({
+      ...prevInput,
       [name]: value,
-    });
+    }));
+
+    // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
+    setErrorMessages((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+
+    // Set state errorInputs menjadi false ketika ada perubahan pada input
+    setErrorInputs((prevErrors) => ({
+      ...prevErrors,
+      [name]: false,
+    }));
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    // console.log(input.password, "belum di hash");
-    // SHA256(input.password).toString();
-    // console.log(input.password, "sudah di hash");
+
+    // Validasi sebelum login
+    const validationErrors = validateInput(input);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrorMessages(validationErrors);
+
+      // Set state errorInputs menjadi true untuk input yang memiliki kesalahan
+      setErrorInputs((prevErrors) => ({
+        ...prevErrors,
+        ...Object.keys(validationErrors).reduce((acc, key) => ({ ...acc, [key]: true }), {}),
+      }));
+
+      return;
+    }
+
     await dispatch(login(input));
     navigate("/");
   };
+
+  // Fungsi untuk validasi input
+  const validateInput = (data) => {
+    const errors = {};
+    for (const key in data) {
+      if (data.hasOwnProperty(key) && !data[key]) {
+        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      }
+    }
+    return errors;
+  };
+
   return (
     <>
       <div className="page">
@@ -53,30 +100,42 @@ export default function Login() {
                       <div className="card-body">
                         <div className="text-center mb-3">
                           <h1 className="mb-2">Log In</h1>
-                          <h6 className="">Welcome Back !</h6>
+                          <h6 className="">Welcome Back!</h6>
                         </div>
                         <form className="mt-5" onSubmit={handleLogin}>
-                          <div className="input-group mb-4">
-                            <div className="input-group-text">
-                              <i className="fe fe-user"></i>
-                            </div>
-                            <input value={input.email} onChange={handleChange} name="email" type="email" className="form-control" placeholder="Username" />
-                          </div>
-                          <div className="input-group mb-4">
+                          <div className={`input-group mb-3 ${errorInputs.email ? "has-error" : ""}`}>
                             <div className="input-group" id="Password-toggle1">
-                              <Link className="input-group-text" onClick={togglePasswordVisibility}>
+                              <Link className={`input-group-text ${errorInputs.email ? "border-danger" : ""}`}>
+                                <i className="fe fe-user"></i>
+                              </Link>
+                              <input value={input.email} onChange={handleChange} name="email" type="email" className={`form-control ${errorInputs.email ? "border-danger" : ""}`} placeholder="Email" />
+                            </div>
+                            <p className="text-danger">{errorMessages.email}</p>
+                          </div>
+                          <div className={`input-group mb-3 ${errorInputs.password ? "has-error" : ""}`}>
+                            <div className="input-group" id="Password-toggle1">
+                              <Link className={`input-group-text ${errorInputs.password ? "border-danger" : ""}`} onClick={togglePasswordVisibility}>
                                 <i className={`fe ${showPassword ? "fe-eye" : "fe-eye-off"}`} aria-hidden="true"></i>
                               </Link>
-                              <input value={input.password} name="password" onChange={handleChange} type={showPassword ? "text" : "password"} className="form-control" placeholder="Confirm Password" />
+                              <input
+                                value={input.password}
+                                name="password"
+                                onChange={handleChange}
+                                type={showPassword ? "text" : "password"}
+                                className={`form-control ${errorInputs.password ? "border-danger" : ""}`}
+                                placeholder="Password"
+                              />
                             </div>
+                            <p className="text-danger">{errorMessages.password}</p>
                           </div>
+
                           <div className="form-group text-center mb-3">
                             <button className="btn btn-primary btn-lg w-100 br-7" type="submit">
                               Log In
                             </button>
                           </div>
                           <Link to="/forgot-password">
-                            <div className="form-group fs-13 text-center">Forget Password ?</div>
+                            <div className="form-group fs-13 text-center">Forgot Password?</div>
                           </Link>
                         </form>
                       </div>

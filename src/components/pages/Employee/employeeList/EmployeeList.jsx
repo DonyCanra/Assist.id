@@ -141,17 +141,6 @@ export default function Employee() {
                     </tr>
                   </thead>
                   <tbody className="text-white text-center">
-                    <tr hidden>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
                     {dataTable?.map((employee, index) => {
                       return <Row key={index} employee={employee} index={index} />;
                     })}
