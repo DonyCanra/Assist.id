@@ -70,15 +70,6 @@ export default function UserList() {
                     </tr>
                   </thead>
                   <tbody className="text-white">
-                    <tr hidden>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
                     {dataTable?.map((user, index) => {
                       return <Row key={index} user={user} index={index} />;
                     })}

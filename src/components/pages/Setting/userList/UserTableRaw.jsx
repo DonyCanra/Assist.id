@@ -10,7 +10,7 @@ export default function Row({ user, index }) {
 
   return (
     <>
-      <tr>
+      <tr className="border-top border-bottom">
         <td>{index + 1}</td>
         <td>{user.name}</td>
         <td>{user.phoneNumber}</td>

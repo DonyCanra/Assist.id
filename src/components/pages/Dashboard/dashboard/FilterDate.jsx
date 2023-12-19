@@ -9,18 +9,20 @@ export default function FilterDate() {
     endDate: "",
   });
 
+  const [activeFilter, setActiveFilter] = useState(""); // Tambahkan state untuk melacak filter yang aktif
   const dispatch = useDispatch();
 
-  const handleFilter = async (days) => {
-    const endDate = subtractDaysFromCurrentDate(days);
-    const startDate = subtractDaysFromCurrentDate(days - 1);
+  const handleFilter = async (start, end, filterName) => {
+    const startDate = subtractDaysFromCurrentDate(start);
+    const endDate = subtractDaysFromCurrentDate(end);
 
     setInput({
-      startDate: startDate.toISOString().split("T")[0],
-      endDate: endDate.toISOString().split("T")[0],
+      startDate: startDate,
+      endDate: endDate,
     });
 
     await dispatch(fetchDashboard(input));
+    setActiveFilter(filterName); // Tetapkan filter yang aktif setelah mengubah input
   };
 
   return (
@@ -31,26 +33,23 @@ export default function FilterDate() {
           <i className="fa fa-calendar me-2 fs-14"></i> Search By Date
         </button>
         <div className="dropdown-menu border-0">
-          <button onClick={() => handleFilter(1)} className="dropdown-item">
+          <button onClick={() => handleFilter(0, 0, "today")} className={`dropdown-item ${activeFilter === "today" ? "active" : ""}`}>
             Today
           </button>
-          <button onClick={() => handleFilter(2)} className="dropdown-item">
+          <button onClick={() => handleFilter(7, 0, "last7days")} className={`dropdown-item ${activeFilter === "last7days" ? "active" : ""}`}>
             Yesterday
           </button>
-          <button onClick={() => handleFilter(7)} className="dropdown-item active">
+          <button onClick={() => handleFilter(14, 0, "last14days")} className={`dropdown-item ${activeFilter === "last14days" ? "active" : ""}`}>
             Last 7 days
           </button>
-          <button onClick={() => handleFilter(30)} className="dropdown-item">
+          <button onClick={() => handleFilter(30, 0, "last30days")} className={`dropdown-item ${activeFilter === "last30days" ? "active" : ""}`}>
             Last 30 days
           </button>
-          <button onClick={() => handleFilter(60)} className="dropdown-item">
+          <button onClick={() => handleFilter(60, 0, "lastMonth")} className={`dropdown-item ${activeFilter === "lastMonth" ? "active" : ""}`}>
             Last Month
           </button>
-          <button onClick={() => handleFilter(180)} className="dropdown-item">
+          <button onClick={() => handleFilter(180, 0, "last6months")} className={`dropdown-item ${activeFilter === "last6months" ? "active" : ""}`}>
             Last 6 months
-          </button>
-          <button onClick={() => handleFilter(360)} className="dropdown-item">
-            Last year
           </button>
         </div>
       </div>

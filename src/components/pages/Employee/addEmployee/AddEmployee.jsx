@@ -75,7 +75,7 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Name <span className="text-red">*</span>
                     </label>
-                    <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="Input name employee" />
+                    <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="Input name employee" required />
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -83,7 +83,7 @@ export default function AddEmployee() {
                     <label className="form-label">
                       NIK <span className="text-red">*</span>
                     </label>
-                    <input value={input.nik} onChange={handleChange} name="nik" type="text" className="form-control" placeholder="Input NIK employee" />
+                    <input value={input.nik} onChange={handleChange} name="nik" type="text" className="form-control" placeholder="Input NIK employee" required />
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -91,7 +91,7 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Phone Number <span className="text-red">*</span>
                     </label>
-                    <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="Input phone number employee" />
+                    <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="Input phone number employee" required />
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -99,7 +99,7 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Email <span className="text-red">*</span>
                     </label>
-                    <input value={input.email} onChange={handleChange} name="email" type="email" className="form-control" placeholder="Input email empoyee" />
+                    <input value={input.email} onChange={handleChange} name="email" type="email" className="form-control" placeholder="Input email empoyee" required />
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -107,7 +107,7 @@ export default function AddEmployee() {
                     <label className="form-label">
                       Max Amount <span className="text-red">*</span>
                     </label>
-                    <input value={input.maxAmount} onChange={handleChange} name="maxAmount" type="number" className="form-control" placeholder="Input max amount employee" />
+                    <input value={input.maxAmount} onChange={handleChange} name="maxAmount" type="number" className="form-control" placeholder="Input max amount employee" required/>
                   </div>
                 </div>
                 <div className="col-sm-6 col-md-6">

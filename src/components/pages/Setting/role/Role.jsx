@@ -35,7 +35,7 @@ export default function UserList() {
               <div className="table-responsive">
                 <table className="table table-bordered card-table table-vcenter text-nowrap">
                   <thead text-center>
-                    <tr className="border-top">
+                    <tr className="border-top border-bottom">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Role Name</th>
                       <th className="wd-25p border-bottom-0">Status</th>
@@ -43,7 +43,7 @@ export default function UserList() {
                     </tr>
                   </thead>
                   <tbody className="text-white">
-                    <tr>
+                    <tr className="border-top border-bottom">
                       <td>1</td>
                       <td>Super Admin</td>
                       <td>
@@ -349,7 +349,7 @@ export default function UserList() {
                         </Link>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="border-top border-bottom">
                       <td>1</td>
                       <td>Super Admin</td>
                       <td>

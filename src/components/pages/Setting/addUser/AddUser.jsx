@@ -47,13 +47,6 @@ export default function AddUser() {
               <div className="page-leftheader">
                 <h4 className="page-title mb-0 text-primary">Add User</h4>
               </div>
-              {/* <div className="page-rightheader">
-                <div className="btn-list">
-                  <button className="btn btn-secondary">
-                    <i className="fe fe-plus me-2"></i> Add New Data Bulk
-                  </button>
-                </div>
-              </div> */}
             </div>
 
             <div
@@ -70,7 +63,7 @@ export default function AddUser() {
                     <label class="form-label">
                       Name <span class="text-red">*</span>
                     </label>
-                    <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" />
+                    <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" required />
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -78,7 +71,7 @@ export default function AddUser() {
                     <label class="form-label">
                       Phone Number <span class="text-red">*</span>
                     </label>
-                    <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" />
+                    <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" required />
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -86,7 +79,7 @@ export default function AddUser() {
                     <label class="form-label">
                       Email <span class="text-red">*</span>
                     </label>
-                    <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" />
+                    <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" required />
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -94,7 +87,7 @@ export default function AddUser() {
                     <label class="form-label">
                       Role <span class="text-red">*</span>
                     </label>
-                    <input type="text" class="form-control" value={input.role} onChange={handleChange} name="role" />
+                    <input type="text" class="form-control" value={input.role} onChange={handleChange} name="role" required />
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-6">
