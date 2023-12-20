@@ -33,6 +33,12 @@ export default function AddEmployeeDataBulk() {
     }
   };
 
+  const handleDelete = (index) => {
+    const newData = [...dataBulk.data];
+    newData.splice(index, 1);
+    setDatabulk({ data: newData });
+  };
+
   const handleCancelClick = () => {
     // Implementasi logika pembatalan di sini (jika diperlukan)
     navigate("/add-employee");
@@ -123,7 +129,7 @@ export default function AddEmployeeDataBulk() {
                 </div>
               </div>
             </div>
-            <DataBulkTableModal show={modalShow} onHide={() => setModalShow(false)} dataBulk={dataBulk} />
+            <DataBulkTableModal show={modalShow} onHide={() => setModalShow(false)} dataBulk={dataBulk} handleDelete={handleDelete} />
           </div>
         </div>
       </div>

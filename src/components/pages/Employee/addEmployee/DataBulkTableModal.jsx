@@ -4,11 +4,14 @@ import Row from "./DataBulkTableRaw";
 import { bulkCreateEmployee } from "../../../../store/actions/thunks";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-export default function ModalCandidate(props) {
-  const { dataBulk } = props;
-  // console.log(dataBulk.length, "<<<bulktable");
-  // console.log(dataBulk, "<<<bulktable");
+const ItemsPerPage = 2;
+
+export default function DataBulkTableModal(props) {
+  const { dataBulk, handleDelete } = props;
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,9 +19,11 @@ export default function ModalCandidate(props) {
   const dataTable = dataBulk;
   const originalData = dataTable.data;
 
-  // console.log(originalData.length, "<< dataTable");
+  const indexOfLastItem = currentPage * ItemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+  const currentData = originalData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const modifiedData = originalData.map((item) => ({
+  const modifiedData = currentData.map((item) => ({
     name: item.Name,
     nik: item.NIK.toString(),
     phoneNumber: item["Phone Number"].toString(),
@@ -27,20 +32,17 @@ export default function ModalCandidate(props) {
     employeeStatus: true,
   }));
 
-  console.log(modifiedData, "modifiedData");
+  const maxPage = Math.ceil(originalData.length / ItemsPerPage);
 
-  // const pageCount = modifiedData.length / 10; // Jumlah halaman yang ingin ditampilkan
-
-  const dataInput = {
-    data: modifiedData,
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const handleBulkCreateEmployee = async (event) => {
     event.preventDefault();
-    event.persist();
 
     try {
-      await dispatch(bulkCreateEmployee(dataInput));
+      await dispatch(bulkCreateEmployee({ data: modifiedData }));
       navigate("/employee");
     } catch (error) {
       console.error("Error creating employee:", error);
@@ -49,9 +51,7 @@ export default function ModalCandidate(props) {
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-      <Modal.Header style={{ background: "#2B2E3F", borderRadius: "20px 20px 0px 0px" }} closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">CONFIRMATION</Modal.Title>
-      </Modal.Header>
+      {/* ... (bagian lain dari modal tetap sama) */}
       <Modal.Body style={{ background: "#2B2E3F", border: "1px solid #000" }}>
         <div className="card">
           <div className="card-body">
@@ -69,10 +69,10 @@ export default function ModalCandidate(props) {
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody style={{ color: "#fff" }}>
-                  {originalData?.map((employee, index) => {
-                    return <Row key={index} employee={employee} index={index} />;
-                  })}
+                <tbody className="text-center" style={{ color: "#fff" }}>
+                  {modifiedData.map((employee, index) => (
+                    <Row key={index} employee={employee} index={index + indexOfFirstItem} handleDeleteFunction={handleDelete} />
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -81,32 +81,20 @@ export default function ModalCandidate(props) {
                 <div className="page-header">
                   <div className="page-leftheader">
                     <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                      Showing 1 to 2 of {originalData.length} entries
+                      Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, originalData.length)} of {originalData.length} entries
                     </div>
                   </div>
-                  {/* <div className="page-rightheader">
+                  <div className="page-rightheader">
                     <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                       <ul className="pagination">
-                        <li className={originalData.length === 1 ? "paginate_button page-item disabled" : "paginate_button page-item"} onClick={() => inputDefault.page > 1 && handlePageChange(inputDefault.page - 1)}>
-                          <Link href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" className="page-link">
-                            Previous
-                          </Link>
-                        </li>
-                        {[...Array(pageCount)]?.map((_, index) => (
-                          <li key={index} className={`paginate_button page-item ${originalData.length === index + 1 ? "active" : ""}`} onClick={() => handlePageChange(index + 1)}>
-                            <Link href="#" aria-controls="example2" data-dt-idx={index + 1} tabindex="0" className="page-link">
-                              {index + 1}
-                            </Link>
+                        {[...Array(maxPage)].map((_, index) => (
+                          <li key={index} className={`paginate_button page-item ${currentPage === index + 1 ? "active" : ""}`} onClick={() => handlePageChange(index + 1)}>
+                            <button className="page-link">{index + 1}</button>
                           </li>
                         ))}
-                        <li className={modifiedData.length === 3 ? "paginate_button page-item disabled" : "paginate_button page-item"} onClick={() => inputDefault.page < fees.totalPage && handlePageChange(inputDefault.page + 1)}>
-                          <Link href="#" aria-controls="example2" data-dt-idx={pageCount + 1} tabindex="0" className="page-link">
-                            Next
-                          </Link>
-                        </li>
                       </ul>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>
@@ -115,10 +103,10 @@ export default function ModalCandidate(props) {
       </Modal.Body>
       <form>
         <Modal.Footer style={{ background: "#2B2E3F" }}>
-          <button onClick={props.onHide} className="btn btn-danger">
+          <button style={{ cursor: "pointer" }} onClick={props.onHide} className="btn btn-danger">
             Cancel
           </button>
-          <button onClick={handleBulkCreateEmployee} className="btn btn-primary ms-3" type="submit">
+          <button style={{ cursor: "pointer" }} onClick={handleBulkCreateEmployee} className="btn btn-primary ms-3" type="submit">
             Upload
           </button>
         </Modal.Footer>
