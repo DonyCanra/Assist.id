@@ -6,7 +6,6 @@ import FilterDate from "./FilterDate";
 
 export default function Dashboard() {
   const { dashboard } = useSelector((state) => {
-    console.log(state.dashboard, "homeeee");
     return state.dashboard;
   });
 
@@ -15,7 +14,6 @@ export default function Dashboard() {
     endDate: "",
   });
 
-  console.log(input, "input");
 
   const dispatch = useDispatch();
 

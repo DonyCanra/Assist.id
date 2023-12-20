@@ -13,6 +13,7 @@ export const PROFILE_UPDATE_SUCCESS = "profile/updateSuccess";
 // Action Type Employee
 export const EMPLOYEE_FETCH_SUCCESS = "employee/fetchSuccess";
 export const EMPLOYEE_CREATE_SUCCESS = "employee/createSuccess";
+export const EMPLOYEE_BULK_CREATE_SUCCESS = "employee/bulkCreateSuccess";
 export const EMPLOYEE_DETAIL_SUCCESS = "employee/fetchDetailSuccess";
 export const EMPLOYEE_UPDATE_SUCCESS = "employee/updateSuccess";
 export const CANDIDATE_FETCH_SUCCESS = "candidate/fetchSuccess";

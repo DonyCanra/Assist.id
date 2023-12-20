@@ -20,6 +20,7 @@ import {
   USER_DETAIL_SUCCESS,
   USER_CREATE_SUCCESS,
   USER_UPDATE_SUCCESS,
+  EMPLOYEE_BULK_CREATE_SUCCESS,
 } from "./actionTypes";
 
 // Action Creator Auth
@@ -91,6 +92,13 @@ export const employeeFetchSuccess = (data) => {
 export const employeeCreateSuccess = (data) => {
   return {
     type: EMPLOYEE_CREATE_SUCCESS,
+    payload: data,
+  };
+};
+
+export const employeeBulkCreateSuccess = (data) => {
+  return {
+    type: EMPLOYEE_BULK_CREATE_SUCCESS,
     payload: data,
   };
 };

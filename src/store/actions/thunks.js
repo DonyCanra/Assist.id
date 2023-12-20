@@ -19,6 +19,7 @@ import {
   userDetailSuccess,
   userCreateSuccess,
   userUpdateSuccess,
+  employeeBulkCreateSuccess,
 } from "./actionCreator";
 
 import axios from "axios";
@@ -58,7 +59,7 @@ export function login(input) {
   return async (dispatch) => {
     try {
       input.password = SHA256(input.password).toString();
-      console.log("user data", input);
+      // console.log("user data", input);
 
       const unixTimes = unixTimestampInSeconds();
 
@@ -171,7 +172,7 @@ export function fetchDashboard(input) {
       const response = await axios.get(`${BASE_URL}/dashboard/analytics?startDate=${input.startDate}&endDate=${input.endDate}`, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
+      // console.log(data, "<< data");
       return dispatch(dashboardFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -381,6 +382,36 @@ export function createEmployee(input) {
       console.log(data, "<< data");
       configureToast("success", "Create Success", "New employee has been created");
       return dispatch(employeeCreateSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("warning", "", msgError);
+      }
+    }
+  };
+}
+
+export function bulkCreateEmployee(input) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-Time": unixTimes,
+        },
+      };
+      const response = await axios.post(`${BASE_URL}/dashboard/employee`, input, config);
+
+      const data = response.data;
+      console.log(data, "<< data");
+      configureToast("success", "Create Success", "New employee has been created");
+      return dispatch(employeeBulkCreateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;

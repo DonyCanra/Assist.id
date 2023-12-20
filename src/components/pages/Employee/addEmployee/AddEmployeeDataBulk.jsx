@@ -1,21 +1,18 @@
 import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { createEmployee } from "../../../../store/actions/thunks";
 import * as xlsx from "xlsx";
 import DataBulkTableModal from "./DataBulkTableModal";
+import { useNavigate } from "react-router-dom";
 
 export default function AddEmployeeDataBulk() {
   const [dataBulk, setDatabulk] = useState({
-    data: "",
+    data: [],
   });
 
   const [modalShow, setModalShow] = React.useState(false);
 
-  console.log(dataBulk, "<< bulkdata");
+  const navigate = useNavigate();
 
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  // console.log(dataBulk, "<< bulkdata");
 
   const readUploadFile = (e) => {
     e.preventDefault();
@@ -34,6 +31,11 @@ export default function AddEmployeeDataBulk() {
       };
       reader.readAsArrayBuffer(e.target.files[0]);
     }
+  };
+
+  const handleCancelClick = () => {
+    // Implementasi logika pembatalan di sini (jika diperlukan)
+    navigate("/add-employee");
   };
 
   const handleIconClick = async () => {
@@ -109,7 +111,9 @@ export default function AddEmployeeDataBulk() {
               <div className="col-lg" style={{ borderTop: "1px solid #3B405B" }}>
                 <div className="page-header">
                   <div className="page-leftheader">
-                    <button className="btn btn-danger page-leftheader">Cancel</button>
+                    <button onClick={handleCancelClick} className="btn btn-danger page-leftheader">
+                      Cancel
+                    </button>
                   </div>
                   <div className="page-rightheader">
                     <button onClick={handleIconClick} className="btn btn-primary ms-1 page-rightheader" type="submit">
@@ -119,10 +123,10 @@ export default function AddEmployeeDataBulk() {
                 </div>
               </div>
             </div>
+            <DataBulkTableModal show={modalShow} onHide={() => setModalShow(false)} dataBulk={dataBulk} />
           </div>
         </div>
       </div>
-      <DataBulkTableModal show={modalShow} onHide={() => setModalShow(false)} dataBulk={dataBulk} />
     </>
   );
 }

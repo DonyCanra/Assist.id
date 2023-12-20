@@ -1,13 +1,14 @@
-export default function Raw() {
+export default function Raw({ employee, index }) {
+  console.log(employee, "<<<employee");
   return (
     <>
       <tr className="border-bottom">
-        <td>1</td>
-        <td>Dony Canra</td>
-        <td>12345</td>
-        <td>082224034729</td>
-        <td>dony@gmail.com</td>
-        <td>10000</td>
+        <td>{index + 1}</td>
+        <td>{employee.Name}</td>
+        <td>{employee.NIK}</td>
+        <td>{employee["Phone Number"]}</td>
+        <td>{employee.Email}</td>
+        <td>{employee["Maximum Amount"]}</td>
         <td>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="17" viewBox="0 0 14 17" fill="none">
             <path
