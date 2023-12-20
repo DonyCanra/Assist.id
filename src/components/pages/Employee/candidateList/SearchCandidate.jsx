@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
-import { fetchEmployee } from "../../../../store/actions/thunks";
+import { fetchCandidate } from "../../../../store/actions/thunks";
 
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
     isCandidate: "Yes",
-    employeeStatus: "Active",
-    registeredStatus: "Notregistered",
+    employeeStatus: "",
+    registerStatus: "",
     name: "",
     nik: "",
     email: "",
@@ -28,23 +28,22 @@ export default function SearchComponent() {
   const handleReset = () => {
     setInput({
       isCandidate: "Yes",
+      employeeStatus: "",
+      registerStatus: "",
       name: "",
       nik: "",
       email: "",
       phoneNumber: "",
-      employeeStatus: "Active",
-      registeredStatus: "Notregistered",
       page: 1,
       limit: 10,
     });
   };
 
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const handleFilter = async (event) => {
     event.preventDefault();
-    await dispatch(fetchEmployee(input));
+    await dispatch(fetchCandidate(input));
   };
 
   const toggleCardVisibility = () => {
@@ -96,9 +95,9 @@ export default function SearchComponent() {
                 <div className="col-lg mb-3">
                   <label className="form-label">Registered Status</label>
                   <select
-                    value={input.registeredStatus}
+                    value={input.registerStatus}
                     onChange={handleChange}
-                    name="status"
+                    name="registerStatus"
                     className="form-select"
                     aria-label="select example"
                     style={{
@@ -108,21 +107,21 @@ export default function SearchComponent() {
                     }}
                   >
                     <option value="">Open this select menu</option>
-                    <option value="true">Registered</option>
-                    <option value="false">Not Registered</option>
+                    <option value="Active">Registered</option>
+                    <option value="InActive">Not Registered</option>
                   </select>
                 </div>
               </div>
               <div className="row row-sm">
                 <div className="col-lg">
                   <label className="form-label">NIK</label>
-                  <input value={input.nik} onChange={handleChange} name="nik" className="form-control mb-4" placeholder="Input nik" type="text" />
+                  <input value={input.nik} onChange={handleChange} name="nik" className="form-control mb-4" placeholder="Input NIK" type="text" />
                 </div>
                 <div className="col-lg">
                   <label className="form-label">Email</label>
                   <input value={input.email} onChange={handleChange} name="email" className="form-control mb-4" placeholder="Input email" type="text" />
                 </div>
-                <div className="col-lg mb-3">
+                {/* <div className="col-lg mb-3">
                   <label className="form-label">Employee Status</label>
                   <select
                     value={input.employeeStatus}
@@ -140,7 +139,7 @@ export default function SearchComponent() {
                     <option value="Active">Active</option>
                     <option value="InActive">InActive</option>
                   </select>
-                </div>
+                </div> */}
               </div>
               <div className="row row-sm">
                 <div className="col-lg">

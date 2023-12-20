@@ -6,8 +6,7 @@ import { fetchFee } from "../../../store/actions/thunks";
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
-    startDate: "",
-    endDate: "",
+    transactionDate: "",
     transactionNo: "",
     name: "",
     phoneNumber: "",
@@ -27,8 +26,7 @@ export default function SearchComponent() {
 
   const handleReset = () => {
     setInput({
-      startDate: "",
-      endDate: "",
+      transactionDate: "",
       transactionNo: "",
       name: "",
       phoneNumber: "",
@@ -86,7 +84,7 @@ export default function SearchComponent() {
               <div className="row row-sm">
                 <div className="col-lg">
                   <label className="form-label">Transaction Date</label>
-                  <input value={input.startDate} onChange={handleChange} name="startDate" className="form-control mb-4" placeholder="Input Transaction Date" type="text" />
+                  <input value={input.transactionDate} onChange={handleChange} name="transactionDate" className="form-control mb-4" placeholder="Input Transaction Date" type="text" />
                 </div>
                 <div className="col-lg">
                   <label className="form-label">Name</label>

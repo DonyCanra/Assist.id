@@ -29,19 +29,19 @@ export default function Row({ candidate, index }) {
         <td>
           <button
             style={{
-              color: candidate.registeredStatus ? "#38CB89" : "#F0F",
+              color: candidate.registerStatus ? "#38CB89" : "#F0F",
               fontSize: "12px",
               fontStyle: "normal",
               fontWeight: 400,
               lineHeight: "normal",
               borderRadius: "5px",
-              border: candidate.registeredStatus ? "1px solid #38CB89" : "1px solid #F0F",
-              background: candidate.registeredStatus ? "rgba(154, 255, 210, 0.10)" : "rgba(255, 0, 255, 0.10)",
+              border: candidate.registerStatus ? "1px solid #38CB89" : "1px solid #F0F",
+              background: candidate.registerStatus ? "rgba(154, 255, 210, 0.10)" : "rgba(255, 0, 255, 0.10)",
               width: "97px",
               height: "22px",
             }}
           >
-            {candidate.registeredStatus === true ? "Registered" : "Not Registered"}
+            {candidate.registerStatus ? "Registered" : "Not Registered"}
           </button>
         </td>
         <td>

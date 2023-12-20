@@ -6,8 +6,8 @@ export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
     isCandidate: "No",
-    employeeStatus: "Active",
-    registeredStatus: "Notregistered",
+    employeeStatus: "",
+    registerStatus: "",
     name: "",
     nik: "",
     email: "",
@@ -27,8 +27,8 @@ export default function SearchComponent() {
   const handleReset = () => {
     setInput({
       isCandidate: "No",
-      employeeStatus: "Active",
-      registeredStatus: "Notregistered",
+      employeeStatus: "",
+      registerStatus: "",
       name: "",
       nik: "",
       email: "",
@@ -94,9 +94,9 @@ export default function SearchComponent() {
                 <div className="col-lg mb-3">
                   <label className="form-label">Registered Status</label>
                   <select
-                    value={input.registeredStatus}
+                    value={input.registerStatus}
                     onChange={handleChange}
-                    name="registeredStatus"
+                    name="registerStatus"
                     className="form-select"
                     aria-label="select example"
                     style={{
@@ -106,8 +106,8 @@ export default function SearchComponent() {
                     }}
                   >
                     <option value="">Open this select menu</option>
-                    <option value="Registered">Registered</option>
-                    <option value="Notregistered">Not Registered</option>
+                    <option value="Active">Registered</option>
+                    <option value="InActive">Not Registered</option>
                   </select>
                 </div>
               </div>

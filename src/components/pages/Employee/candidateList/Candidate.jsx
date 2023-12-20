@@ -15,7 +15,7 @@ export default function Candidate() {
   const [inputDefault, setInputDefault] = useState({
     isCandidate: "Yes",
     employeeStatus: "",
-    registeredStatus: "",
+    registerStatus: "",
     name: "",
     nik: "",
     email: "",

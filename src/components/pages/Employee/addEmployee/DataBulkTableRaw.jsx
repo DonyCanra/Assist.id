@@ -3,7 +3,7 @@ export default function Raw({ employee, index, handleDeleteFunction }) {
 
   const onDeleteClick = () => {
     handleDeleteFunction(index);
-    console.log("terdelete");
+    // console.log("terdelete");
   };
   return (
     <>

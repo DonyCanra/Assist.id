@@ -38,26 +38,26 @@ export default function Row({ employee, index }) {
               height: "22px",
             }}
           >
-            {employee.employeeStatus === true ? "Active" : "InActive"}
+            {employee.employeeStatus ? "Active" : "InActive"}
           </button>
         </td>
 
         <td>
           <button
             style={{
-              color: employee.registeredStatus === "Registered" ? "#FAFF00" : "#F0F",
+              color: employee.registerStatus ? "#FAFF00" : "#F0F",
               fontSize: "12px",
               fontStyle: "normal",
               fontWeight: 400,
               lineHeight: "normal",
               borderRadius: "5px",
-              border: employee.registeredStatus ? "1px solid #FAFF00" : "1px solid #F0F",
-              background: employee.registeredStatus ? "rgba(250, 255, 0, 0.10)" : "rgba(250, 255, 0, 0.10)",
+              border: employee.registerStatus ? "1px solid #FAFF00" : "1px solid #F0F",
+              background: employee.registerStatus ? "rgba(250, 255, 0, 0.10)" : "rgba(250, 255, 0, 0.10)",
               width: "97px",
               height: "22px",
             }}
           >
-            {employee.registeredStatus ? "Registered" : "Not Registered"}
+            {employee.registerStatus ? "Registered" : "Not Registered"}
           </button>
         </td>
         <td>
