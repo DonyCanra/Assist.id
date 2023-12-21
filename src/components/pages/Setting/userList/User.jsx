@@ -58,7 +58,7 @@ export default function UserList() {
             >
               <div className="table-responsive">
                 <table className="table table-bordered card-table table-vcenter text-nowrap">
-                  <thead text-center>
+                  <thead className="text-center">
                     <tr className="border-top">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Name</th>
@@ -69,7 +69,7 @@ export default function UserList() {
                       <th className="wd-25p border-bottom-0">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="text-white">
+                  <tbody className="text-white text-center">
                     {dataTable?.map((user, index) => {
                       return <Row key={index} user={user} index={index} />;
                     })}
