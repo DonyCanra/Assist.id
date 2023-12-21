@@ -165,12 +165,20 @@ export default function AddEmployee() {
                     </label>
                   </div>
                 </div>
-                <button onClick={handleCancel} className="btn btn-danger">
-                  Cancel
-                </button>
-                <button onClick={handleCreateEmployee} className="btn btn-primary ms-1" type="submit">
-                  Confirm
-                </button>
+              </div>
+              <div className="col-md-12">
+                <div className="page-header">
+                  <div className="page-leftheader">
+                    <button onClick={handleCancel} className="btn btn-danger page-leftheader">
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="page-rightheader">
+                    <button onClick={handleCreateEmployee} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

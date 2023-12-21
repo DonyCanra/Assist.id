@@ -39,7 +39,7 @@ export default function AddUser() {
   };
 
   const handleCancel = () => {
-    navigate("/employee");
+    navigate("/users");
   };
 
   const handleCreateUser = async (event) => {
@@ -121,16 +121,33 @@ export default function AddUser() {
                   <p className="text-danger">{errorMessages.email}</p>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="form-label">
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
                     Role <span class="text-red">*</span>
                   </label>
-                  <input type="text" class={`form-control ${errorMessages.role ? "border-red" : ""}`} value={input.role} onChange={handleChange} name="role" placeholder="Input role" />
+                  <select
+                    class={`form-select ${errorMessages.role}`}
+                    value={input.role}
+                    onChange={handleChange}
+                    name="role"
+                    aria-label="select example"
+                    style={{
+                      background: "#2B2E3F",
+                      color: "#fff",
+                      border: "1px solid #707070",
+                    }}
+                  >
+                    <option value="">-- Select role --</option>
+                    <option value="Super Admin">Super Admin</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Finance">Finance</option>
+                    <option value="User">User</option>
+                  </select>
                   <p className="text-danger">{errorMessages.role}</p>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-6">
+              <div class="col-md-12">
                 <div className="form-group">
                   <label className="form-label">
                     Status <span className="text-red">*</span>
@@ -142,12 +159,20 @@ export default function AddUser() {
                     </label>
                   </div>
                 </div>
-                <button onClick={handleCancel} class="btn btn-danger">
-                  Cancel
-                </button>
-                <button onClick={handleCreateUser} class="btn btn-primary ms-1" type="submit">
-                  Confirm
-                </button>
+              </div>
+              <div className="col-md-12">
+                <div className="page-header">
+                  <div className="page-leftheader">
+                    <button onClick={handleCancel} className="btn btn-danger page-leftheader">
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="page-rightheader">
+                    <button onClick={handleCreateUser} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

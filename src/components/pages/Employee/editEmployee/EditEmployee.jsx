@@ -153,12 +153,20 @@ export default function EditEmployee() {
                     </label>
                   </div>
                 </div>
-                <button onClick={handleCancel} class="btn btn-danger">
-                  Cancel
-                </button>
-                <button onClick={handleUpdateEmployee} class="btn btn-primary ms-1">
-                  Confirm
-                </button>
+              </div>
+              <div className="col-md-12">
+                <div className="page-header">
+                  <div className="page-leftheader">
+                    <button onClick={handleCancel} className="btn btn-danger page-leftheader">
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="page-rightheader">
+                    <button onClick={handleUpdateEmployee} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

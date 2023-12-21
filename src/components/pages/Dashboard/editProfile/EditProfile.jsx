@@ -95,16 +95,19 @@ export default function EditProfile() {
 
               <ImageUploader profile={profile} />
 
-              <div className="col-sm-6 col-md-6">
-                <div className="form-group">
-                  <div className="form-group"></div>
+              <div className="col-md-12">
+                <div className="page-header">
+                  <div className="page-leftheader">
+                    <button onClick={handleCancel} className="btn btn-danger page-leftheader">
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="page-rightheader">
+                    <button onClick={handleUpdateProfile} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                      Submit
+                    </button>
+                  </div>
                 </div>
-                <button onClick={handleCancel} className="btn btn-danger">
-                  Cancel
-                </button>
-                <button onClick={handleUpdateProfile} className="btn btn-primary ms-1" type="submit">
-                  Confirm
-                </button>
               </div>
             </div>
           </div>

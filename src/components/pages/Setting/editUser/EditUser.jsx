@@ -46,6 +46,10 @@ export default function EditUser() {
     }));
   };
 
+  const handleCancel = () => {
+    navigate("/users");
+  };
+
   input.id = id;
 
   const handleUpdateUser = async (event) => {
@@ -92,58 +96,83 @@ export default function EditUser() {
                 borderRadius: "5px",
               }}
             >
-              <form onSubmit={handleUpdateUser}>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Name <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" />
-                  </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Name <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" />
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Phone Number <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" />
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Phone Number <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" />
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Email <span class="text-red">*</span>
-                    </label>
-                    <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" />
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Email <span class="text-red">*</span>
+                  </label>
+                  <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" />
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Role <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class="form-control" value={input.role} onChange={handleChange} name="role" />
-                  </div>
+              </div>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    Role <span class="text-red">*</span>
+                  </label>
+                  <select
+                    className="form-select"
+                    value={input.role}
+                    onChange={handleChange}
+                    name="role"
+                    aria-label="select example"
+                    style={{
+                      background: "#2B2E3F",
+                      color: "#fff",
+                      border: "1px solid #707070",
+                    }}
+                  >
+                    <option value="">-- Select role --</option>
+                    <option value="Super Admin">Super Admin</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Finance">Finance</option>
+                    <option value="User">User</option>
+                  </select>
                 </div>
-                <div class="col-sm-6 col-md-6">
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div className="form-group">
+                  <label className="form-label">
+                    Status <span className="text-red">*</span>
+                  </label>
                   <div className="form-group">
-                    <label className="form-label">
-                      Status <span className="text-red">*</span>
+                    <label className="custom-switch">
+                      {/* <span className="custom-switch-description me-2">Check Box</span> */}
+                      <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
+                      <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
                     </label>
-                    <div className="form-group">
-                      <label className="custom-switch">
-                        {/* <span className="custom-switch-description me-2">Check Box</span> */}
-                        <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
-                        <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
-                      </label>
-                    </div>
                   </div>
-                  <button class="btn btn-danger">Cancel</button>
-                  <button class="btn btn-primary ms-1" type="submit">
-                    Confirm
-                  </button>
                 </div>
-              </form>
+              </div>
+              <div className="col-md-12">
+                <div className="page-header">
+                  <div className="page-leftheader">
+                    <button onClick={handleCancel} className="btn btn-danger page-leftheader">
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="page-rightheader">
+                    <button onClick={handleUpdateUser} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

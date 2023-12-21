@@ -1,12 +1,11 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
-  //   const appDomain = process.env.REACT_APP_DOMAIN;
-  const appDomain = "localhost";
-  const proxyOptions = {
-    target: `http://${appDomain}`,
-    changeOrigin: true,
-  };
-  const urlPaths = ["*/dashboard"];
-  urlPaths.forEach((url) => app.use(url, createProxyMiddleware(proxyOptions)));
+  app.use(
+    "/api", // Change this path to match your API endpoint
+    createProxyMiddleware({
+      target: "http://localhost:3030", // Change this to your API server's address
+      changeOrigin: true,
+    })
+  );
 };
