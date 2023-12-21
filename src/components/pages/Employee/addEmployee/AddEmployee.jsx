@@ -71,9 +71,20 @@ export default function AddEmployee() {
   // Fungsi untuk validasi input
   const validateInput = (data) => {
     const errors = {};
+    const camelCaseRegex = /([a-z][A-Z]|[A-Z]{2,})/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     for (const key in data) {
-      if (data.hasOwnProperty(key) && !data[key]) {
-        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      if (data.hasOwnProperty(key)) {
+        if (!data[key]) {
+          errors[key] = `This field is required ${key.charAt(0).toUpperCase() + key.slice(1)}.`;
+        } else if (key === "nik" && data[key].length > 16) {
+          errors[key] = "NIK must be a maximum of 16 characters.";
+        } else if (key === "email" && !emailRegex.test(data[key])) {
+          errors[key] = "Invalid email format.";
+        } else if (camelCaseRegex.test(key)) {
+          errors[key] = `Invalid ${key.replace(/([a-z][A-Z])/g, (match) => `${match[0]} ${match[1].toLowerCase()}`)}.`;
+        }
       }
     }
     return errors;
@@ -139,7 +150,7 @@ export default function AddEmployee() {
                   <label className="form-label">
                     Email <span className="text-red">*</span>
                   </label>
-                  <input value={input.email} onChange={handleChange} name="email" type="email" className="form-control" placeholder="Input email empoyee" />
+                  <input value={input.email} onChange={handleChange} name="email" type="text" className="form-control" placeholder="Input email empoyee" />
                   <p className="text-danger">{errorMessages.email}</p>
                 </div>
               </div>

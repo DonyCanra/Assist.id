@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProfile, updateProfile } from "../../../../store/actions/thunks";
 import ImageUploader from "./ImageUploader";
 import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
-// import "./Employee.css";
 
 export default function EditProfile() {
   const { profile } = useSelector((state) => state.profile);
@@ -17,6 +15,10 @@ export default function EditProfile() {
     name: "",
     phoneNumber: "",
     avatar: "",
+  });
+
+  const [error, setError] = useState({
+    phoneNumber: "",
   });
 
   const handleChange = (event) => {
@@ -45,6 +47,19 @@ export default function EditProfile() {
 
   const handleCancel = () => {
     navigate("/profile");
+  };
+
+  const validatePhoneNumber = () => {
+    const phoneNumberRegex = /^\d{9,13}$/;
+    if (!phoneNumberRegex.test(input.phoneNumber)) {
+      setError((prevError) => ({
+        ...prevError,
+        phoneNumber: "Phone number must be between 9 and 13 characters.",
+      }));
+      return false;
+    }
+    setError((prevError) => ({ ...prevError, phoneNumber: "" }));
+    return true;
   };
 
   const handleUpdateProfile = async (event) => {
@@ -89,7 +104,8 @@ export default function EditProfile() {
                   <label className="form-label">
                     Phone Number <span className="text-red">*</span>
                   </label>
-                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="" />
+                  <input value={input.phoneNumber} onChange={handleChange} onBlur={validatePhoneNumber} name="phoneNumber" type="text" className={`form-control ${error.phoneNumber && "is-invalid"}`} placeholder="" />
+                  {error.phoneNumber && <div className="invalid-feedback">{error.phoneNumber}</div>}
                 </div>
               </div>
 
