@@ -101,7 +101,7 @@ export default function Fee() {
             >
               <div className="table-responsive">
                 <table className="table table-bordered card-table table-vcenter text-nowrap">
-                  <thead text-center>
+                  <thead className="text-center">
                     <tr className="border-top border-bottom">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Transaction Date</th>

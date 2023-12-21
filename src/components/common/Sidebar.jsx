@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Sidebar() {
@@ -6,12 +6,12 @@ export default function Sidebar() {
     <div>
       <aside className="app-sidebar">
         <div className="app-sidebar__logo" style={{ background: "#2a2e3f" }}>
-          <a className="header-brand" href="index.html">
+          <Link to="/" className="header-brand">
             <img src="/images/brand/logo.png" className="header-brand-img desktop-lgo" alt="Azea logo" />
             <img src="/images/brand/logo1.png" className="header-brand-img dark-logo" alt="Azea logo" />
             <img src="/images/brand/favicon.png" className="header-brand-img mobile-logo" alt="Azea logo" />
             <img src="/images/brand/favicon1.png" className="header-brand-img darkmobile-logo" alt="Azea logo" />
-          </a>
+          </Link>
         </div>
         <ul className="side-menu app-sidebar3">
           <NavLink to="/">

@@ -20,6 +20,9 @@ export default function AddUser() {
     role: "",
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
@@ -35,8 +38,9 @@ export default function AddUser() {
     }));
   };
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const handleCancel = () => {
+    navigate("/employee");
+  };
 
   const handleCreateUser = async (event) => {
     event.preventDefault();
@@ -90,61 +94,61 @@ export default function AddUser() {
                 borderRadius: "5px",
               }}
             >
-              <form onSubmit={handleCreateUser}>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Name <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class={`form-control ${errorMessages.name ? "border-red" : ""}`} value={input.name} onChange={handleChange} name="name" placeholder="Input name" />
-                    <p className="text-danger">{errorMessages.name}</p>
-                  </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Name <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class={`form-control ${errorMessages.name ? "border-red" : ""}`} value={input.name} onChange={handleChange} name="name" placeholder="Input name" />
+                  <p className="text-danger">{errorMessages.name}</p>
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Phone Number <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
-                    <p className="text-danger">{errorMessages.phoneNumber}</p>
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Phone Number <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
+                  <p className="text-danger">{errorMessages.phoneNumber}</p>
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Email <span class="text-red">*</span>
-                    </label>
-                    <input type="email" class={`form-control ${errorMessages.email ? "border-red" : ""}`} value={input.email} onChange={handleChange} name="email" placeholder="Input email" />
-                    <p className="text-danger">{errorMessages.email}</p>
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Email <span class="text-red">*</span>
+                  </label>
+                  <input type="email" class={`form-control ${errorMessages.email ? "border-red" : ""}`} value={input.email} onChange={handleChange} name="email" placeholder="Input email" />
+                  <p className="text-danger">{errorMessages.email}</p>
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Role <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class={`form-control ${errorMessages.role ? "border-red" : ""}`} value={input.role} onChange={handleChange} name="role" placeholder="Input role" />
-                    <p className="text-danger">{errorMessages.role}</p>
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Role <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class={`form-control ${errorMessages.role ? "border-red" : ""}`} value={input.role} onChange={handleChange} name="role" placeholder="Input role" />
+                  <p className="text-danger">{errorMessages.role}</p>
                 </div>
-                <div class="col-sm-6 col-md-6">
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div className="form-group">
+                  <label className="form-label">
+                    Status <span className="text-red">*</span>
+                  </label>
                   <div className="form-group">
-                    <label className="form-label">
-                      Status <span className="text-red">*</span>
+                    <label className="custom-switch">
+                      <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
+                      <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
                     </label>
-                    <div className="form-group">
-                      <label className="custom-switch">
-                        <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
-                        <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
-                      </label>
-                    </div>
                   </div>
-                  <button class="btn btn-danger">Cancel</button>
-                  <button class="btn btn-primary ms-1" type="submit">
-                    Confirm
-                  </button>
                 </div>
-              </form>
+                <button onClick={handleCancel} class="btn btn-danger">
+                  Cancel
+                </button>
+                <button onClick={handleCreateUser} class="btn btn-primary ms-1" type="submit">
+                  Confirm
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -43,6 +43,10 @@ export default function EditProfile() {
   input.avatar = image.fileName;
   console.log(input, "sebelum update");
 
+  const handleCancel = () => {
+    navigate("/profile");
+  };
+
   const handleUpdateProfile = async (event) => {
     event.preventDefault();
     event.persist();
@@ -72,36 +76,36 @@ export default function EditProfile() {
                 borderRadius: "5px",
               }}
             >
-              <form onSubmit={handleUpdateProfile}>
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label className="form-label">
-                      Name <span className="text-red">*</span>
-                    </label>
-                    <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="" />
-                  </div>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    Name <span className="text-red">*</span>
+                  </label>
+                  <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="" />
                 </div>
-                <div className="col-md-12">
-                  <div className="form-group">
-                    <label className="form-label">
-                      Phone Number <span className="text-red">*</span>
-                    </label>
-                    <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="" />
-                  </div>
+              </div>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    Phone Number <span className="text-red">*</span>
+                  </label>
+                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="" />
                 </div>
+              </div>
 
-                <ImageUploader profile={profile} />
+              <ImageUploader profile={profile} />
 
-                <div className="col-sm-6 col-md-6">
-                  <div className="form-group">
-                    <div className="form-group"></div>
-                  </div>
-                  <button className="btn btn-danger">Cancel</button>
-                  <button className="btn btn-primary ms-1" type="submit">
-                    Confirm
-                  </button>
+              <div className="col-sm-6 col-md-6">
+                <div className="form-group">
+                  <div className="form-group"></div>
                 </div>
-              </form>
+                <button onClick={handleCancel} className="btn btn-danger">
+                  Cancel
+                </button>
+                <button onClick={handleUpdateProfile} className="btn btn-primary ms-1" type="submit">
+                  Confirm
+                </button>
+              </div>
             </div>
           </div>
         </div>

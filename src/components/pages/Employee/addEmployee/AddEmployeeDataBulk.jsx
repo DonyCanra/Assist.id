@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import * as xlsx from "xlsx";
 import DataBulkTableModal from "./DataBulkTableModal";
 import { useNavigate } from "react-router-dom";
@@ -7,29 +7,47 @@ export default function AddEmployeeDataBulk() {
   const [dataBulk, setDatabulk] = useState({
     data: [],
   });
-
   const [modalShow, setModalShow] = React.useState(false);
-
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const uploadInputRef = useRef(null);
   const navigate = useNavigate();
-
-  // console.log(dataBulk, "<< bulkdata");
 
   const readUploadFile = (e) => {
     e.preventDefault();
+
     if (e.target.files) {
       const reader = new FileReader();
+      const file = e.target.files[0];
+
       reader.onload = (e) => {
         const data = e.target.result;
         const workbook = xlsx.read(data, { type: "array" });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
-        console.log(json);
+
         setDatabulk({
           data: json,
         });
+
+        // Reset progress and hide label after 2 seconds
+        setTimeout(() => {
+          setUploadProgress(0);
+        }, 3000);
       };
-      reader.readAsArrayBuffer(e.target.files[0]);
+
+      reader.readAsArrayBuffer(file);
+
+      // Simulate upload progress
+      let progress = 0;
+      const intervalId = setInterval(() => {
+        progress += 10;
+        setUploadProgress(progress);
+
+        if (progress >= 100) {
+          clearInterval(intervalId);
+        }
+      }, 200);
     }
   };
 
@@ -40,7 +58,6 @@ export default function AddEmployeeDataBulk() {
   };
 
   const handleCancelClick = () => {
-    // Implementasi logika pembatalan di sini (jika diperlukan)
     navigate("/add-employee");
   };
 
@@ -59,7 +76,7 @@ export default function AddEmployeeDataBulk() {
               </div>
             </div>
             <div
-              className="card-body text-center" // Added text-center class to center the content
+              className="card-body text-center"
               style={{
                 margin: "20px 20px 20px 20px",
                 background: "#2B2E3F",
@@ -71,7 +88,7 @@ export default function AddEmployeeDataBulk() {
               }}
             >
               <div
-                className="text-center" // Added text-center class to center the content
+                className="text-center"
                 style={{
                   width: "749px",
                   height: "258px",
@@ -84,10 +101,11 @@ export default function AddEmployeeDataBulk() {
                   justifyContent: "center",
                 }}
               >
-                <input type="file" id="upload" onChange={readUploadFile} style={{ display: "none" }} />
+                <input type="file" id="upload" onChange={readUploadFile} style={{ display: "none" }} ref={uploadInputRef} />
                 <label htmlFor="upload" style={{ cursor: "pointer" }}>
                   {/* SVG Path */}
                   <svg xmlns="http://www.w3.org/2000/svg" width="121" height="121" viewBox="0 0 121 121" fill="none">
+                    {/* ... (SVG Path) */}
                     <path d="M111.5 0.5H9.5C4.52944 0.5 0.5 4.52944 0.5 9.5V111.5C0.5 116.471 4.52944 120.5 9.5 120.5H111.5C116.471 120.5 120.5 116.471 120.5 111.5V9.5C120.5 4.52944 116.471 0.5 111.5 0.5Z" fill="#212332" />
                     <path d="M111.5 1H9.5C4.80558 1 1 4.80558 1 9.5V111.5C1 116.194 4.80558 120 9.5 120H111.5C116.194 120 120 116.194 120 111.5V9.5C120 4.80558 116.194 1 111.5 1Z" stroke="#B0BECE" />
                     <path
@@ -99,7 +117,8 @@ export default function AddEmployeeDataBulk() {
                       fill="#34A3D4"
                     />
                   </svg>
-                  <div style={{ marginTop: "10px" }}>Choose File or Drop File here</div>
+                  <div style={{ marginTop: "10px" }}>{uploadProgress === 0 ? "Choose File or Drop File here" : `Uploading: ${uploadProgress}%`}</div>
+                  {dataBulk.data.length > 0 && <div style={{ marginTop: "10px" }}>File Uploaded: {uploadInputRef.current.files[0].name}</div>}
                 </label>
               </div>
               <p

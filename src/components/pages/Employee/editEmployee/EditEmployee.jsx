@@ -54,6 +54,10 @@ export default function EditEmployee() {
     data: [input],
   };
 
+  const handleCancel = () => {
+    navigate("/employee");
+  };
+
   const handleUpdateEmployee = async (event) => {
     event.preventDefault();
     event.persist();
@@ -96,64 +100,66 @@ export default function EditEmployee() {
                 borderRadius: "5px",
               }}
             >
-              <form onSubmit={handleUpdateEmployee}>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Name <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" />
-                  </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Name <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" />
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      NIK <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class="form-control" value={input.nik} onChange={handleChange} name="nik" />
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    NIK <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" value={input.nik} onChange={handleChange} name="nik" />
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Phone Number <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" />
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Phone Number <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" />
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Email <span class="text-red">*</span>
-                    </label>
-                    <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" />
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Email <span class="text-red">*</span>
+                  </label>
+                  <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" />
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-label">
-                      Max Amount <span class="text-red">*</span>
-                    </label>
-                    <input type="text" class="form-control" value={input.maxAmount} onChange={handleChange} name="maxAmount" />
-                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">
+                    Max Amount <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" value={input.maxAmount} onChange={handleChange} name="maxAmount" />
                 </div>
-                <div class="col-sm-6 col-md-6">
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div className="form-group">
+                  <label className="form-label">
+                    Status <span className="text-red">*</span>
+                  </label>
                   <div className="form-group">
-                    <label className="form-label">
-                      Status <span className="text-red">*</span>
+                    <label className="custom-switch">
+                      {/* <span className="custom-switch-description me-2">Check Box</span> */}
+                      <input checked={input.employeeStatus} onChange={handleChange} name="employeeStatus" className="custom-switch-input" type="checkbox" />
+                      <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
                     </label>
-                    <div className="form-group">
-                      <label className="custom-switch">
-                        {/* <span className="custom-switch-description me-2">Check Box</span> */}
-                        <input checked={input.employeeStatus} onChange={handleChange} name="employeeStatus" className="custom-switch-input" type="checkbox" />
-                        <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
-                      </label>
-                    </div>
                   </div>
-                  <button class="btn btn-danger">Cancel</button>
-                  <button class="btn btn-primary ms-1">Confirm</button>
                 </div>
-              </form>
+                <button onClick={handleCancel} class="btn btn-danger">
+                  Cancel
+                </button>
+                <button onClick={handleUpdateEmployee} class="btn btn-primary ms-1">
+                  Confirm
+                </button>
+              </div>
             </div>
           </div>
         </div>

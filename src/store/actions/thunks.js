@@ -33,7 +33,6 @@ import { jwtDecode } from "jwt-decode";
 
 // URL SERVER
 const BASE_URL = process.env.REACT_APP_URL;
-// const BASE_URL = "https://vendor.bayarind.id:8088";
 
 // Fungsi untuk konfigurasi Toast
 const configureToast = (type, title, message) => {
@@ -85,7 +84,7 @@ export function login(input) {
       return dispatch(usersLoginSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      configureToast("error", "FAILED", msgError);
       throw error;
     }
   };
@@ -108,11 +107,11 @@ export function resendEmailCreateUser(input) {
 
       const response = await axios.post(`${BASE_URL}/ewa/resend-email`, input, config);
       console.log(response, "response");
-      configureToast("success", "", "Please check Email to create password!");
+      configureToast("success", "SUCCESS", "Please check Email to create password!");
       return dispatch(usersResendPasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      configureToast("error", "FAILED", msgError);
       throw error;
     }
   };
@@ -135,11 +134,11 @@ export function resendEmailForgotPassword(input) {
 
       const response = await axios.post(`${BASE_URL}/ewa/password-forgot`, input, config);
       console.log(response, "response");
-      configureToast("success", "", "Please check Email to reset password!");
+      configureToast("success", "SUCCESS", "Please check Email to reset password!");
       return dispatch(usersResendPasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      configureToast("error", "FAILED", msgError);
       throw error;
     }
   };
@@ -176,11 +175,11 @@ export function createPassword(input) {
       };
 
       const response = await axios.post(`${BASE_URL}/ewa/password-create`, dataInput, config);
-      configureToast("success", "", "Password has been created");
+      configureToast("success", "SUCCESS", "Password has been created");
       return dispatch(usersCreatePasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      configureToast("error", "FAILED", msgError);
       throw error;
     }
   };
@@ -210,11 +209,11 @@ export function changePassword(input) {
       };
 
       const response = await axios.post(`${BASE_URL}/dashboard/password-change`, dataInput, config);
-      configureToast("success", "", "Password has been updated");
+      configureToast("success", "SUCCESS", "Password has been changed, please login again");
       return dispatch(usersChangePasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
-      configureToast("warning", "", msgError);
+      configureToast("error", "FAILED", msgError);
       throw error;
     }
   };
@@ -240,11 +239,11 @@ export function fetchDashboard(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -269,11 +268,11 @@ export function fetchProfile() {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -299,10 +298,11 @@ export function fetchLogactivity(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -328,11 +328,11 @@ export function convertImages(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -358,11 +358,11 @@ export function updateProfile(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -389,11 +389,11 @@ export function fetchEmployee(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -418,11 +418,11 @@ export function fetchDetailEmployee(id) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -442,17 +442,17 @@ export function createEmployee(input) {
 
       const data = response.data;
       console.log(data, "<< data");
-      configureToast("success", "Create Success", "New employee has been created");
+      configureToast("success", "SUCCESS", "New employee has been created");
       return dispatch(employeeCreateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -472,17 +472,17 @@ export function bulkCreateEmployee(input) {
 
       const data = response.data;
       console.log(data, "<< data");
-      configureToast("success", "Create Success", "New employee has been created");
+      configureToast("success", "SUCCESS", "New employee has been created");
       return dispatch(employeeBulkCreateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -502,17 +502,17 @@ export function updateEmployee(input) {
 
       const data = response.data;
       console.log(data, "<< data");
-      configureToast("success", "Updated Success", "Employee has been updated");
+      configureToast("success", "SUCCESS", "Employee has been updated");
       return dispatch(employeeUpdateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -538,11 +538,11 @@ export function fetchCandidate(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -563,16 +563,17 @@ export function approveCandidate(id) {
 
       const data = response.data;
       console.log(data, "<< data");
+      configureToast("success", "SUCCESS", "Employee has been approved");
       return dispatch(candidateApproveSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -595,8 +596,15 @@ export function fetchFee(input) {
       console.log(data, "<< data");
       return dispatch(feeFetchSuccess(data));
     } catch (error) {
-      console.error("Request Failed: ", error.message);
-      throw error;
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("error", "FAILED", msgError);
+      }
     }
   };
 }
@@ -620,11 +628,11 @@ export function fetchDetailFee(transactionNo) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -647,11 +655,19 @@ export function fetchRole(input) {
       console.log(data, "datanya");
       return dispatch(employeeFetchSuccess(data));
     } catch (error) {
-      console.error("Request Failed: ", error.message);
-      throw error;
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("error", "FAILED", msgError);
+      }
     }
   };
 }
+
 export function fetchUser(input) {
   return async (dispatch) => {
     try {
@@ -673,11 +689,11 @@ export function fetchUser(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -703,11 +719,11 @@ export function fetchDetailUser(id) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -734,11 +750,11 @@ export function createUser(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };
@@ -765,11 +781,11 @@ export function updateUser(input) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
       if (codeError === 511) {
-        configureToast("warning", "", msgError);
+        configureToast("warning", "WARNING", msgError);
         localStorage.clear();
         throw redirect("/login");
       } else {
-        configureToast("warning", "", msgError);
+        configureToast("error", "FAILED", msgError);
       }
     }
   };

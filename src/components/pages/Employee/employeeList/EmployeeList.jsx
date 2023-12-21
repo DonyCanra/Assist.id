@@ -151,9 +151,9 @@ export default function Employee() {
               }}
             >
               <div className="table-responsive">
-                <table className="table table-bordered card-table table-vcenter text-nowrap border-botom">
+                <table className="table table-bordered card-table table-vcenter text-nowrap">
                   <thead className="text-center">
-                    <tr className="border-top border-botom">
+                    <tr className="border-top border-bottom">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Name</th>
                       <th className="wd-20p border-bottom-0">NIK</th>
