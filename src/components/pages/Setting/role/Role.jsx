@@ -36,7 +36,7 @@ export default function UserList() {
                 <table className="table table-bordered card-table table-vcenter text-nowrap">
                   <thead text-center>
                     <tr className="border-top border-bottom">
-                      <th className="wd-15p border-bottom-0">No.</th>
+                      <th className="wd-15p border-bottom-0">Role ID.</th>
                       <th className="wd-15p border-bottom-0">Role Name</th>
                       <th className="wd-25p border-bottom-0">Status</th>
                       <th className="wd-25p border-bottom-0">Action</th>

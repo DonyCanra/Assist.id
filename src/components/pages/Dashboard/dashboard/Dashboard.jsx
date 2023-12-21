@@ -14,12 +14,12 @@ export default function Dashboard() {
     endDate: "",
   });
 
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchDashboard(input));
   }, [dispatch, input]);
+
 
   return (
     <>
