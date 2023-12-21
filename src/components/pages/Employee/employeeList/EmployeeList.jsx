@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchEmployee } from "../../../../store/actions/thunks";
 import Row from "./EmployeeTableRaw";
 import SearchComponent from "./SearchEmployee";
+import * as XLSX from "xlsx"; // Import pustaka xlsx
 
 export default function Employee() {
   const { employees } = useSelector((state) => {
@@ -15,7 +16,7 @@ export default function Employee() {
   const [inputDefault, setInputDefault] = useState({
     isCandidate: "No",
     employeeStatus: "",
-    registeredStatus: "",
+    registerStatus: "",
     name: "",
     nik: "",
     email: "",
@@ -33,6 +34,30 @@ export default function Employee() {
       ...prevInput,
       page,
     }));
+  };
+
+  const handleDownloadExcel = () => {
+    // Data untuk diekspor
+    const exportData = dataTable.map((dataTable, index) => ({
+      "No.": index + 1,
+      Name: dataTable.name,
+      NIK: dataTable.nik,
+      "Phone Number": dataTable.phoneNumber,
+      Email: dataTable.email,
+      "Max Amount": dataTable.maxAmount,
+      "Employee Status": dataTable.employeeStatus ? "Active" : "InActive",
+      "Registered Status": dataTable.registerStatus ? "Registered" : "Not Registered",
+    }));
+
+    // Buat objek worksheet dari data
+    const ws = XLSX.utils.json_to_sheet(exportData);
+
+    // Buat objek workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Simpan file Excel
+    XLSX.writeFile(wb, "employeeList.xlsx");
   };
 
   useEffect(() => {
@@ -106,7 +131,7 @@ export default function Employee() {
                     <i className="fe fe-plus me-2"></i> Add New Data
                     {/* </button> */}
                   </Link>
-                  <Link className="btn btn-primary" to="/add-employee">
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel}>
                     {/* <button className="btn btn-primary"> */}
                     <i className="fe fe-download me-2 fs-14"></i> Download
                     {/* </button> */}

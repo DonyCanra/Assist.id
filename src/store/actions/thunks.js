@@ -90,7 +90,7 @@ export function login(input) {
   };
 }
 
-export function resendEmail(input) {
+export function resendEmailCreateUser(input) {
   return async (dispatch) => {
     try {
       // console.log(input.email, "<<<resend");
@@ -106,6 +106,33 @@ export function resendEmail(input) {
       };
 
       const response = await axios.post(`${BASE_URL}/ewa/resend-email`, input, config);
+      console.log(response, "response");
+      configureToast("success", "", "Please check Email to reset password!");
+      return dispatch(usersResendPasswordSuccess(response.data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      configureToast("warning", "", msgError);
+      throw error;
+    }
+  };
+}
+
+export function resendEmailForgotPassword(input) {
+  return async (dispatch) => {
+    try {
+      // console.log(input.email, "<<<resend");
+      const unixTimes = unixTimestampInSeconds();
+
+      var setSignatureSha = SHA256(input.email).toString();
+
+      const config = {
+        headers: {
+          "X-SIGNATURE": setSignatureSha,
+          "X-Time": unixTimes,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/ewa/ewa/forgot-password`, input, config);
       console.log(response, "response");
       configureToast("success", "", "Please check Email to reset password!");
       return dispatch(usersResendPasswordSuccess(response.data));

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchFee } from "../../../store/actions/thunks";
 import SearchComponent from "./SearchFee";
 import Row from "./FeeTableRaw";
+import * as XLSX from "xlsx"; // Import pustaka xlsx
 
 export default function Fee() {
   const { fees } = useSelector((state) => {
@@ -38,6 +39,31 @@ export default function Fee() {
     }));
   };
 
+  const handleDownloadExcel = () => {
+    // Data untuk diekspor
+    const exportData = dataTable.map((dataTable, index) => ({
+      "No.": index + 1,
+      "Transaction Date": dataTable.transactionDate,
+      "Transaction Number": dataTable.transactionNo,
+      Name: dataTable.employeeName,
+      "Phone Number": dataTable.employeePhoneNumber,
+      Email: dataTable.employeeEmail,
+      "Disburse Amount": dataTable.disburseAmount,
+      Fee: dataTable.clientFee,
+      Status: dataTable.status,
+    }));
+
+    // Buat objek worksheet dari data
+    const ws = XLSX.utils.json_to_sheet(exportData);
+
+    // Buat objek workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Simpan file Excel
+    XLSX.writeFile(wb, "fees.xlsx");
+  };
+
   useEffect(() => {
     dispatch(fetchFee(inputDefault));
   }, [dispatch, inputDefault]);
@@ -56,7 +82,7 @@ export default function Fee() {
               <div className="page-leftheader">{/* <h4 className="page-title mb-0 text-primary">Employee List</h4> */}</div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <Link className="btn btn-primary" to="/add-employee">
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel}>
                     {/* <button className="btn btn-primary"> */}
                     <i className="fe fe-download me-2 fs-14"></i> Download
                     {/* </button> */}

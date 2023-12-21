@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCandidate } from "../../../../store/actions/thunks";
 import SearchComponent from "./SearchCandidate";
 import Row from "./CandidateTableRaw";
+import * as XLSX from "xlsx"; // Import pustaka xlsx
 // import "./Employee.css";
 
 export default function Candidate() {
@@ -33,6 +34,29 @@ export default function Candidate() {
       ...prevInput,
       page,
     }));
+  };
+
+  const handleDownloadExcel = () => {
+    // Data untuk diekspor
+    const exportData = dataTable.map((dataTable, index) => ({
+      "No.": index + 1,
+      Name: dataTable.name,
+      NIK: dataTable.nik,
+      "Phone Number": dataTable.phoneNumber,
+      Email: dataTable.email,
+      "Max Amount": dataTable.maxAmount,
+      "Registered Status": dataTable.registerStatus ? "Registered" : "Not Registered",
+    }));
+
+    // Buat objek worksheet dari data
+    const ws = XLSX.utils.json_to_sheet(exportData);
+
+    // Buat objek workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Simpan file Excel
+    XLSX.writeFile(wb, "candidateList.xlsx");
   };
 
   useEffect(() => {
@@ -100,7 +124,7 @@ export default function Candidate() {
               <div className="page-leftheader">{/* <h4 className="page-title mb-0 text-primary">Employee List</h4> */}</div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <Link className="btn btn-primary" to="/add-employee">
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel}>
                     {/* <button className="btn btn-primary"> */}
                     <i className="fe fe-download me-2 fs-14"></i> Download
                     {/* </button> */}

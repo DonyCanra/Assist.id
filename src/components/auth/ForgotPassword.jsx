@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { resendEmail } from "../../store/actions/thunks";
+import { resendEmailForgotPassword } from "../../store/actions/thunks";
 import { useNavigate } from "react-router-dom";
 
 export default function ForgotPassword() {
@@ -61,7 +61,7 @@ export default function ForgotPassword() {
       return;
     }
 
-    await dispatch(resendEmail(inputData));
+    await dispatch(resendEmailForgotPassword(inputData));
     navigate("/login");
   };
 
