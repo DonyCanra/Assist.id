@@ -1,7 +1,9 @@
 import {
   usersLoginSuccess,
-  usersResendPasswordSuccess,
   usersCreatePasswordSuccess,
+  usersChangePasswordSuccess,
+  usersResendCreatePasswordSuccess,
+  usersResendForgotPasswordSuccess,
   dashboardFetchSuccess,
   profileFetchSuccess,
   logactivityFetchSuccess,
@@ -20,7 +22,6 @@ import {
   userCreateSuccess,
   userUpdateSuccess,
   employeeBulkCreateSuccess,
-  usersChangePasswordSuccess,
 } from "./actionCreator";
 
 import axios from "axios";
@@ -108,7 +109,7 @@ export function resendEmailCreateUser(input) {
       const response = await axios.post(`${BASE_URL}/ewa/resend-email`, input, config);
       console.log(response, "response");
       configureToast("success", "SUCCESS", "Please check Email to create password!");
-      return dispatch(usersResendPasswordSuccess(response.data));
+      return dispatch(usersResendCreatePasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       configureToast("error", "FAILED", msgError);
@@ -127,15 +128,15 @@ export function resendEmailForgotPassword(input) {
 
       const config = {
         headers: {
-          "X-SIGNATURE": setSignatureSha,
           "X-Time": unixTimes,
+          "X-SIGNATURE": setSignatureSha,
         },
       };
 
-      const response = await axios.post(`${BASE_URL}/ewa/password-forgot`, input, config);
+      const response = await axios.post(`${BASE_URL}/ewa/forgot-password`, input, config);
       console.log(response, "response");
       configureToast("success", "SUCCESS", "Please check Email to reset password!");
-      return dispatch(usersResendPasswordSuccess(response.data));
+      return dispatch(usersResendForgotPasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       configureToast("error", "FAILED", msgError);

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const ItemsPerPage = 10;
+const ItemsPerPage = 2;
 
 export default function DataBulkTableModal(props) {
   const { dataBulk, handleDelete } = props;
@@ -81,7 +81,7 @@ export default function DataBulkTableModal(props) {
                 <div className="page-header">
                   <div className="page-leftheader">
                     <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                      Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, originalData.length)} of {originalData.length} entries
+                      Showing 1 to {currentPage} of {maxPage} entries
                     </div>
                   </div>
                   <div className="page-rightheader">

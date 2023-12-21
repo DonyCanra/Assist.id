@@ -71,19 +71,16 @@ export default function AddEmployee() {
   // Fungsi untuk validasi input
   const validateInput = (data) => {
     const errors = {};
-    const camelCaseRegex = /([a-z][A-Z]|[A-Z]{2,})/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         if (!data[key]) {
-          errors[key] = `This field is required ${key.charAt(0).toUpperCase() + key.slice(1)}.`;
-        } else if (key === "nik" && data[key].length > 16) {
-          errors[key] = "NIK must be a maximum of 16 characters.";
+          errors[key] = `This field is required ${key.charAt(0).toUpperCase() + key.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}`;
+        } else if (key === "nik" && data[key].length !== 16) {
+          errors[key] = "NIK must be 16 characters.";
         } else if (key === "email" && !emailRegex.test(data[key])) {
-          errors[key] = "Invalid email format.";
-        } else if (camelCaseRegex.test(key)) {
-          errors[key] = `Invalid ${key.replace(/([a-z][A-Z])/g, (match) => `${match[0]} ${match[1].toLowerCase()}`)}.`;
+          errors[key] = "Format email not valid.";
         }
       }
     }

@@ -1,9 +1,7 @@
-// import { Link } from "react-router-dom";
-
-import { useState } from "react";
-import { changePassword } from "../../../../store/actions/thunks";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { changePassword } from "../../../../store/actions/thunks";
 
 export default function ChangePassword() {
   const [input, setInput] = useState({
@@ -12,7 +10,11 @@ export default function ChangePassword() {
     confirmPassword: "",
   });
 
-  console.log(input, "<<<");
+  const [errorMessages, setErrorMessages] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +25,11 @@ export default function ChangePassword() {
       ...input,
       [name]: value,
     });
+
+    setErrorMessages((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
 
   const handleCancel = () => {
@@ -31,7 +38,13 @@ export default function ChangePassword() {
 
   const handleChangePassword = async (event) => {
     event.preventDefault();
-    event.persist();
+
+    const validationErrors = validateInput(input);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrorMessages(validationErrors);
+      return;
+    }
+
     try {
       await dispatch(changePassword(input));
       localStorage.clear();
@@ -40,6 +53,39 @@ export default function ChangePassword() {
       console.error("Error change profile:", error);
     }
   };
+
+  // Function to validate input
+  const validateInput = (data) => {
+    const errors = {};
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        if (!data[key]) {
+          errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+        } else if (key === "newPassword" && !passwordRegex.test(data[key])) {
+          errors[key] = "Password must contain at least one lowercase letter, one uppercase letter, one digit, and be at least 8 characters long.";
+        }
+      }
+    }
+
+    // Add a common error message for commonly used passwords
+    if (data.newPassword && commonPasswords.includes(data.newPassword.toLowerCase())) {
+      errors.newPassword = "Please choose a stronger password.";
+    }
+
+    if (data.newPassword !== data.confirmPassword) {
+      errors.confirmPassword = "Password does not match.";
+    }
+
+    return errors;
+  };
+
+  const commonPasswords = [
+    "password",
+    "123456",
+    // Add more passwords as needed
+  ];
 
   return (
     <>
@@ -58,19 +104,22 @@ export default function ChangePassword() {
           <div className="col-md-12">
             <div className="form-group">
               <label className="form-label">Current Password</label>
-              <input value={input.currentPassword} onChange={handleChange} name="currentPassword" type="password" className="form-control" placeholder="Input Current Password" />
+              <input value={input.currentPassword} onChange={handleChange} name="currentPassword" type="password" className={`form-control ${errorMessages.currentPassword ? "is-invalid" : ""}`} placeholder="Input Current Password" />
+              <div className="invalid-feedback">{errorMessages.currentPassword}</div>
             </div>
           </div>
           <div className="col-md-12">
             <div className="form-group">
               <label className="form-label">New Password</label>
-              <input value={input.newPassword} onChange={handleChange} name="newPassword" type="password" className="form-control" placeholder="Input New Password" />
+              <input value={input.newPassword} onChange={handleChange} name="newPassword" type="password" className={`form-control ${errorMessages.newPassword ? "is-invalid" : ""}`} placeholder="Input New Password" />
+              <div className="invalid-feedback">{errorMessages.newPassword}</div>
             </div>
           </div>
           <div className="col-md-12">
             <div className="form-group">
               <label className="form-label">Confirm Password</label>
-              <input value={input.confirmPassword} onChange={handleChange} name="confirmPassword" type="password" className="form-control" placeholder="Input Confirm Password" />
+              <input value={input.confirmPassword} onChange={handleChange} name="confirmPassword" type="password" className={`form-control ${errorMessages.confirmPassword ? "is-invalid" : ""}`} placeholder="Input Confirm Password" />
+              <div className="invalid-feedback">{errorMessages.confirmPassword}</div>
             </div>
           </div>
           <div className="col-sm-6 col-md-6">

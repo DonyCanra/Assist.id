@@ -1,6 +1,7 @@
 // Action Type auth
 export const USER_LOGIN_SUCCESSS = "users/loginSuccess";
-export const USER_RESEND_EMAIL_SUCCESSS = "users/resendEmailSuccess";
+export const USER_RESEND_CREATE_SUCCESSS = "users/resendEmailCreateSuccess";
+export const USER_RESEND_FORGOT_SUCCESSS = "users/resendEmailForgotSuccess";
 export const USER_CREATE_PASSWORD_SUCCESSS = "users/createPasswordSuccess";
 export const USER_CHANGE_PASSWORD_SUCCESSS = "users/changePasswordSuccess";
 

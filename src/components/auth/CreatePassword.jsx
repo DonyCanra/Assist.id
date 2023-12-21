@@ -69,6 +69,20 @@ export default function CreatePassword() {
       return;
     }
 
+    if (input.password !== input.confirmPassword) {
+      setErrorMessages((prevErrors) => ({
+        ...prevErrors,
+        confirmPassword: "Password does not match.",
+      }));
+
+      setErrorInputs((prevErrors) => ({
+        ...prevErrors,
+        confirmPassword: true,
+      }));
+
+      return;
+    }
+
     await dispatch(createPassword(inputData));
     navigate("/login");
   };
@@ -84,13 +98,31 @@ export default function CreatePassword() {
   // Function to validate input
   const validateInput = (data) => {
     const errors = {};
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
     for (const key in data) {
-      if (data.hasOwnProperty(key) && !data[key]) {
-        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      if (data.hasOwnProperty(key)) {
+        if (!data[key]) {
+          errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+        } else if (key === "password" && !passwordRegex.test(data[key])) {
+          errors[key] = "Password must contain at least one lowercase letter, one uppercase letter, one digit, and be at least 8 characters long.";
+        }
       }
     }
+
+    // Add a common error message for commonly used passwords
+    if (data.password && commonPasswords.includes(data.password.toLowerCase())) {
+      errors.password = "Please choose a stronger password.";
+    }
+
     return errors;
   };
+
+  const commonPasswords = [
+    "password",
+    "123456",
+    // Add more passwords as needed
+  ];
 
   return (
     <>

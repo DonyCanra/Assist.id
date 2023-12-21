@@ -57,7 +57,6 @@ export default function ForgotPassword() {
         ...prevErrors,
         ...Object.keys(validationErrors).reduce((acc, key) => ({ ...acc, [key]: true }), {}),
       }));
-
       return;
     }
 
@@ -95,7 +94,7 @@ export default function ForgotPassword() {
                         </div>
                         <form onSubmit={handleResetPassword} className="mt-5">
                           <div className={`input-group mb-4 ${errorInputs.email ? "has-error" : ""}`}>
-                            <div className="input-group-text">
+                            <div className={`input-group-text ${errorInputs.email ? "border-danger" : ""}`}>
                               <i className="fe fe-mail"></i>
                             </div>
                             <input value={input.email} onChange={handleChange} name="email" type="email" className={`form-control ${errorInputs.email ? "border-danger" : ""}`} placeholder="Input your email" />

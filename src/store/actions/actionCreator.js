@@ -1,6 +1,7 @@
 import {
   USER_LOGIN_SUCCESSS,
-  USER_RESEND_EMAIL_SUCCESSS,
+  USER_RESEND_CREATE_SUCCESSS,
+  USER_RESEND_FORGOT_SUCCESSS,
   USER_CREATE_PASSWORD_SUCCESSS,
   DASHBOARD_FETCH_SUCCESS,
   PROFILE_FETCH_SUCCESS,
@@ -32,9 +33,16 @@ export const usersLoginSuccess = (data) => {
   };
 };
 
-export const usersResendPasswordSuccess = (data) => {
+export const usersResendCreatePasswordSuccess = (data) => {
   return {
-    type: USER_RESEND_EMAIL_SUCCESSS,
+    type: USER_RESEND_CREATE_SUCCESSS,
+    payload: data,
+  };
+};
+
+export const usersResendForgotPasswordSuccess = (data) => {
+  return {
+    type: USER_RESEND_FORGOT_SUCCESSS,
     payload: data,
   };
 };
