@@ -2,6 +2,7 @@
 export const USER_LOGIN_SUCCESSS = "users/loginSuccess";
 export const USER_RESEND_EMAIL_SUCCESSS = "users/resendEmailSuccess";
 export const USER_CREATE_PASSWORD_SUCCESSS = "users/createPasswordSuccess";
+export const USER_CHANGE_PASSWORD_SUCCESSS = "users/changePasswordSuccess";
 
 // Action Type Dashboard
 export const DASHBOARD_FETCH_SUCCESS = "dashboard/fetchSuccess";

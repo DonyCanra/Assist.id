@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function EditProfile() {
   const { profile } = useSelector((state) => state.profile);
   const { image } = useSelector((state) => state.image);
-  console.log(image, "<< image");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

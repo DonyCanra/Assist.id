@@ -20,6 +20,7 @@ import {
   userCreateSuccess,
   userUpdateSuccess,
   employeeBulkCreateSuccess,
+  usersChangePasswordSuccess,
 } from "./actionCreator";
 
 import axios from "axios";
@@ -107,7 +108,7 @@ export function resendEmailCreateUser(input) {
 
       const response = await axios.post(`${BASE_URL}/ewa/resend-email`, input, config);
       console.log(response, "response");
-      configureToast("success", "", "Please check Email to reset password!");
+      configureToast("success", "", "Please check Email to create password!");
       return dispatch(usersResendPasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -132,7 +133,7 @@ export function resendEmailForgotPassword(input) {
         },
       };
 
-      const response = await axios.post(`${BASE_URL}/ewa/ewa/forgot-password`, input, config);
+      const response = await axios.post(`${BASE_URL}/ewa/password-forgot`, input, config);
       console.log(response, "response");
       configureToast("success", "", "Please check Email to reset password!");
       return dispatch(usersResendPasswordSuccess(response.data));
@@ -177,6 +178,40 @@ export function createPassword(input) {
       const response = await axios.post(`${BASE_URL}/ewa/password-create`, dataInput, config);
       configureToast("success", "", "Password has been created");
       return dispatch(usersCreatePasswordSuccess(response.data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      configureToast("warning", "", msgError);
+      throw error;
+    }
+  };
+}
+
+export function changePassword(input) {
+  return async (dispatch) => {
+    try {
+      var setCurrentTokenSha = SHA256(input.currentPassword).toString();
+      var setnewTokenSha = SHA256(input.newPassword).toString();
+      var setConfirmTokenSha = SHA256(input.confirmPassword).toString();
+
+      const dataInput = {
+        currentPassword: setCurrentTokenSha,
+        newPassword: setnewTokenSha,
+        confirmPassword: setConfirmTokenSha,
+      };
+
+      // console.log(dataInput, "<<< datainputtt");
+
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-time": unixTimes,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/dashboard/password-change`, dataInput, config);
+      configureToast("success", "", "Password has been updated");
+      return dispatch(usersChangePasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       configureToast("warning", "", msgError);

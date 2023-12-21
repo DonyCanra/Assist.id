@@ -21,6 +21,7 @@ import {
   USER_CREATE_SUCCESS,
   USER_UPDATE_SUCCESS,
   EMPLOYEE_BULK_CREATE_SUCCESS,
+  USER_CHANGE_PASSWORD_SUCCESSS,
 } from "./actionTypes";
 
 // Action Creator Auth
@@ -41,6 +42,13 @@ export const usersResendPasswordSuccess = (data) => {
 export const usersCreatePasswordSuccess = (data) => {
   return {
     type: USER_CREATE_PASSWORD_SUCCESSS,
+    payload: data,
+  };
+};
+
+export const usersChangePasswordSuccess = (data) => {
+  return {
+    type: USER_CHANGE_PASSWORD_SUCCESSS,
     payload: data,
   };
 };
