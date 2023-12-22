@@ -64,15 +64,26 @@ export default function ForgotPassword() {
     navigate("/login");
   };
 
-  // Function to validate input
   const validateInput = (data) => {
     const errors = {};
+
     for (const key in data) {
-      if (data.hasOwnProperty(key) && !data[key]) {
-        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      if (data.hasOwnProperty(key)) {
+        if (!data[key]) {
+          errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+        } else if (key === "email" && !isValidEmail(data[key])) {
+          errors[key] = "Please input email correctly. Email address must contain a “@“ sign and a period (.) Example: jisookim@gmail.com.";
+        }
       }
     }
+
     return errors;
+  };
+
+  // Helper function to validate email format
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
@@ -97,7 +108,7 @@ export default function ForgotPassword() {
                             <div className={`input-group-text ${errorInputs.email ? "border-danger" : ""}`}>
                               <i className="fe fe-mail"></i>
                             </div>
-                            <input value={input.email} onChange={handleChange} name="email" type="email" className={`form-control ${errorInputs.email ? "border-danger" : ""}`} placeholder="Input your email" />
+                            <input value={input.email} onChange={handleChange} name="email" type="text" className={`form-control ${errorInputs.email ? "border-danger" : ""}`} placeholder="Input your email" />
                           </div>
                           <p className="text-danger">{errorMessages.email}</p>
                           <div className="form-group text-center mb-3">

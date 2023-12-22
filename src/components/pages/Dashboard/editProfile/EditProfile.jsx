@@ -18,6 +18,7 @@ export default function EditProfile() {
   });
 
   const [error, setError] = useState({
+    name: "",
     phoneNumber: "",
   });
 
@@ -27,6 +28,12 @@ export default function EditProfile() {
       ...input,
       [name]: value,
     });
+
+    // Clear error message when input changes
+    setError((prevError) => ({
+      ...prevError,
+      [name]: "",
+    }));
   };
 
   useEffect(() => {
@@ -43,28 +50,45 @@ export default function EditProfile() {
   }, [dispatch]);
 
   input.avatar = image.fileName;
-  console.log(input, "sebelum update");
-
-  const handleCancel = () => {
-    navigate("/profile");
-  };
 
   const validatePhoneNumber = () => {
     const phoneNumberRegex = /^\d{9,13}$/;
-    if (!phoneNumberRegex.test(input.phoneNumber)) {
+    if (!input.phoneNumber) {
+      setError((prevError) => ({
+        ...prevError,
+        phoneNumber: "Phone number is required.",
+      }));
+      return false;
+    } else if (!phoneNumberRegex.test(input.phoneNumber)) {
       setError((prevError) => ({
         ...prevError,
         phoneNumber: "Phone number must be between 9 and 13 characters.",
       }));
       return false;
     }
-    setError((prevError) => ({ ...prevError, phoneNumber: "" }));
     return true;
+  };
+
+  const handleCancel = () => {
+    navigate("/profile");
   };
 
   const handleUpdateProfile = async (event) => {
     event.preventDefault();
-    event.persist();
+
+    // Validasi wajib pada setiap input
+    if (!input.name) {
+      setError((prevError) => ({
+        ...prevError,
+        name: "Name is required.",
+      }));
+      return;
+    }
+
+    if (!validatePhoneNumber()) {
+      return;
+    }
+
     try {
       await dispatch(updateProfile(input));
       navigate("/profile");
@@ -96,7 +120,8 @@ export default function EditProfile() {
                   <label className="form-label">
                     Name <span className="text-red">*</span>
                   </label>
-                  <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="" />
+                  <input value={input.name} onChange={handleChange} name="name" type="text" className={`form-control ${error.name && "is-invalid"}`} placeholder="" />
+                  {error.name && <div className="invalid-feedback">{error.name}</div>}
                 </div>
               </div>
               <div className="col-md-12">
