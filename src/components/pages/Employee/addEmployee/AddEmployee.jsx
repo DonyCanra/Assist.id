@@ -68,10 +68,10 @@ export default function AddEmployee() {
     }
   };
 
-  // Fungsi untuk validasi input
   const validateInput = (data) => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneNumberRegex = /^\d{9,13}$/;
 
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
@@ -81,6 +81,8 @@ export default function AddEmployee() {
           errors[key] = "NIK must be 16 characters.";
         } else if (key === "email" && !emailRegex.test(data[key])) {
           errors[key] = "Format email not valid.";
+        } else if (key === "phoneNumber" && !phoneNumberRegex.test(data[key])) {
+          errors[key] = "Phone number must be between 9 and 13 digits.";
         }
       }
     }

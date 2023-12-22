@@ -21,6 +21,14 @@ export default function EditUser() {
     status: true,
   });
 
+  // State untuk melacak pesan kesalahan pada setiap input
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+    role: "",
+  });
+
   useEffect(() => {
     if (user) {
       setInput({
@@ -42,7 +50,13 @@ export default function EditUser() {
 
     setInput((prevInput) => ({
       ...prevInput,
-      [name]: type === "checkbox" ? checked : type === "number" ? parseFloat(value) : value,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+
+    // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
+    setErrorMessages((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
     }));
   };
 
@@ -54,24 +68,47 @@ export default function EditUser() {
 
   const handleUpdateUser = async (event) => {
     event.preventDefault();
-    event.persist();
+    event.persist(); // Memastikan event tetap tersedia setelah fungsi asinkron selesai
+
+    // Validasi wajib pada setiap input
+    const validationErrors = validateInput(input);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrorMessages(validationErrors);
+      return;
+    }
+
     try {
       if (input.status) input.status = "Active";
       else input.status = "InActive";
-      await dispatch(updateUser(input));
+      await dispatch(updateUser(input)); // Sesuaikan parameter sesuai kebutuhan
       navigate("/users");
     } catch (error) {
-      console.error("Error updating users:", error);
+      console.error("Error creating user:", error);
     }
   };
+
+  // Fungsi untuk validasi input
+  const validateInput = (data) => {
+    const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneNumberRegex = /^\d{9,13}$/;
+
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        if (!data[key]) {
+          errors[key] = `This field is required ${key.charAt(0).toUpperCase() + key.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}`;
+        } else if (key === "email" && !emailRegex.test(data[key])) {
+          errors[key] = "Format email not valid.";
+        } else if (key === "phoneNumber" && !phoneNumberRegex.test(data[key])) {
+          errors[key] = "Phone number must be between 9 and 13 digits.";
+        }
+      }
+    }
+    return errors;
+  };
+
   return (
     <>
-      {/* <div className="page-header">
-        <div className="page-leftheader">
-          <h4 className="page-title mb-0 text-primary">Add New Employee</h4>
-        </div>
-      </div> */}
-
       <div className="row">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card" style={{ background: "#212332" }}>
@@ -79,13 +116,6 @@ export default function EditUser() {
               <div className="page-leftheader">
                 <h4 className="page-title mb-0 text-primary">Edit User</h4>
               </div>
-              {/* <div className="page-rightheader">
-                <div className="btn-list">
-                  <button className="btn btn-secondary">
-                    <i className="fe fe-plus me-2"></i> Add New Data Bulk
-                  </button>
-                </div>
-              </div> */}
             </div>
 
             <div
@@ -101,7 +131,8 @@ export default function EditUser() {
                   <label class="form-label">
                     Name <span class="text-red">*</span>
                   </label>
-                  <input type="text" class="form-control" value={input.name} onChange={handleChange} name="name" />
+                  <input type="text" class={`form-control ${errorMessages.name ? "border-red" : ""}`} value={input.name} onChange={handleChange} name="name" placeholder="Input name" />
+                  <p className="text-danger">{errorMessages.name}</p>
                 </div>
               </div>
               <div class="col-md-12">
@@ -109,7 +140,8 @@ export default function EditUser() {
                   <label class="form-label">
                     Phone Number <span class="text-red">*</span>
                   </label>
-                  <input type="text" class="form-control" value={input.phoneNumber} onChange={handleChange} name="phoneNumber" />
+                  <input type="text" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
+                  <p className="text-danger">{errorMessages.phoneNumber}</p>
                 </div>
               </div>
               <div class="col-md-12">
@@ -117,7 +149,8 @@ export default function EditUser() {
                   <label class="form-label">
                     Email <span class="text-red">*</span>
                   </label>
-                  <input type="email" class="form-control" value={input.email} onChange={handleChange} name="email" />
+                  <input type="email" class={`form-control ${errorMessages.email ? "border-red" : ""}`} value={input.email} onChange={handleChange} name="email" placeholder="Input email" />
+                  <p className="text-danger">{errorMessages.email}</p>
                 </div>
               </div>
               <div className="col-md-12">
@@ -126,7 +159,7 @@ export default function EditUser() {
                     Role <span class="text-red">*</span>
                   </label>
                   <select
-                    className="form-select"
+                    class={`form-select ${errorMessages.role}`}
                     value={input.role}
                     onChange={handleChange}
                     name="role"
@@ -143,16 +176,16 @@ export default function EditUser() {
                     <option value="Finance">Finance</option>
                     <option value="User">User</option>
                   </select>
+                  <p className="text-danger">{errorMessages.role}</p>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-6">
+              <div class="col-md-12">
                 <div className="form-group">
                   <label className="form-label">
                     Status <span className="text-red">*</span>
                   </label>
                   <div className="form-group">
                     <label className="custom-switch">
-                      {/* <span className="custom-switch-description me-2">Check Box</span> */}
                       <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
                       <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
                     </label>

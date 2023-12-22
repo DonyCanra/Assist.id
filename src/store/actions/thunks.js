@@ -67,7 +67,7 @@ export function login(input) {
       var plainText = input.email + input.password;
       var sha256PlainText = SHA256(plainText).toString();
 
-      var ewaSalt = SHA256("EWASALT").toString();
+      var ewaSalt = SHA256(process.env.REACT_APP_SALT).toString();
 
       var timeMergeSha256Plain = ewaSalt + unixTimes + sha256PlainText;
       var setSignatureSha = SHA256(timeMergeSha256Plain).toString();

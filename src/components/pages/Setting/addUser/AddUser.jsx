@@ -67,9 +67,18 @@ export default function AddUser() {
   // Fungsi untuk validasi input
   const validateInput = (data) => {
     const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneNumberRegex = /^\d{9,13}$/;
+
     for (const key in data) {
-      if (data.hasOwnProperty(key) && !data[key]) {
-        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      if (data.hasOwnProperty(key)) {
+        if (!data[key]) {
+          errors[key] = `This field is required ${key.charAt(0).toUpperCase() + key.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}`;
+        } else if (key === "email" && !emailRegex.test(data[key])) {
+          errors[key] = "Format email not valid.";
+        } else if (key === "phoneNumber" && !phoneNumberRegex.test(data[key])) {
+          errors[key] = "Phone number must be between 9 and 13 digits.";
+        }
       }
     }
     return errors;
