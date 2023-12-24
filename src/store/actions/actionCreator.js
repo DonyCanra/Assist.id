@@ -10,6 +10,7 @@ import {
   PROFILE_UPDATE_SUCCESS,
   EMPLOYEE_FETCH_SUCCESS,
   EMPLOYEE_CREATE_SUCCESS,
+  EMPLOYEE_BULK_CREATE_SUCCESS,
   EMPLOYEE_DETAIL_SUCCESS,
   EMPLOYEE_UPDATE_SUCCESS,
   CANDIDATE_FETCH_SUCCESS,
@@ -17,11 +18,13 @@ import {
   FEE_FETCH_SUCCESS,
   FEE_DETAIL_SUCCESS,
   ROLE_FETCH_SUCCESS,
+  ROLE_CREATE_SUCCESS,
+  ROLE_UPDATE_SUCCESS,
+  ROLE_DETAIL_SUCCESS,
   USER_FETCH_SUCCESS,
   USER_DETAIL_SUCCESS,
   USER_CREATE_SUCCESS,
   USER_UPDATE_SUCCESS,
-  EMPLOYEE_BULK_CREATE_SUCCESS,
   USER_CHANGE_PASSWORD_SUCCESSS,
 } from "./actionTypes";
 
@@ -169,6 +172,25 @@ export const roleFetchSuccess = (data) => {
     payload: data,
   };
 };
+export const roleCreateSuccess = (data) => {
+  return {
+    type: ROLE_CREATE_SUCCESS,
+    payload: data,
+  };
+};
+export const roleUpdateSuccess = (data) => {
+  return {
+    type: ROLE_UPDATE_SUCCESS,
+    payload: data,
+  };
+};
+export const roleDetailSuccess = (data) => {
+  return {
+    type: ROLE_DETAIL_SUCCESS,
+    payload: data,
+  };
+};
+
 export const userFetchSuccess = (data) => {
   return {
     type: USER_FETCH_SUCCESS,

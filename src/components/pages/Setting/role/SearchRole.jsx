@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-import { fetchEmployee } from "../../../../store/actions/thunks";
+import { fetchRole } from "../../../../store/actions/thunks";
 
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
-    role: "",
+    search: "",
     status: "",
   });
 
@@ -20,18 +19,16 @@ export default function SearchComponent() {
 
   const handleReset = () => {
     setInput({
-      role: "",
+      search: "",
       status: "",
     });
   };
 
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const handleFilter = async (event) => {
     event.preventDefault();
-    await dispatch(fetchEmployee(input, "<<<<"));
-    // navigate("/employee");
+    await dispatch(fetchRole(input));
   };
 
   const toggleCardVisibility = () => {
@@ -73,7 +70,7 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Role Name</label>
-                <input value={input.role} onChange={handleChange} name="role" className="form-control mb-4" placeholder="Input box" type="text" />
+                <input value={input.search} onChange={handleChange} name="search" className="form-control mb-4" placeholder="Input box" type="text" />
               </div>
               <div className="col-lg mb-3">
                 <label className="form-label">Status</label>

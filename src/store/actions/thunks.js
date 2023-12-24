@@ -22,6 +22,10 @@ import {
   userCreateSuccess,
   userUpdateSuccess,
   employeeBulkCreateSuccess,
+  roleFetchSuccess,
+  roleCreateSuccess,
+  roleUpdateSuccess,
+  roleDetailSuccess,
 } from "./actionCreator";
 
 import axios from "axios";
@@ -249,6 +253,7 @@ export function fetchDashboard(input) {
     }
   };
 }
+
 export function fetchProfile() {
   return async (dispatch) => {
     try {
@@ -263,7 +268,6 @@ export function fetchProfile() {
       const response = await axios.get(`${BASE_URL}/dashboard/users/profile`, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
       return dispatch(profileFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -293,7 +297,6 @@ export function fetchLogactivity(input) {
       const response = await axios.post(`${BASE_URL}/dashboard/log-activity`, input, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
       return dispatch(logactivityFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -323,7 +326,6 @@ export function convertImages(input) {
       const response = await axios.post(`${BASE_URL}/dashboard/upload/file`, input, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
       return dispatch(imagesConvertSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -352,7 +354,6 @@ export function updateProfile(input) {
       const response = await axios.put(`${BASE_URL}/dashboard/users/update-profile`, input, config);
 
       const data = response.data;
-      console.log(data, "<< data");
       configureToast("success", "Updated Success", "Profile has been updated");
       return dispatch(profileUpdateSuccess(data));
     } catch (error) {
@@ -643,6 +644,37 @@ export function fetchRole(input) {
   return async (dispatch) => {
     try {
       const unixTimes = unixTimestampInSeconds();
+
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-Time": unixTimes,
+        },
+      };
+      // console.log("input", input);
+      const response = await axios.post(`${BASE_URL}/dashboard/role`, input, config);
+
+      const data = response.data.data;
+      console.log(data, "<< data");
+      return dispatch(roleFetchSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("error", "FAILED", msgError);
+      }
+    }
+  };
+}
+
+export function fetchDetailRole(id) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
       const config = {
         headers: {
           "X-Access-Key": localStorage.tokenDashboard,
@@ -650,11 +682,72 @@ export function fetchRole(input) {
         },
       };
 
-      const response = await axios.post(`${BASE_URL}/dashboard/employee/status`, input, config);
+      const response = await axios.get(`${BASE_URL}/dashboard/role/${id}`, config);
 
       const data = response.data.data;
-      console.log(data, "datanya");
-      return dispatch(employeeFetchSuccess(data));
+      return dispatch(roleDetailSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("error", "FAILED", msgError);
+      }
+    }
+  };
+}
+
+export function createRole(input) {
+  console.log(input, "before create role");
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-Time": unixTimes,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/dashboard/role/save`, input, config);
+
+      const data = response.data;
+      configureToast("success", "SUCCESS", "New role has been created");
+      return dispatch(roleCreateSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("error", "FAILED", msgError);
+      }
+    }
+  };
+}
+
+export function updateRole(input) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-Time": unixTimes,
+        },
+      };
+
+      const response = await axios.put(`${BASE_URL}/dashboard/role/save`, input, config);
+
+      const data = response.data;
+      console.log(data, "<< data");
+      configureToast("success", "SUCCESS", "Role has been updated");
+      return dispatch(roleUpdateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
@@ -745,7 +838,7 @@ export function createUser(input) {
 
       const data = response.data;
       console.log(data, "<< data");
-      configureToast("success", "Create Success", "New user has been created");
+      configureToast("success", "SUCCESS", "New user has been created");
       return dispatch(userCreateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -776,7 +869,7 @@ export function updateUser(input) {
 
       const data = response.data;
       console.log(data, "<< data");
-      configureToast("success", "Updated Success", "User has been updated");
+      configureToast("success", "SUCCESS", "User has been updated");
       return dispatch(userUpdateSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;

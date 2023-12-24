@@ -2,27 +2,13 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDashboard } from "../../../../store/actions/thunks";
 import FilterDate from "./FilterDate";
-import LineChart from "../chart/LineChart";
-import { UserData } from "../../../constants/dataChart";
+import LineChartWithdraw from "../../../charts/LineChartWithdraw";
+import LineChartTransaction from "../../../charts/LineChartTransaction";
 // import Loader from "../../../common/Loader";
 
 export default function Dashboard() {
   const { dashboard } = useSelector((state) => {
     return state.dashboard;
-  });
-
-  const [userData] = useState({
-    labels: UserData.map((data) => data.month),
-    datasets: [
-      {
-        label: "Total Merchants",
-        data: UserData.map((data) => data.userGain),
-        backgroundColor: "rgba(75,192,192,1)",
-        borderColor: "black",
-        borderWidth: 2,
-        color: "#fff"
-      },
-    ],
   });
 
   const [input] = useState({
@@ -109,16 +95,15 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
       <div className="row">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card">
             <div className="card-header border-bottom-0">
-              <h3 className="card-title">DATA CLEINT FEE</h3>
+              <h3 className="card-title">DATA AMOUNT WITHDRAWAL</h3>
             </div>
             <div className="card-body pt-0">
-              <div className="chart-wrapper">
-                <div id="statistics"></div>
-              </div>
+              <LineChartWithdraw />
             </div>
           </div>
         </div>
@@ -131,9 +116,7 @@ export default function Dashboard() {
               <h3 className="card-title">DATA TRANSACTION</h3>
             </div>
             <div className="card-body pt-0">
-              <div>
-                <LineChart chartData={userData} />
-              </div>
+              <LineChartTransaction />
             </div>
           </div>
         </div>

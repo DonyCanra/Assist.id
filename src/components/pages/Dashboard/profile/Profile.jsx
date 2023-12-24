@@ -12,8 +12,6 @@ export default function Profile() {
   const { logactivity } = useSelector((state) => {
     return state.logactivity;
   });
-  // console.log(profile, "profile");
-  console.log(logactivity, "logactivity");
 
   const dataTable = logactivity.data;
 

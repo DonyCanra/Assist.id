@@ -26,6 +26,7 @@ export default function UserList() {
   useEffect(() => {
     dispatch(fetchUser(inputDefault));
   }, [dispatch, inputDefault]);
+  
   return (
     <>
       <div className="row">

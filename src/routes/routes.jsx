@@ -19,6 +19,8 @@ import UserList from "../components/pages/Setting/userList/User";
 import AddUser from "../components/pages/Setting/addUser/AddUser";
 import EditUser from "../components/pages/Setting/editUser/EditUser";
 import Role from "../components/pages/Setting/role/Role";
+import AddRole from "../components/pages/Setting/addRole/AddRole";
+import EditRole from "../components/pages/Setting/editRole/EditRole";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +96,14 @@ const router = createBrowserRouter([
       {
         path: "/role",
         element: <Role />,
+      },
+      {
+        path: "/add-role",
+        element: <AddRole />,
+      },
+      {
+        path: "/edit-role/:id",
+        element: <EditRole />,
       },
     ],
   },

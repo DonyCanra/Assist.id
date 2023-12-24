@@ -4,7 +4,8 @@ import dashboardReducer from "./reducers/dasboardReducer";
 import employeeReducer from "./reducers/employeeReducer";
 import candidateReducer from "./reducers/candidateReducer";
 import feeReducer from "./reducers/feeReducer";
-import roleReducer from "./reducers/roleReducer copy";
+import roleReducer from "./reducers/roleReducer";
+import detailRoleReducer from "./reducers/detailRoleReducer";
 import userReducer from "./reducers/userReducer";
 import detailEmployeeReducer from "./reducers/detailEmployeeReducer";
 import detailUserReducer from "./reducers/detailUserReducer";
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   fees: feeReducer,
   fee: detailFeeReducer,
   roles: roleReducer,
+  role: detailRoleReducer,
   users: userReducer,
   user: detailUserReducer,
 });

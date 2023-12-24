@@ -27,6 +27,9 @@ export const FEE_DETAIL_SUCCESS = "fee/fetcDetailhSuccess";
 
 // Action Type Setting
 export const ROLE_FETCH_SUCCESS = "role/fetchSuccess";
+export const ROLE_CREATE_SUCCESS = "role/createSuccess";
+export const ROLE_UPDATE_SUCCESS = "role/updateSuccess";
+export const ROLE_DETAIL_SUCCESS = "role/fetchDetailSuccess";
 export const USER_FETCH_SUCCESS = "user/fetchSuccess";
 export const USER_CREATE_SUCCESS = "user/createSuccess";
 export const USER_DETAIL_SUCCESS = "user/fetchDetailSuccess";
