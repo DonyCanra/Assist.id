@@ -9,6 +9,9 @@ export default function Profile() {
     return state.profile;
   });
 
+  const permission = profile.privilege.role;
+  console.log(permission, "per");
+
   const { logactivity } = useSelector((state) => {
     return state.logactivity;
   });
@@ -108,42 +111,92 @@ export default function Profile() {
                       <div className="form-label mb-4">Dashboard</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked="true" />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.dashboardView} />
                           <span className="custom-control-label">View dashboard</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked="true" />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.dashboardView} />
                           <span className="custom-control-label">Search by date on grafic</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">EMPLOYEE</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked="true" />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.employeeView} />
+                          <span className="custom-control-label">View employee</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.employeeAdd} />
                           <span className="custom-control-label">Create employee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked="true" />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.employeeUpdate} />
+                          <span className="custom-control-label">Update employee</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.employeeDownload} />
                           <span className="custom-control-label">Download employee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked="true" />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.employeeDetail} />
+                          <span className="custom-control-label">Detail employee</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={permission.employeeSearch} />
                           <span className="custom-control-label">Seach employee</span>
                         </label>
                       </div>
-                      <div className="form-label mb-4">Role</div>
+                      <div className="form-label mb-4">CANDIDATE</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked="true" />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.candidateApprove} />
+                          <span className="custom-control-label">Approve candidate</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.candidateDownload} />
+                          <span className="custom-control-label">Download candidate</span>
+                        </label>
+                      </div>
+                      <div className="form-label mb-4">FEE</div>
+                      <div className="custom-controls-stacked">
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.feeView} />
+                          <span className="custom-control-label">View fee</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.feeDetail} />
+                          <span className="custom-control-label">Detail fee</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.feeDownload} />
+                          <span className="custom-control-label">Download fee</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={permission.feeSearch} />
+                          <span className="custom-control-label">Seach fee</span>
+                        </label>
+                      </div>
+                      <div className="form-label mb-4">SETTING</div>
+                      <div className="custom-controls-stacked">
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.settingView} />
+                          <span className="custom-control-label">Setting View</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.roleAdd} />
                           <span className="custom-control-label">Create role</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option2" checked="true" />
-                          <span className="custom-control-label">Delete role</span>
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option2" checked={permission.roleUpdate} />
+                          <span className="custom-control-label">Update role</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option3" checked="true" />
-                          <span className="custom-control-label">Update role</span>
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option3" checked={permission.userAdd} />
+                          <span className="custom-control-label">Create user</span>
+                        </label>
+                        <label className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option3" checked={permission.userUpdate} />
+                          <span className="custom-control-label">Update user</span>
                         </label>
                       </div>
                     </div>
