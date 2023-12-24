@@ -7,11 +7,10 @@ import Row from "./RoleTableRaw";
 
 export default function UserList() {
   const { roles } = useSelector((state) => {
-    console.log(state.roles, "<<state data");
     return state.roles;
   });
+  
   const dataTable = roles;
-  console.log(dataTable, "<<< dataaa");
 
   const [inputDefault] = useState({
     search: "",

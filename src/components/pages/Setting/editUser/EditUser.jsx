@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchDetailUser, updateUser } from "../../../../store/actions/thunks";
+import { fetchDetailUser, fetchRole, updateUser } from "../../../../store/actions/thunks";
 
 export default function EditUser() {
   const { user } = useSelector((state) => {
     return state.user;
   });
+
+  const { roles } = useSelector((state) => {
+    return state.roles;
+  });
+
+  const dataRole = roles;
+  console.log(dataRole, "<< data role");
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -21,6 +28,11 @@ export default function EditUser() {
     status: true,
   });
 
+  const [inputDefault] = useState({
+    search: "",
+    status: "Active",
+  });
+
   // State untuk melacak pesan kesalahan pada setiap input
   const [errorMessages, setErrorMessages] = useState({
     name: "",
@@ -32,6 +44,7 @@ export default function EditUser() {
   useEffect(() => {
     if (user) {
       setInput({
+        id: user.id,
         name: user.name,
         phoneNumber: user.phoneNumber,
         email: user.email,
@@ -44,6 +57,10 @@ export default function EditUser() {
   useEffect(() => {
     dispatch(fetchDetailUser(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(fetchRole(inputDefault));
+  }, [dispatch, inputDefault]);
 
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
@@ -171,10 +188,12 @@ export default function EditUser() {
                     }}
                   >
                     <option value="">-- Select role --</option>
-                    <option value="Super Admin">Super Admin</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Finance">Finance</option>
-                    <option value="User">User</option>
+                    {dataRole &&
+                      dataRole?.map((role, index) => (
+                        <option key={index} value={role.roleName}>
+                          {role.roleName}
+                        </option>
+                      ))}
                   </select>
                   <p className="text-danger">{errorMessages.role}</p>
                 </div>

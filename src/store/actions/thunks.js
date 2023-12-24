@@ -13,6 +13,7 @@ import {
   employeeCreateSuccess,
   employeeDetailSuccess,
   employeeUpdateSuccess,
+  employeeBulkCreateSuccess,
   candidateFetchSuccess,
   candidateApproveSuccess,
   feeFetchSuccess,
@@ -21,20 +22,19 @@ import {
   userDetailSuccess,
   userCreateSuccess,
   userUpdateSuccess,
-  employeeBulkCreateSuccess,
   roleFetchSuccess,
   roleCreateSuccess,
   roleUpdateSuccess,
   roleDetailSuccess,
 } from "./actionCreator";
 
-import axios from "axios";
-import Swal from "sweetalert2";
 import { SHA256 } from "crypto-js";
-import unixTimestampInSeconds from "../../utils/unixTimestampInSeconds";
 import { thunk } from "redux-thunk";
 import { redirect } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import Swal from "sweetalert2";
+import unixTimestampInSeconds from "../../utils/unixTimestampInSeconds";
 
 // URL SERVER
 const BASE_URL = process.env.REACT_APP_URL;

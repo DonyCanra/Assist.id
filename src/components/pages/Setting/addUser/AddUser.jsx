@@ -1,9 +1,21 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createUser, resendEmailCreateUser } from "../../../../store/actions/thunks";
+import { createUser, fetchRole, resendEmailCreateUser } from "../../../../store/actions/thunks";
 
 export default function AddUser() {
+  const { roles } = useSelector((state) => {
+    return state.roles;
+  });
+
+  const dataRole = roles;
+  console.log(dataRole, "<< data role");
+
+  const [inputDefault] = useState({
+    search: "",
+    status: "Active",
+  });
+
   const [input, setInput] = useState({
     name: "",
     phoneNumber: "",
@@ -37,6 +49,10 @@ export default function AddUser() {
       [name]: "",
     }));
   };
+
+  useEffect(() => {
+    dispatch(fetchRole(inputDefault));
+  }, [dispatch, inputDefault]);
 
   const handleCancel = () => {
     navigate("/users");
@@ -148,10 +164,12 @@ export default function AddUser() {
                     }}
                   >
                     <option value="">-- Select role --</option>
-                    <option value="Super Admin">Super Admin</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Finance">Finance</option>
-                    <option value="User">User</option>
+                    {dataRole &&
+                      dataRole?.map((role, index) => (
+                        <option key={index} value={role.roleName}>
+                          {role.roleName}
+                        </option>
+                      ))}
                   </select>
                   <p className="text-danger">{errorMessages.role}</p>
                 </div>

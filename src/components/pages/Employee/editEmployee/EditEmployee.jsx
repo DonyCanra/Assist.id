@@ -33,6 +33,7 @@ export default function EditEmployee() {
   useEffect(() => {
     if (employee) {
       setInput({
+        id: employee.id,
         name: employee.name,
         nik: employee.nik,
         phoneNumber: employee.phoneNumber,
