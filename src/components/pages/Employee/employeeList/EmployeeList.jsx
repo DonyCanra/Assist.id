@@ -167,7 +167,7 @@ export default function Employee() {
                   </thead>
                   <tbody className="text-white text-center">
                     {dataTable?.map((employee, index) => {
-                      return <Row key={index} employee={employee} index={index} />;
+                      return <Row key={index} employee={employee} index={index}  />;
                     })}
                   </tbody>
                 </table>

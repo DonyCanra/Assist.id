@@ -31,6 +31,17 @@ export default function SearchComponent() {
       email: "",
       role: "",
     });
+
+    // Fetch employee data with default values
+    dispatch(
+      fetchUser({
+        status: "",
+        name: "",
+        phoneNumber: "",
+        email: "",
+        role: "",
+      })
+    );
   };
 
   const dispatch = useDispatch();

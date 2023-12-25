@@ -41,6 +41,7 @@ export default function EditProfile() {
       setInput({
         name: profile.name,
         phoneNumber: profile.phoneNumber,
+        avatar: profile.avatar,
       });
     }
   }, [profile]);

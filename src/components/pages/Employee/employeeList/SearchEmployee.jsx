@@ -36,6 +36,21 @@ export default function SearchComponent() {
       page: 1,
       limit: 10,
     });
+
+    // Fetch employee data with default values
+    dispatch(
+      fetchEmployee({
+        isCandidate: "No",
+        employeeStatus: "",
+        registerStatus: "",
+        name: "",
+        nik: "",
+        email: "",
+        phoneNumber: "",
+        page: 1,
+        limit: 10,
+      })
+    );
   };
 
   const dispatch = useDispatch();

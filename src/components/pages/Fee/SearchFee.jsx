@@ -35,6 +35,20 @@ export default function SearchComponent() {
       page: 1,
       limit: 10,
     });
+
+    // Fetch employee data with default values
+    dispatch(
+      fetchFee({
+        transactionDate: "",
+        transactionNo: "",
+        name: "",
+        phoneNumber: "",
+        email: "",
+        status: "",
+        page: 1,
+        limit: 10,
+      })
+    );
   };
 
   const dispatch = useDispatch();

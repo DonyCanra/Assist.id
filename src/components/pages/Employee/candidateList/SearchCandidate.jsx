@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
-import { fetchCandidate } from "../../../../store/actions/thunks";
+import { fetchCandidate, fetchEmployee } from "../../../../store/actions/thunks";
 
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
@@ -37,6 +37,21 @@ export default function SearchComponent() {
       page: 1,
       limit: 10,
     });
+
+    // Fetch employee data with default values
+    dispatch(
+      fetchEmployee({
+        isCandidate: "Yes",
+        employeeStatus: "",
+        registerStatus: "",
+        name: "",
+        nik: "",
+        email: "",
+        phoneNumber: "",
+        page: 1,
+        limit: 10,
+      })
+    );
   };
 
   const dispatch = useDispatch();

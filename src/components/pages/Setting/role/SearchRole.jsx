@@ -22,6 +22,14 @@ export default function SearchComponent() {
       search: "",
       status: "",
     });
+
+    // Fetch employee data with default values
+    dispatch(
+      fetchRole({
+        search: "",
+        status: "",
+      })
+    );
   };
 
   const dispatch = useDispatch();
