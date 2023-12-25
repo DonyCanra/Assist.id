@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProfile, updateProfile } from "../../../../store/actions/thunks";
 import ImageUploader from "./ImageUploader";
 import { useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 export default function EditProfile() {
   const { profile } = useSelector((state) => state.profile);
@@ -14,7 +15,7 @@ export default function EditProfile() {
   const [input, setInput] = useState({
     name: "",
     phoneNumber: "",
-    avatar: "",
+    avatar: profile.avatar,
   });
 
   const [error, setError] = useState({
@@ -70,6 +71,11 @@ export default function EditProfile() {
     return true;
   };
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+
   const handleCancel = () => {
     navigate("/profile");
   };
@@ -92,6 +98,7 @@ export default function EditProfile() {
 
     try {
       await dispatch(updateProfile(input));
+      handleCloseConfirmationModal();
       navigate("/profile");
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -145,7 +152,7 @@ export default function EditProfile() {
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleUpdateProfile} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1 page-rightheader" type="submit">
                       Submit
                     </button>
                   </div>
@@ -155,6 +162,22 @@ export default function EditProfile() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to update profile?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleUpdateProfile}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

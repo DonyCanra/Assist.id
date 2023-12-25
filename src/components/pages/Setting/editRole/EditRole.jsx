@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDetailRole, updateRole } from "../../../../store/actions/thunks";
+import { Modal, Button } from "react-bootstrap";
 import CheckboxInput from "./Checkbox";
 
 export default function EditRole() {
@@ -78,6 +79,11 @@ export default function EditRole() {
     dispatch(fetchDetailRole(id));
   }, [dispatch, id]);
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
@@ -107,6 +113,7 @@ export default function EditRole() {
 
     try {
       await dispatch(updateRole(input));
+      handleCloseConfirmationModal();
       navigate("/role");
     } catch (error) {
       console.error("Error updated role:", error);
@@ -208,7 +215,7 @@ export default function EditRole() {
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleUpdateRole} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1 page-rightheader" type="submit">
                       Submit
                     </button>
                   </div>
@@ -218,6 +225,21 @@ export default function EditRole() {
           </div>
         </div>
       </div>
+
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to edit role?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleUpdateRole}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

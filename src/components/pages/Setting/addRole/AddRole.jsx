@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createRole } from "../../../../store/actions/thunks";
+import { Modal, Button } from "react-bootstrap";
 import CheckboxInput from "./Checkbox";
 
 export default function AddRole() {
@@ -34,7 +35,6 @@ export default function AddRole() {
     roleName: "",
     rolePrivilege: "",
   });
-  console.log(input, "<< input");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,6 +53,11 @@ export default function AddRole() {
     }));
   };
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+
   const handleCancel = () => {
     navigate("/role");
   };
@@ -68,6 +73,7 @@ export default function AddRole() {
 
     try {
       await dispatch(createRole(input));
+      handleCloseConfirmationModal();
       navigate("/role");
     } catch (error) {
       console.error("Error creating role:", error);
@@ -169,7 +175,7 @@ export default function AddRole() {
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleCreateRole} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1 page-rightheader" type="button">
                       Submit
                     </button>
                   </div>
@@ -179,6 +185,22 @@ export default function AddRole() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to create role?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleCreateRole}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

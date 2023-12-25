@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePassword } from "../../../../store/actions/thunks";
+import { Modal, Button } from "react-bootstrap";
 
 export default function ChangePassword() {
   const [input, setInput] = useState({
@@ -32,6 +33,11 @@ export default function ChangePassword() {
     }));
   };
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+
   const handleCancel = () => {
     navigate("/profile");
   };
@@ -47,6 +53,7 @@ export default function ChangePassword() {
 
     try {
       await dispatch(changePassword(input));
+      handleCloseConfirmationModal();
       localStorage.clear();
       navigate("/login");
     } catch (error) {
@@ -126,12 +133,28 @@ export default function ChangePassword() {
             <button onClick={handleCancel} className="btn btn-danger">
               Cancel
             </button>
-            <button onClick={handleChangePassword} className="btn btn-primary ms-1" type="submit">
+            <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1" type="submit">
               Change
             </button>
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to change password?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleChangePassword}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

@@ -37,7 +37,8 @@ import Swal from "sweetalert2";
 import unixTimestampInSeconds from "../../utils/unixTimestampInSeconds";
 
 // URL SERVER
-const BASE_URL = process.env.REACT_APP_URL;
+const BASE_URL = process.env.REACT_APP_DEV;
+console.log(BASE_URL, "<<base");
 
 // Fungsi untuk konfigurasi Toast
 const configureToast = (type, title, message) => {

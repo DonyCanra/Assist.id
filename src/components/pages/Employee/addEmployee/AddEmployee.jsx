@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createEmployee } from "../../../../store/actions/thunks";
+import { Modal, Button } from "react-bootstrap";
 
 export default function AddEmployee() {
   const [input, setInput] = useState({
@@ -22,11 +23,6 @@ export default function AddEmployee() {
     maxAmount: "",
   });
 
-  input.maxAmount = parseFloat(input.maxAmount);
-  const dataInput = {
-    data: [input],
-  };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -45,6 +41,11 @@ export default function AddEmployee() {
     }));
   };
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+
   const handleCancel = () => {
     navigate("/employee");
   };
@@ -52,6 +53,18 @@ export default function AddEmployee() {
   const handleCreateEmployee = async (event) => {
     event.preventDefault();
     event.persist();
+
+    input.maxAmount = parseFloat(input.maxAmount);
+
+    if (typeof input.employeeStatus === "boolean") {
+      input.employeeStatus = input.employeeStatus ? "Active" : "InActive";
+    }
+
+    const dataInput = {
+      data: [input],
+    };
+
+    console.log(dataInput, "<<data");
 
     // Validasi sebelum membuat karyawan
     const validationErrors = validateInput(input);
@@ -61,7 +74,8 @@ export default function AddEmployee() {
     }
 
     try {
-      await dispatch(createEmployee(dataInput, "<<<<"));
+      await dispatch(createEmployee(dataInput));
+      handleCloseConfirmationModal();
       navigate("/employee");
     } catch (error) {
       console.error("Error creating employee:", error);
@@ -184,7 +198,7 @@ export default function AddEmployee() {
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleCreateEmployee} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1 page-rightheader" type="submit">
                       Submit
                     </button>
                   </div>
@@ -194,6 +208,22 @@ export default function AddEmployee() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to create employee?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleCreateEmployee}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

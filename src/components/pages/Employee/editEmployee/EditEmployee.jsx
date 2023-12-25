@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDetailEmployee, updateEmployee } from "../../../../store/actions/thunks";
+import { Modal, Button } from "react-bootstrap";
 
 export default function EditEmployee() {
   const { employee } = useSelector((state) => {
@@ -63,11 +64,10 @@ export default function EditEmployee() {
     }));
   };
 
-  input.id = id;
-  input.maxAmount = parseFloat(input.maxAmount);
-  const dataInput = {
-    data: [input],
-  };
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
 
   const handleCancel = () => {
     navigate("/employee");
@@ -76,6 +76,17 @@ export default function EditEmployee() {
   const handleUpdateEmployee = async (event) => {
     event.preventDefault();
     event.persist();
+
+    input.maxAmount = parseFloat(input.maxAmount);
+
+    input.id = id;
+
+    if (typeof input.employeeStatus === "boolean") {
+      input.employeeStatus = input.employeeStatus ? "Active" : "InActive";
+    }
+    const dataInput = {
+      data: [input],
+    };
 
     // Validate input before updating employee
     const validationErrors = validateInput(input);
@@ -86,6 +97,7 @@ export default function EditEmployee() {
 
     try {
       await dispatch(updateEmployee(dataInput));
+      handleCloseConfirmationModal();
       navigate("/employee");
     } catch (error) {
       console.error("Error updating employee:", error);
@@ -206,7 +218,7 @@ export default function EditEmployee() {
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleUpdateEmployee} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1 page-rightheader" type="submit">
                       Submit
                     </button>
                   </div>
@@ -216,6 +228,22 @@ export default function EditEmployee() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to edit employee?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleUpdateEmployee}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

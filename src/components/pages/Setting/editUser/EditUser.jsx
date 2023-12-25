@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDetailUser, fetchRole, updateUser } from "../../../../store/actions/thunks";
+import { Modal, Button } from "react-bootstrap";
 
 export default function EditUser() {
   const { user } = useSelector((state) => {
@@ -25,7 +26,7 @@ export default function EditUser() {
     phoneNumber: "",
     email: "",
     role: "",
-    status: true,
+    status: "",
   });
 
   const [inputDefault] = useState({
@@ -77,6 +78,11 @@ export default function EditUser() {
     }));
   };
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+
   const handleCancel = () => {
     navigate("/users");
   };
@@ -88,16 +94,20 @@ export default function EditUser() {
     event.persist(); // Memastikan event tetap tersedia setelah fungsi asinkron selesai
 
     // Validasi wajib pada setiap input
-    const validationErrors = validateInput(input);
-    if (Object.keys(validationErrors).length > 0) {
-      setErrorMessages(validationErrors);
-      return;
-    }
-
     try {
-      if (input.status) input.status = "Active";
-      else input.status = "InActive";
+      if (typeof input.status === "boolean") {
+        input.status = input.status ? "Active" : "InActive";
+      }
+      const validationErrors = validateInput(input);
+      if (Object.keys(validationErrors).length > 0) {
+        setErrorMessages(validationErrors);
+        console.log("1");
+        console.log(validationErrors, "<<<");
+        return;
+      }
+
       await dispatch(updateUser(input)); // Sesuaikan parameter sesuai kebutuhan
+      handleCloseConfirmationModal();
       navigate("/users");
     } catch (error) {
       console.error("Error creating user:", error);
@@ -200,9 +210,7 @@ export default function EditUser() {
               </div>
               <div class="col-md-12">
                 <div className="form-group">
-                  <label className="form-label">
-                    Status <span className="text-red">*</span>
-                  </label>
+                  <label className="form-label">Status</label>
                   <div className="form-group">
                     <label className="custom-switch">
                       <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
@@ -219,7 +227,7 @@ export default function EditUser() {
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleUpdateUser} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1 page-rightheader" type="submit">
                       Submit
                     </button>
                   </div>
@@ -229,6 +237,22 @@ export default function EditUser() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to edit user?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleUpdateUser}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createUser, fetchRole, resendEmailCreateUser } from "../../../../store/actions/thunks";
+import { Modal, Button } from "react-bootstrap";
 
 export default function AddUser() {
   const { roles } = useSelector((state) => {
@@ -9,7 +10,6 @@ export default function AddUser() {
   });
 
   const dataRole = roles;
-  console.log(dataRole, "<< data role");
 
   const [inputDefault] = useState({
     search: "",
@@ -54,6 +54,11 @@ export default function AddUser() {
     dispatch(fetchRole(inputDefault));
   }, [dispatch, inputDefault]);
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const handleCloseConfirmationModal = () => setShowConfirmationModal(false);
+  const handleShowConfirmationModal = () => setShowConfirmationModal(true);
+
   const handleCancel = () => {
     navigate("/users");
   };
@@ -61,6 +66,10 @@ export default function AddUser() {
   const handleCreateUser = async (event) => {
     event.preventDefault();
     event.persist(); // Memastikan event tetap tersedia setelah fungsi asinkron selesai
+
+    if (typeof input.status === "boolean") {
+      input.status = input.status ? "Active" : "InActive";
+    }
 
     // Validasi wajib pada setiap input
     const validationErrors = validateInput(input);
@@ -70,10 +79,9 @@ export default function AddUser() {
     }
 
     try {
-      if (input.status) input.status = "Active";
-      else input.status = "InActive";
       await dispatch(createUser(input)); // Sesuaikan parameter sesuai kebutuhan
       await dispatch(resendEmailCreateUser(input.email)); // Sesuaikan parameter sesuai kebutuhan
+      handleCloseConfirmationModal();
       navigate("/users");
     } catch (error) {
       console.error("Error creating user:", error);
@@ -195,7 +203,7 @@ export default function AddUser() {
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleCreateUser} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleShowConfirmationModal} className="btn btn-primary ms-1 page-rightheader" type="submit">
                       Submit
                     </button>
                   </div>
@@ -205,6 +213,22 @@ export default function AddUser() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+        <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
+          <Modal.Title>CONFIRMATION</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to edit user?</Modal.Body>
+        <Modal.Footer style={{ background: "#2B2E3F" }}>
+          <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
+            Close
+          </Button>
+          <Button variant="secondary" onClick={handleCreateUser}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
