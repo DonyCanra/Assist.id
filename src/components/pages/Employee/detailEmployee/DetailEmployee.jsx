@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchDetailEmployee } from "../../../../store/actions/thunks";
 import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
+import Row from "./DetailEmployeeTableRaw";
 
 export default function DetailEmployee() {
   const { employee } = useSelector((state) => {
     return state.employee;
   });
 
-  console.log(employee, "detail");
+  const historyEmployee = employee.historyEmployee;
+  console.log(historyEmployee, "<");
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -136,20 +138,9 @@ export default function DetailEmployee() {
                     </tr>
                   </thead>
                   <tbody style={{ color: "#fff" }}>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>24-11-2023 11:11:45</td>
-                      <td>Salma Nur</td>
-                      <td>Rp1.000.000</td>
-                      <td>Rp1.000.000</td>
-                    </tr>
-                    <tr className="border-bottom">
-                      <th scope="row">1</th>
-                      <td>24-11-2023 11:11:45</td>
-                      <td>Salma Nur</td>
-                      <td>Rp1.000.000</td>
-                      <td>Rp1.000.000</td>
-                    </tr>
+                    {historyEmployee?.map((employee, index) => {
+                      return <Row key={index} employee={employee} index={index} />;
+                    })}
                   </tbody>
                 </table>
               </div>
