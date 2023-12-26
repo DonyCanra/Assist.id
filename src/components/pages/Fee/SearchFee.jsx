@@ -126,7 +126,7 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Phone Number</label>
-                <input value={input.phoneNumber} onChange={handleChange} name="employeePhoneNumber" className="form-control mb-4" placeholder="Input phone number" type="text" />
+                <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input phone number" type="text" />
               </div>
               <div className="col-lg">
                 <label className="form-label">Transaction Number</label>

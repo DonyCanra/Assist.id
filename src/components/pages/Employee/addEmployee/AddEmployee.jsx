@@ -11,11 +11,9 @@ export default function AddEmployee() {
     nik: "",
     phoneNumber: "",
     email: "",
-    maxAmount: null,
+    maxAmount: 0,
     employeeStatus: true,
   });
-
-  const [formattedMaxAmount, setFormattedMaxAmount] = useState("");
 
   // State untuk melacak pesan kesalahan
   const [errorMessages, setErrorMessages] = useState({
@@ -31,17 +29,14 @@ export default function AddEmployee() {
 
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
-    // Handle khusus untuk maxAmount
+
     if (name === "maxAmount") {
-      const numericValue = parseCurrencyRupiah(value);
+      // Menghapus karakter non-digit dan mengonversinya ke nilai numerik
+      const numericValue = value.trim() !== "" ? parseCurrencyRupiah(value) : 0;
       setInput((prevInput) => ({
         ...prevInput,
         [name]: numericValue,
       }));
-
-      // Format angka ke format rupiah
-      const formattedValue = formatCurrencyRupiah(numericValue);
-      setFormattedMaxAmount(formattedValue);
     } else {
       setInput((prevInput) => ({
         ...prevInput,
@@ -186,7 +181,7 @@ export default function AddEmployee() {
                     Max Amount <span className="text-red">*</span>
                   </label>
                   <input
-                    value={formattedMaxAmount}
+                    value={Number.isNaN(input.maxAmount) ? 0 : formatCurrencyRupiah(input.maxAmount)}
                     onChange={handleChange}
                     name="maxAmount"
                     type="text" // Menggunakan type "text" untuk input maxAmount agar dapat menampilkan format rupiah

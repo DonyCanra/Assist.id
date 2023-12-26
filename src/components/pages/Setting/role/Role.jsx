@@ -17,6 +17,8 @@ export default function UserList() {
     status: "",
   });
 
+  const dataLocal = JSON.parse(localStorage.privilege);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function UserList() {
               </div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <Link className="btn btn-secondary" to="/add-role">
+                  <Link className="btn btn-secondary" to="/add-role" style={{ cursor: "pointer", display: dataLocal.roleAdd ? "block" : "none" }}>
                     {/* <button className="btn btn-secondary"> */}
                     <i className="fe fe-plus me-2"></i> Add New Data
                     {/* </button> */}

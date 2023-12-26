@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Row({ role, index }) {
-  // console.log(users, "<<<");
+  const dataLocal = JSON.parse(localStorage.privilege);
   const navigate = useNavigate();
 
   const handleEditClick = () => {
@@ -33,7 +33,7 @@ export default function Row({ role, index }) {
           </button>
         </td>
         <td>
-          <Link onClick={handleEditClick}>
+          <Link style={{ cursor: "pointer", display: dataLocal.roleUpdate ? "block" : "none" }} onClick={handleEditClick}>
             {/* <a href=""> */}
             <svg xmlns="http://www.w3.org/2000/svg" className="side-menu__icon ms-3" width="24" height="24" viewBox="0 0 24 24">
               <path

@@ -12,10 +12,8 @@ export default function Fee() {
     // console.log(state.fees, "<<state data");
     return state.fees;
   });
-  console.log(fees, "<<fees");
 
   const dataTable = fees.data;
-  console.log(dataTable, "<<< dataaa");
 
   const [inputDefault, setInputDefault] = useState({
     startDate: "",
@@ -28,6 +26,8 @@ export default function Fee() {
     page: 1,
     limit: 10,
   });
+
+  const dataLocal = JSON.parse(localStorage.privilege);
 
   const pageCount = fees.totalPage; // Jumlah halaman yang ingin ditampilkan
 
@@ -83,7 +83,7 @@ export default function Fee() {
               <div className="page-leftheader">{/* <h4 className="page-title mb-0 text-primary">Employee List</h4> */}</div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <Link className="btn btn-primary" onClick={handleDownloadExcel}>
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel} style={{ cursor: "pointer", display: dataLocal.feeDownload ? "block" : "none" }}>
                     {/* <button className="btn btn-primary"> */}
                     <i className="fe fe-download me-2 fs-14"></i> Download
                     {/* </button> */}

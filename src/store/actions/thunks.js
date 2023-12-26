@@ -26,6 +26,7 @@ import {
   roleCreateSuccess,
   roleUpdateSuccess,
   roleDetailSuccess,
+  privilegeFetchSuccess,
 } from "./actionCreator";
 
 import { SHA256 } from "crypto-js";
@@ -59,6 +60,14 @@ const configureToast = (type, title, message) => {
     text: message,
   });
 };
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+
+export function loginSuccess(userData) {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: userData,
+  };
+}
 
 export function login(input) {
   return async (dispatch) => {
@@ -83,8 +92,11 @@ export function login(input) {
       };
 
       const response = await axios.post(`${BASE_URL}/ewa/auth-dashboard`, input, config);
-      console.log(response, "<<response login");
+
       localStorage.setItem("tokenDashboard", response.data.data.token);
+      localStorage.setItem("privilege", JSON.stringify(response.data.data.privilege));
+
+      dispatch(loginSuccess(response.data));
       configureToast("success", "Login Success", "Wellcome to EWA Dahboard");
       return dispatch(usersLoginSuccess(response.data));
     } catch (error) {
@@ -257,7 +269,12 @@ export function fetchProfile() {
       const response = await axios.get(`${BASE_URL}/dashboard/users/profile`, config);
 
       const data = response.data.data;
-      return dispatch(profileFetchSuccess(data));
+
+      // Dispatch aksi ke store Redux
+      dispatch(profileFetchSuccess(data));
+
+      // Mengembalikan data untuk digunakan di komponen atau di tempat lain jika diperlukan
+      return data;
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
@@ -287,6 +304,37 @@ export function fetchLogactivity(input) {
 
       const data = response.data.data;
       return dispatch(logactivityFetchSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("error", "FAILED", msgError);
+      }
+    }
+  };
+}
+
+export function fetchPrivilege() {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-time": unixTimes,
+        },
+      };
+
+      const response = await axios.get(`${BASE_URL}/dashboard/users/profile-privilege`, config);
+
+      const data = response.data.data;
+
+      localStorage.setItem("privilege", JSON.stringify(data));
+      return dispatch(privilegeFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;
@@ -725,9 +773,12 @@ export function updateRole(input) {
         },
       };
 
-      const response = await axios.put(`${BASE_URL}/dashboard/role/save`, input, config);
+      const responseUpdate = await axios.put(`${BASE_URL}/dashboard/role/save`, input, config);
+      const responsePrivilege = await axios.get(`${BASE_URL}/dashboard/users/profile-privilege`, config);
 
-      const data = response.data;
+      localStorage.setItem("privilege", JSON.stringify(responsePrivilege.data.data));
+
+      const data = responseUpdate.data;
 
       configureToast("success", "SUCCESS", "Role has been updated");
       return dispatch(roleUpdateSuccess(data));

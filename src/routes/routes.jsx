@@ -37,10 +37,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Dashboard />,
         loader: () => {
-          const isDashboard = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
-
-          // Kontrol akses untuk halaman Employee
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isDashboard = dataLocal.dashboardView;
           if (!isDashboard) {
+            localStorage.clear();
             throw redirect("/login");
           }
 
@@ -63,39 +63,68 @@ const router = createBrowserRouter([
         path: "/employee",
         element: <Employee />,
         loader: () => {
-          const isEmployee = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
-
-          // Kontrol akses untuk halaman Employee
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isEmployee = dataLocal.employeeView;
           if (!isEmployee) {
             throw redirect("/");
           }
-
           return null;
         },
       },
       {
         path: "/add-employee",
         element: <AddEmployee />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isAddEmployee = dataLocal.employeeAdd;
+          if (!isAddEmployee) {
+            throw redirect("/");
+          }
+          return null;
+        },
       },
       {
         path: "/add-employee-excel",
         element: <AddEmployeeBulk />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isAddEmployee = dataLocal.employeeAdd;
+          if (!isAddEmployee) {
+            throw redirect("/");
+          }
+          return null;
+        },
       },
       {
         path: "/detail-employee/:id",
         element: <DetailEmployee />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isDetailEmployee = dataLocal.employeeDetail;
+          if (!isDetailEmployee) {
+            throw redirect("/");
+          }
+          return null;
+        },
       },
       {
         path: "/edit-employee/:id",
         element: <EditEmployee />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isUpdateEmployee = dataLocal.employeeUpdate;
+          if (!isUpdateEmployee) {
+            throw redirect("/");
+          }
+          return null;
+        },
       },
       {
         path: "/fee",
         element: <Fee />,
         loader: () => {
-          const isFee = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
-
-          // Kontrol akses untuk halaman Employee
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isFee = dataLocal.feeView;
           if (!isFee) {
             throw redirect("/");
           }
@@ -106,18 +135,33 @@ const router = createBrowserRouter([
       {
         path: "/detail-fee/",
         element: <DetailFee />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isDetailFee = dataLocal.feeDetail;
+          if (!isDetailFee) {
+            throw redirect("/");
+          }
+          return null;
+        },
       },
       {
         path: "/candidate",
         element: <Candidate />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isEmployee = dataLocal.employeeView;
+          if (!isEmployee) {
+            throw redirect("/");
+          }
+          return null;
+        },
       },
       {
         path: "/users",
         element: <UserList />,
         loader: () => {
-          const isUsers = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
-
-          // Kontrol akses untuk halaman Employee
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isUsers = dataLocal.settingView;
           if (!isUsers) {
             throw redirect("/");
           }
@@ -128,18 +172,35 @@ const router = createBrowserRouter([
       {
         path: "/add-user",
         element: <AddUser />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isAddRole = dataLocal.userAdd;
+          if (!isAddRole) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
       {
         path: "/edit-user/:id",
         element: <EditUser />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isUpdateUser = dataLocal.userUpdate;
+          if (!isUpdateUser) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
       {
         path: "/role",
         element: <Role />,
         loader: () => {
-          const isRole = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
-
-          // Kontrol akses untuk halaman Employee
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isRole = dataLocal.settingView;
           if (!isRole) {
             throw redirect("/");
           }
@@ -150,10 +211,28 @@ const router = createBrowserRouter([
       {
         path: "/add-role",
         element: <AddRole />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isAddRole = dataLocal.roleAdd;
+          if (!isAddRole) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
       {
         path: "/edit-role/:id",
         element: <EditRole />,
+        loader: () => {
+          const dataLocal = JSON.parse(localStorage.privilege);
+          const isUpdateRole = dataLocal.roleUpdate;
+          if (!isUpdateRole) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
     ],
   },

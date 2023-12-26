@@ -13,8 +13,11 @@ import detailFeeReducer from "./reducers/detailFeeReducer";
 import profileReducer from "./reducers/profileReducer";
 import imagesReducer from "./reducers/imagesReducer";
 import logactivityReducer from "./reducers/logactivityReducer";
+import privilegeReducer from "./reducers/privilegeReducer";
+import authReducer from "./reducers/authReducer";
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   dashboard: dashboardReducer,
   profile: profileReducer,
   logactivity: logactivityReducer,
@@ -28,6 +31,7 @@ const rootReducer = combineReducers({
   role: detailRoleReducer,
   users: userReducer,
   user: detailUserReducer,
+  privilege: privilegeReducer,
 });
 
 // middleware logger

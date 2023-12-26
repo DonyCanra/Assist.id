@@ -106,7 +106,7 @@ export default function DetailEmployee() {
                       <tr>
                         <th scope="row">Default Max Amount</th>
                         <td>:</td>
-                        <td>{formatCurrencyRupiah(employee.maxAmount)}</td>
+                        <td>{formatCurrencyRupiah(employee.maxAmountDefault)}</td>
                       </tr>
                       <tr>
                         <th scope="row">Max Amount</th>

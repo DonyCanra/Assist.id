@@ -20,18 +20,16 @@ export default function EditEmployee() {
     nik: "",
     phoneNumber: "",
     email: "",
-    maxAmount: null,
+    maxAmount: 0,
     employeeStatus: "",
   });
-
-  const [formattedMaxAmount, setFormattedMaxAmount] = useState("");
 
   const [errorMessages, setErrorMessages] = useState({
     name: "",
     nik: "",
     phoneNumber: "",
     email: "",
-    maxAmount: "",
+    maxAmount: null,
   });
 
   useEffect(() => {
@@ -45,9 +43,6 @@ export default function EditEmployee() {
         maxAmount: employee.maxAmount,
         employeeStatus: employee.employeeStatus,
       });
-      // Format nilai maxAmount saat data karyawan tersedia
-      const formattedValue = formatCurrencyRupiah(employee.maxAmount);
-      setFormattedMaxAmount(formattedValue);
     }
   }, [employee]);
 
@@ -60,15 +55,11 @@ export default function EditEmployee() {
 
     if (name === "maxAmount") {
       // Menghapus karakter non-digit dan mengonversinya ke nilai numerik
-      const numericValue = parseCurrencyRupiah(value) + 5000;
+      const numericValue = parseCurrencyRupiah(value);
       setInput((prevInput) => ({
         ...prevInput,
         [name]: numericValue,
       }));
-
-      // Format angka ke format rupiah
-      const formattedValue = formatCurrencyRupiah(numericValue);
-      setFormattedMaxAmount(formattedValue);
     } else {
       setInput((prevInput) => ({
         ...prevInput,
@@ -205,10 +196,10 @@ export default function EditEmployee() {
                     Max Amount <span className="text-red">*</span>
                   </label>
                   <input
-                    value={formattedMaxAmount}
+                    value={Number.isNaN(input.maxAmount) ? 0 : formatCurrencyRupiah(input.maxAmount)}
                     onChange={handleChange}
                     name="maxAmount"
-                    type="text" // Menggunakan type "text" untuk input maxAmount agar dapat menampilkan format rupiah
+                    type="text" // Menggunakan type "text" agar dapat menampilkan format rupiah dan menerima input teks
                     className="form-control"
                     placeholder="Input max amount employee"
                   />

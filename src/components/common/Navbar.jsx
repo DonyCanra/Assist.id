@@ -1,20 +1,31 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchProfile } from "../../store/actions/thunks";
+import { fetchPrivilege, fetchProfile } from "../../store/actions/thunks";
 
 export default function Navbar() {
   const { profile } = useSelector((state) => {
     return state.profile;
   });
 
-  console.log(profile, "navbar");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProfile());
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Initial fetch
+    dispatch(fetchPrivilege());
+
+    // Set up an interval to fetch data every 1 minute
+    const intervalId = setInterval(() => {
+      dispatch(fetchPrivilege());
+    }, 60000); // 60000 milliseconds = 1 minute
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
   }, [dispatch]);
 
   const logout = () => {

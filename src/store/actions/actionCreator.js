@@ -26,6 +26,7 @@ import {
   USER_CREATE_SUCCESS,
   USER_UPDATE_SUCCESS,
   USER_CHANGE_PASSWORD_SUCCESSS,
+  PRIVILEGE_FETCH_SUCCESS,
 } from "./actionTypes";
 
 // Action Creator Auth
@@ -82,6 +83,13 @@ export const profileFetchSuccess = (data) => {
 export const logactivityFetchSuccess = (data) => {
   return {
     type: LOGACTIVITY_FETCH_SUCCESS,
+    payload: data,
+  };
+};
+
+export const privilegeFetchSuccess = (data) => {
+  return {
+    type: PRIVILEGE_FETCH_SUCCESS,
     payload: data,
   };
 };

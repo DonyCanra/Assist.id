@@ -7,7 +7,6 @@ import Row from "./UserTableRaw";
 
 export default function UserList() {
   const { users } = useSelector((state) => {
-    console.log(state.users, "<<state data");
     return state.users;
   });
   const dataTable = users.data;
@@ -20,6 +19,8 @@ export default function UserList() {
     page: 1,
     limit: 10,
   });
+
+  const dataLocal = JSON.parse(localStorage.privilege);
 
   const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ export default function UserList() {
               </div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <Link className="btn btn-secondary" to="/add-user">
+                  <Link className="btn btn-secondary" to="/add-user" style={{ cursor: "pointer", display: dataLocal.userAdd ? "block" : "none" }}>
                     {/* <button className="btn btn-secondary"> */}
                     <i className="fe fe-plus me-2"></i> Add New Data
                     {/* </button> */}

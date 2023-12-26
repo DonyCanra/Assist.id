@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLogactivity, fetchProfile } from "../../../../store/actions/thunks";
+import { fetchLogactivity, fetchPrivilege, fetchProfile } from "../../../../store/actions/thunks";
 import { Link, useNavigate } from "react-router-dom";
 import Row from "./LogactivityTableRaw";
 
@@ -9,11 +9,12 @@ export default function Profile() {
     return state.profile;
   });
 
-  const permission = profile.privilege.role;
-  console.log(permission, "per");
-
   const { logactivity } = useSelector((state) => {
     return state.logactivity;
+  });
+
+  const { privilege } = useSelector((state) => {
+    return state.privilege;
   });
 
   const dataTable = logactivity.data;
@@ -33,6 +34,10 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(fetchProfile());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchPrivilege());
   }, [dispatch]);
 
   useEffect(() => {
@@ -111,91 +116,91 @@ export default function Profile() {
                       <div className="form-label mb-4">Dashboard</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.dashboardView} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.dashboardView} />
                           <span className="custom-control-label">View dashboard</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.dashboardView} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={privilege.dashboardView} />
                           <span className="custom-control-label">Search by date on grafic</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">EMPLOYEE</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.employeeView} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.employeeView} />
                           <span className="custom-control-label">View employee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.employeeAdd} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.employeeAdd} />
                           <span className="custom-control-label">Create employee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.employeeUpdate} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={privilege.employeeUpdate} />
                           <span className="custom-control-label">Update employee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.employeeDownload} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={privilege.employeeDownload} />
                           <span className="custom-control-label">Download employee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.employeeDetail} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={privilege.employeeDetail} />
                           <span className="custom-control-label">Detail employee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={permission.employeeSearch} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={privilege.employeeSearch} />
                           <span className="custom-control-label">Seach employee</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">CANDIDATE</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.candidateApprove} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.candidateApprove} />
                           <span className="custom-control-label">Approve candidate</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.candidateDownload} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.candidateDownload} />
                           <span className="custom-control-label">Download candidate</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">FEE</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.feeView} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.feeView} />
                           <span className="custom-control-label">View fee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.feeDetail} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.feeDetail} />
                           <span className="custom-control-label">Detail fee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={permission.feeDownload} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={privilege.feeDownload} />
                           <span className="custom-control-label">Download fee</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={permission.feeSearch} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={privilege.feeSearch} />
                           <span className="custom-control-label">Seach fee</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">SETTING</div>
                       <div className="custom-controls-stacked">
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.settingView} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.settingView} />
                           <span className="custom-control-label">Setting View</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={permission.roleAdd} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option1" checked={privilege.roleAdd} />
                           <span className="custom-control-label">Create role</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option2" checked={permission.roleUpdate} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option2" checked={privilege.roleUpdate} />
                           <span className="custom-control-label">Update role</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option3" checked={permission.userAdd} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option3" checked={privilege.userAdd} />
                           <span className="custom-control-label">Create user</span>
                         </label>
                         <label className="custom-control custom-checkbox">
-                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option3" checked={permission.userUpdate} />
+                          <input type="checkbox" className="custom-control-input" name="example-checkbox1" value="option3" checked={privilege.userUpdate} />
                           <span className="custom-control-label">Update user</span>
                         </label>
                       </div>

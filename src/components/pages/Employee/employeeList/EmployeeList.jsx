@@ -12,6 +12,7 @@ export default function Employee() {
     // console.log(state.employees, "<<state data");
     return state.employees;
   });
+
   const dataTable = employees.data;
   // console.log(dataTable, "<<< dataaa");
   const [inputDefault, setInputDefault] = useState({
@@ -25,6 +26,8 @@ export default function Employee() {
     page: 1,
     limit: 10,
   });
+
+  const dataLocal = JSON.parse(localStorage.privilege);
 
   const pageCount = employees.totalPage; // Jumlah halaman yang ingin ditampilkan
 
@@ -127,12 +130,12 @@ export default function Employee() {
               <div className="page-leftheader">{/* <h4 className="page-title mb-0 text-primary">Employee List</h4> */}</div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <Link className="btn btn-secondary" to="/add-employee">
+                  <Link className="btn btn-secondary" to="/add-employee" style={{ cursor: "pointer", display: dataLocal.employeeAdd ? "block" : "none" }}>
                     {/* <button className="btn btn-secondary"> */}
                     <i className="fe fe-plus me-2"></i> Add New Data
                     {/* </button> */}
                   </Link>
-                  <Link className="btn btn-primary" onClick={handleDownloadExcel}>
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel} style={{ cursor: "pointer", display: dataLocal.dashboardView ? "block" : "none" }}>
                     {/* <button className="btn btn-primary"> */}
                     <i className="fe fe-download me-2 fs-14"></i> Download
                     {/* </button> */}

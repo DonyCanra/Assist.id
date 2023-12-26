@@ -15,7 +15,7 @@ export default function EditProfile() {
   const [input, setInput] = useState({
     name: "",
     phoneNumber: "",
-    avatar: profile.avatar,
+    avatar: "",
   });
 
   const [error, setError] = useState({

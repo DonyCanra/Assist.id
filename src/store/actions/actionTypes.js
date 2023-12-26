@@ -11,6 +11,7 @@ export const PROFILE_FETCH_SUCCESS = "profile/fetchSuccess";
 export const LOGACTIVITY_FETCH_SUCCESS = "logactivity/fetchSuccess";
 export const IMAGE_CONVERT_SUCCESS = "images/convertSuccess";
 export const PROFILE_UPDATE_SUCCESS = "profile/updateSuccess";
+export const PRIVILEGE_FETCH_SUCCESS = "privilege/fetchSuccess";
 
 // Action Type Employee
 export const EMPLOYEE_FETCH_SUCCESS = "employee/fetchSuccess";
