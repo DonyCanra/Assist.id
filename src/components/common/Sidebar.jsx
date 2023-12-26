@@ -1,7 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useProfile } from "../constants/ProfileContext";
 
 export default function Sidebar() {
+  const { profile } = useProfile();
+
+  console.log(profile, "prof");
   return (
     <div>
       <aside className="app-sidebar">

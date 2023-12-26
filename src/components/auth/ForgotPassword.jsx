@@ -41,12 +41,12 @@ export default function ForgotPassword() {
     }));
   };
 
-  const inputData = {
-    email: input.email,
-  };
-
   const handleResetPassword = async (event) => {
     event.preventDefault();
+
+    const inputData = {
+      email: input.email,
+    };
 
     // Validate input before dispatching the action
     const validationErrors = validateInput(input);

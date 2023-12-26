@@ -96,22 +96,21 @@ export function login(input) {
 }
 
 export function resendEmailCreateUser(input) {
-  const { email } = input;
   return async (dispatch) => {
     try {
       const unixTimes = unixTimestampInSeconds();
 
-      var setSignatureSha = SHA256(email).toString();
+      var setSignatureSha = SHA256(input.email).toString();
 
       const config = {
         headers: {
-          "X-SIGNATURE": setSignatureSha,
           "X-Time": unixTimes,
+          "X-SIGNATURE": setSignatureSha,
         },
       };
 
       const response = await axios.post(`${BASE_URL}/ewa/resend-email`, input, config);
-      configureToast("success", "SUCCESS", "Please check Email to create password!");
+      configureToast("success", "SUCCESS", "Please check Email to reset password!");
       return dispatch(usersResendCreatePasswordSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;

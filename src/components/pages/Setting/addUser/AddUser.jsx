@@ -70,6 +70,9 @@ export default function AddUser() {
     if (typeof input.status === "boolean") {
       input.status = input.status ? "Active" : "InActive";
     }
+    const inputData = {
+      email: input.email,
+    };
 
     // Validasi wajib pada setiap input
     const validationErrors = validateInput(input);
@@ -80,10 +83,7 @@ export default function AddUser() {
 
     try {
       await dispatch(createUser(input)); // Sesuaikan parameter sesuai kebutuhan
-      const inputEmail = {
-        email: input.email,
-      };
-      await dispatch(resendEmailCreateUser(inputEmail)); // Sesuaikan parameter sesuai kebutuhan
+      await dispatch(resendEmailCreateUser(inputData)); // Sesuaikan parameter sesuai kebutuhan
       handleCloseConfirmationModal();
       navigate("/users");
     } catch (error) {
