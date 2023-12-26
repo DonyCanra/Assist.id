@@ -36,6 +36,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
+        loader: () => {
+          const isDashboard = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
+
+          // Kontrol akses untuk halaman Employee
+          if (!isDashboard) {
+            throw redirect("/login");
+          }
+
+          return null;
+        },
       },
       {
         path: "/profile",
@@ -52,6 +62,16 @@ const router = createBrowserRouter([
       {
         path: "/employee",
         element: <Employee />,
+        loader: () => {
+          const isEmployee = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
+
+          // Kontrol akses untuk halaman Employee
+          if (!isEmployee) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
       {
         path: "/add-employee",
@@ -72,6 +92,16 @@ const router = createBrowserRouter([
       {
         path: "/fee",
         element: <Fee />,
+        loader: () => {
+          const isFee = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
+
+          // Kontrol akses untuk halaman Employee
+          if (!isFee) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
       {
         path: "/detail-fee/",
@@ -84,6 +114,16 @@ const router = createBrowserRouter([
       {
         path: "/users",
         element: <UserList />,
+        loader: () => {
+          const isUsers = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
+
+          // Kontrol akses untuk halaman Employee
+          if (!isUsers) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
       {
         path: "/add-user",
@@ -96,6 +136,16 @@ const router = createBrowserRouter([
       {
         path: "/role",
         element: <Role />,
+        loader: () => {
+          const isRole = true; // Ambil nilai isEmployee dari sumber yang sesuai, misalnya dari status pengguna setelah login;
+
+          // Kontrol akses untuk halaman Employee
+          if (!isRole) {
+            throw redirect("/");
+          }
+
+          return null;
+        },
       },
       {
         path: "/add-role",

@@ -38,7 +38,6 @@ import unixTimestampInSeconds from "../../utils/unixTimestampInSeconds";
 
 // URL SERVER
 const BASE_URL = process.env.REACT_APP_DEV;
-console.log(BASE_URL, "<<base");
 
 // Fungsi untuk konfigurasi Toast
 const configureToast = (type, title, message) => {
@@ -65,7 +64,6 @@ export function login(input) {
   return async (dispatch) => {
     try {
       input.password = SHA256(input.password).toString();
-      // console.log("user data", input);
 
       const unixTimes = unixTimestampInSeconds();
 
@@ -85,6 +83,7 @@ export function login(input) {
       };
 
       const response = await axios.post(`${BASE_URL}/ewa/auth-dashboard`, input, config);
+      console.log(response, "<<response login");
       localStorage.setItem("tokenDashboard", response.data.data.token);
       configureToast("success", "Login Success", "Wellcome to EWA Dahboard");
       return dispatch(usersLoginSuccess(response.data));
@@ -97,12 +96,12 @@ export function login(input) {
 }
 
 export function resendEmailCreateUser(input) {
+  const { email } = input;
   return async (dispatch) => {
     try {
-      // console.log(input.email, "<<<resend");
       const unixTimes = unixTimestampInSeconds();
 
-      var setSignatureSha = SHA256(input.email).toString();
+      var setSignatureSha = SHA256(email).toString();
 
       const config = {
         headers: {
@@ -112,7 +111,6 @@ export function resendEmailCreateUser(input) {
       };
 
       const response = await axios.post(`${BASE_URL}/ewa/resend-email`, input, config);
-      console.log(response, "response");
       configureToast("success", "SUCCESS", "Please check Email to create password!");
       return dispatch(usersResendCreatePasswordSuccess(response.data));
     } catch (error) {
@@ -126,7 +124,6 @@ export function resendEmailCreateUser(input) {
 export function resendEmailForgotPassword(input) {
   return async (dispatch) => {
     try {
-      // console.log(input.email, "<<<resend");
       const unixTimes = unixTimestampInSeconds();
 
       var setSignatureSha = SHA256(input.email).toString();
@@ -139,7 +136,6 @@ export function resendEmailForgotPassword(input) {
       };
 
       const response = await axios.post(`${BASE_URL}/ewa/forgot-password`, input, config);
-      console.log(response, "response");
       configureToast("success", "SUCCESS", "Please check Email to reset password!");
       return dispatch(usersResendForgotPasswordSuccess(response.data));
     } catch (error) {
@@ -153,8 +149,6 @@ export function resendEmailForgotPassword(input) {
 export function createPassword(input) {
   return async (dispatch) => {
     try {
-      // console.log(input, "<<< inputtt");
-
       const token = input.email;
       const decoded = jwtDecode(token);
 
@@ -169,8 +163,6 @@ export function createPassword(input) {
         password: setTokenSha,
         confirmPassword: setConfirmTokenSha,
       };
-
-      // console.log(dataInput, "<< data Input before axios");
 
       const config = {
         headers: {
@@ -203,8 +195,6 @@ export function changePassword(input) {
         newPassword: setnewTokenSha,
         confirmPassword: setConfirmTokenSha,
       };
-
-      // console.log(dataInput, "<<< datainputtt");
 
       const unixTimes = unixTimestampInSeconds();
       const config = {
@@ -239,7 +229,6 @@ export function fetchDashboard(input) {
       const response = await axios.get(`${BASE_URL}/dashboard/analytics?startDate=${input.startDate}&endDate=${input.endDate}`, config);
 
       const data = response.data.data;
-      // console.log(data, "<< data");
       return dispatch(dashboardFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -382,11 +371,10 @@ export function fetchEmployee(input) {
           "X-Time": unixTimes,
         },
       };
-      // console.log("input", input);
       const response = await axios.post(`${BASE_URL}/dashboard/employee/status`, input, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
+
       return dispatch(employeeFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -415,7 +403,7 @@ export function fetchDetailEmployee(id) {
       const response = await axios.get(`${BASE_URL}/dashboard/employee/${id}`, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
+
       return dispatch(employeeDetailSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -444,7 +432,7 @@ export function createEmployee(input) {
       const response = await axios.post(`${BASE_URL}/dashboard/employee`, input, config);
 
       const data = response.data;
-      console.log(data, "<< data");
+
       configureToast("success", "SUCCESS", "New employee has been created");
       return dispatch(employeeCreateSuccess(data));
     } catch (error) {
@@ -474,7 +462,7 @@ export function bulkCreateEmployee(input) {
       const response = await axios.post(`${BASE_URL}/dashboard/employee`, input, config);
 
       const data = response.data;
-      console.log(data, "<< data");
+
       configureToast("success", "SUCCESS", "New employee has been created");
       return dispatch(employeeBulkCreateSuccess(data));
     } catch (error) {
@@ -504,7 +492,7 @@ export function updateEmployee(input) {
       const response = await axios.put(`${BASE_URL}/dashboard/employee`, input, config);
 
       const data = response.data;
-      console.log(data, "<< data");
+
       configureToast("success", "SUCCESS", "Employee has been updated");
       return dispatch(employeeUpdateSuccess(data));
     } catch (error) {
@@ -531,11 +519,10 @@ export function fetchCandidate(input) {
           "X-Time": unixTimes,
         },
       };
-      // console.log("input", input);
       const response = await axios.post(`${BASE_URL}/dashboard/employee/status`, input, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
+
       return dispatch(candidateFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -561,11 +548,10 @@ export function approveCandidate(id) {
           "X-Time": unixTimes,
         },
       };
-      // console.log("input", input);
       const response = await axios.get(`${BASE_URL}/dashboard/employee/approve/${id}`, config);
 
       const data = response.data;
-      console.log(data, "<< data");
+
       configureToast("success", "SUCCESS", "Employee has been approved");
       return dispatch(candidateApproveSuccess(data));
     } catch (error) {
@@ -592,11 +578,10 @@ export function fetchFee(input) {
           "X-Time": unixTimes,
         },
       };
-      // console.log("input", input);
       const response = await axios.post(`${BASE_URL}/dashboard/fee`, input, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
+
       return dispatch(feeFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -625,7 +610,7 @@ export function fetchDetailFee(transactionNo) {
       const response = await axios.get(`${BASE_URL}/dashboard/fee?transactionNo=${transactionNo}`, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
+
       return dispatch(feeDetailSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -652,11 +637,10 @@ export function fetchRole(input) {
           "X-Time": unixTimes,
         },
       };
-      // console.log("input", input);
       const response = await axios.post(`${BASE_URL}/dashboard/role`, input, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
+
       return dispatch(roleFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -702,7 +686,6 @@ export function fetchDetailRole(id) {
 }
 
 export function createRole(input) {
-  console.log(input, "before create role");
   return async (dispatch) => {
     try {
       const unixTimes = unixTimestampInSeconds();
@@ -746,7 +729,7 @@ export function updateRole(input) {
       const response = await axios.put(`${BASE_URL}/dashboard/role/save`, input, config);
 
       const data = response.data;
-      console.log(data, "<< data");
+
       configureToast("success", "SUCCESS", "Role has been updated");
       return dispatch(roleUpdateSuccess(data));
     } catch (error) {
@@ -774,11 +757,8 @@ export function fetchUser(input) {
           "X-Time": unixTimes,
         },
       };
-      // console.log("input", input);
       const response = await axios.post(`${BASE_URL}/dashboard/users/paging`, input, config);
-
       const data = response.data.data;
-      console.log(data, "<< data");
       return dispatch(userFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -808,7 +788,6 @@ export function fetchDetailUser(id) {
       const response = await axios.get(`${BASE_URL}/dashboard/users/${id}`, config);
 
       const data = response.data.data;
-      console.log(data, "<< data");
       return dispatch(userDetailSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
@@ -838,7 +817,6 @@ export function createUser(input) {
       const response = await axios.post(`${BASE_URL}/dashboard/users`, input, config);
 
       const data = response.data;
-      console.log(data, "<< data");
       configureToast("success", "SUCCESS", "New user has been created");
       return dispatch(userCreateSuccess(data));
     } catch (error) {
@@ -869,7 +847,6 @@ export function updateUser(input) {
       const response = await axios.put(`${BASE_URL}/dashboard/users`, input, config);
 
       const data = response.data;
-      console.log(data, "<< data");
       configureToast("success", "SUCCESS", "User has been updated");
       return dispatch(userUpdateSuccess(data));
     } catch (error) {

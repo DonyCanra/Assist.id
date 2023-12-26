@@ -5,6 +5,7 @@ import { fetchCandidate } from "../../../../store/actions/thunks";
 import SearchComponent from "./SearchCandidate";
 import Row from "./CandidateTableRaw";
 import * as XLSX from "xlsx"; // Import pustaka xlsx
+import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 // import "./Employee.css";
 
 export default function Candidate() {
@@ -12,7 +13,7 @@ export default function Candidate() {
     return state.candidates;
   });
   const dataTable = candidates.data;
-  // console.log(dataTable, "<<< dataaa");
+  console.log(dataTable, "<<< dataaa");
   const [inputDefault, setInputDefault] = useState({
     isCandidate: "Yes",
     employeeStatus: "",
@@ -44,7 +45,7 @@ export default function Candidate() {
       NIK: dataTable.nik,
       "Phone Number": dataTable.phoneNumber,
       Email: dataTable.email,
-      "Max Amount": dataTable.maxAmount,
+      "Max Amount": formatCurrencyRupiah(dataTable.maxAmount),
       "Registered Status": dataTable.registerStatus ? "Registered" : "Not Registered",
     }));
 

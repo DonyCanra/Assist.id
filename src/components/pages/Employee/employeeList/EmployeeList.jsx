@@ -5,6 +5,7 @@ import { fetchEmployee } from "../../../../store/actions/thunks";
 import Row from "./EmployeeTableRaw";
 import SearchComponent from "./SearchEmployee";
 import * as XLSX from "xlsx"; // Import pustaka xlsx
+import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function Employee() {
   const { employees } = useSelector((state) => {
@@ -44,7 +45,7 @@ export default function Employee() {
       NIK: dataTable.nik,
       "Phone Number": dataTable.phoneNumber,
       Email: dataTable.email,
-      "Max Amount": dataTable.maxAmount,
+      "Max Amount": formatCurrencyRupiah(dataTable.maxAmount),
       "Employee Status": dataTable.employeeStatus ? "Active" : "InActive",
       "Registered Status": dataTable.registerStatus ? "Registered" : "Not Registered",
     }));
@@ -167,7 +168,7 @@ export default function Employee() {
                   </thead>
                   <tbody className="text-white text-center">
                     {dataTable?.map((employee, index) => {
-                      return <Row key={index} employee={employee} index={index}  />;
+                      return <Row key={index} employee={employee} index={index} />;
                     })}
                   </tbody>
                 </table>

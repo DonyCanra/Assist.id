@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createEmployee } from "../../../../store/actions/thunks";
 import { Modal, Button } from "react-bootstrap";
+import { formatCurrencyRupiah, parseCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function AddEmployee() {
   const [input, setInput] = useState({
@@ -13,6 +14,8 @@ export default function AddEmployee() {
     maxAmount: null,
     employeeStatus: true,
   });
+
+  const [formattedMaxAmount, setFormattedMaxAmount] = useState("");
 
   // State untuk melacak pesan kesalahan
   const [errorMessages, setErrorMessages] = useState({
@@ -28,11 +31,23 @@ export default function AddEmployee() {
 
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
+    // Handle khusus untuk maxAmount
+    if (name === "maxAmount") {
+      const numericValue = parseCurrencyRupiah(value);
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: numericValue,
+      }));
 
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+      // Format angka ke format rupiah
+      const formattedValue = formatCurrencyRupiah(numericValue);
+      setFormattedMaxAmount(formattedValue);
+    } else {
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
 
     // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
     setErrorMessages((prevErrors) => ({
@@ -63,8 +78,6 @@ export default function AddEmployee() {
     const dataInput = {
       data: [input],
     };
-
-    console.log(dataInput, "<<data");
 
     // Validasi sebelum membuat karyawan
     const validationErrors = validateInput(input);
@@ -172,7 +185,14 @@ export default function AddEmployee() {
                   <label className="form-label">
                     Max Amount <span className="text-red">*</span>
                   </label>
-                  <input value={input.maxAmount} onChange={handleChange} name="maxAmount" type="number" className="form-control" placeholder="Input max amount employee" />
+                  <input
+                    value={formattedMaxAmount}
+                    onChange={handleChange}
+                    name="maxAmount"
+                    type="text" // Menggunakan type "text" untuk input maxAmount agar dapat menampilkan format rupiah
+                    className="form-control"
+                    placeholder="Input max amount employee"
+                  />
                   <p className="text-danger">{errorMessages.maxAmount}</p>
                 </div>
               </div>

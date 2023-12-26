@@ -2,6 +2,7 @@ import React from "react";
 import ModalCandidate from "./CandidateApprovalModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetailEmployee } from "../../../../store/actions/thunks";
+import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function Row({ candidate, index }) {
   const { employee } = useSelector((state) => state.employee);
@@ -25,7 +26,7 @@ export default function Row({ candidate, index }) {
         <td>{candidate.nik}</td>
         <td>{candidate.phoneNumber}</td>
         <td>{candidate.email}</td>
-        <td>{candidate.maxAmount}</td>
+        <td>{formatCurrencyRupiah(candidate.maxAmount)}</td>
         <td>
           <button
             style={{

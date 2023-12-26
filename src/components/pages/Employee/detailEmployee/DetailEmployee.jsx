@@ -2,16 +2,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchDetailEmployee } from "../../../../store/actions/thunks";
+import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function DetailEmployee() {
   const { employee } = useSelector((state) => {
     return state.employee;
   });
 
+  console.log(employee, "detail");
+
   const { id } = useParams();
   const dispatch = useDispatch();
-
-  console.log(id, "<<< id");
 
   useEffect(() => {
     dispatch(fetchDetailEmployee(id));
@@ -35,14 +36,6 @@ export default function DetailEmployee() {
               <div className="row">
                 <div className="table-responsive">
                   <table className="table card-table table-vcenter text-nowrap">
-                    {/* <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Salary</th>
-                      </tr>
-                    </thead> */}
                     <tbody style={{ color: "#fff" }}>
                       <tr>
                         <th scope="row">Name</th>
@@ -111,12 +104,12 @@ export default function DetailEmployee() {
                       <tr>
                         <th scope="row">Default Max Amount</th>
                         <td>:</td>
-                        <td>{employee.maxAmount}</td>
+                        <td>{formatCurrencyRupiah(employee.maxAmount)}</td>
                       </tr>
                       <tr>
                         <th scope="row">Max Amount</th>
                         <td>:</td>
-                        <td>{employee.maxAmount}</td>
+                        <td>{formatCurrencyRupiah(employee.maxAmount)}</td>
                       </tr>
                     </tbody>
                   </table>

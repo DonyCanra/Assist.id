@@ -5,6 +5,7 @@ import { fetchFee } from "../../../store/actions/thunks";
 import SearchComponent from "./SearchFee";
 import Row from "./FeeTableRaw";
 import * as XLSX from "xlsx"; // Import pustaka xlsx
+import { formatCurrencyRupiah } from "../../../utils/formatCurrency";
 
 export default function Fee() {
   const { fees } = useSelector((state) => {
@@ -48,8 +49,8 @@ export default function Fee() {
       Name: dataTable.employeeName,
       "Phone Number": dataTable.employeePhoneNumber,
       Email: dataTable.employeeEmail,
-      "Disburse Amount": dataTable.disburseAmount,
-      Fee: dataTable.clientFee,
+      "Disburse Amount": formatCurrencyRupiah(dataTable.disburseAmount),
+      Fee: formatCurrencyRupiah(dataTable.clientFee),
       Status: dataTable.status,
     }));
 

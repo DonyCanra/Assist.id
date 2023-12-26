@@ -80,7 +80,10 @@ export default function AddUser() {
 
     try {
       await dispatch(createUser(input)); // Sesuaikan parameter sesuai kebutuhan
-      await dispatch(resendEmailCreateUser(input.email)); // Sesuaikan parameter sesuai kebutuhan
+      const inputEmail = {
+        email: input.email,
+      };
+      await dispatch(resendEmailCreateUser(inputEmail)); // Sesuaikan parameter sesuai kebutuhan
       handleCloseConfirmationModal();
       navigate("/users");
     } catch (error) {
@@ -219,7 +222,7 @@ export default function AddUser() {
         <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
           <Modal.Title>CONFIRMATION</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to edit user?</Modal.Body>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to add user?</Modal.Body>
         <Modal.Footer style={{ background: "#2B2E3F" }}>
           <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
             Close

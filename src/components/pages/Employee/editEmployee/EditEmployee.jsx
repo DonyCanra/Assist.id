@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDetailEmployee, updateEmployee } from "../../../../store/actions/thunks";
 import { Modal, Button } from "react-bootstrap";
+import { formatCurrencyRupiah, parseCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function EditEmployee() {
   const { employee } = useSelector((state) => {
@@ -23,6 +24,8 @@ export default function EditEmployee() {
     employeeStatus: "",
   });
 
+  const [formattedMaxAmount, setFormattedMaxAmount] = useState("");
+
   const [errorMessages, setErrorMessages] = useState({
     name: "",
     nik: "",
@@ -42,6 +45,9 @@ export default function EditEmployee() {
         maxAmount: employee.maxAmount,
         employeeStatus: employee.employeeStatus,
       });
+      // Format nilai maxAmount saat data karyawan tersedia
+      const formattedValue = formatCurrencyRupiah(employee.maxAmount);
+      setFormattedMaxAmount(formattedValue);
     }
   }, [employee]);
 
@@ -52,12 +58,25 @@ export default function EditEmployee() {
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: type === "checkbox" ? checked : type === "number" ? parseFloat(value) : value,
-    }));
+    if (name === "maxAmount") {
+      // Menghapus karakter non-digit dan mengonversinya ke nilai numerik
+      const numericValue = parseCurrencyRupiah(value) + 5000;
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: numericValue,
+      }));
 
-    // Clear error message when input changes
+      // Format angka ke format rupiah
+      const formattedValue = formatCurrencyRupiah(numericValue);
+      setFormattedMaxAmount(formattedValue);
+    } else {
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+
+    // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
     setErrorMessages((prevErrors) => ({
       ...prevErrors,
       [name]: "",
@@ -127,12 +146,6 @@ export default function EditEmployee() {
 
   return (
     <>
-      {/* <div className="page-header">
-        <div className="page-leftheader">
-          <h4 className="page-title mb-0 text-primary">Add New Employee</h4>
-        </div>
-      </div> */}
-
       <div className="row">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card" style={{ background: "#212332" }}>
@@ -191,7 +204,14 @@ export default function EditEmployee() {
                   <label className="form-label">
                     Max Amount <span className="text-red">*</span>
                   </label>
-                  <input value={input.maxAmount} onChange={handleChange} name="maxAmount" type="number" className="form-control" placeholder="Input max amount employee" />
+                  <input
+                    value={formattedMaxAmount}
+                    onChange={handleChange}
+                    name="maxAmount"
+                    type="text" // Menggunakan type "text" untuk input maxAmount agar dapat menampilkan format rupiah
+                    className="form-control"
+                    placeholder="Input max amount employee"
+                  />
                   <p className="text-danger">{errorMessages.maxAmount}</p>
                 </div>
               </div>

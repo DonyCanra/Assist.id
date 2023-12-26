@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function Row({ employee, index }) {
   // console.log(employee, "<<<");
@@ -22,7 +23,7 @@ export default function Row({ employee, index }) {
         <td>{employee.nik}</td>
         <td>{employee.phoneNumber}</td>
         <td>{employee.email}</td>
-        <td>{employee.maxAmount}</td>
+        <td>{formatCurrencyRupiah(employee.maxAmount)}</td>
         <td>
           <button
             style={{

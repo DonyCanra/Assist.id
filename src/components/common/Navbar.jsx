@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchProfile } from "../../store/actions/thunks";
@@ -7,6 +7,8 @@ export default function Navbar() {
   const { profile } = useSelector((state) => {
     return state.profile;
   });
+
+  console.log(profile, "navbar");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

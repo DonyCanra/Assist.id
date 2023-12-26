@@ -1,6 +1,6 @@
-export default function Raw({ employee, index, handleDeleteFunction }) {
-  // console.log(employee, "<<<employee");
+import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 
+export default function Raw({ employee, index, handleDeleteFunction }) {
   const onDeleteClick = () => {
     handleDeleteFunction(index);
     // console.log("terdelete");
@@ -13,7 +13,7 @@ export default function Raw({ employee, index, handleDeleteFunction }) {
         <td>{employee.nik}</td>
         <td>{employee.phoneNumber}</td>
         <td>{employee.email}</td>
-        <td>{employee.maxAmount}</td>
+        <td>{formatCurrencyRupiah(employee.maxAmount)}</td>
         <td>
           <svg style={{ cursor: "pointer" }} onClick={onDeleteClick} xmlns="http://www.w3.org/2000/svg" width="14" height="17" viewBox="0 0 14 17" fill="none">
             <path
