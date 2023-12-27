@@ -9,15 +9,26 @@ export default function AddEmployeeDataBulk() {
   });
   const [modalShow, setModalShow] = React.useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [error, setError] = useState(null);
   const uploadInputRef = useRef(null);
   const navigate = useNavigate();
 
   const readUploadFile = (e) => {
     e.preventDefault();
 
+    // Reset error message
+    setError(null);
+
     if (e.target.files) {
-      const reader = new FileReader();
       const file = e.target.files[0];
+
+      // Check file type
+      if (file.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        setError("Format file tidak valid. Harap unggah file XLSX.");
+        return;
+      }
+
+      const reader = new FileReader();
 
       reader.onload = (e) => {
         const data = e.target.result;
@@ -33,7 +44,7 @@ export default function AddEmployeeDataBulk() {
         // Reset progress and hide label after 2 seconds
         setTimeout(() => {
           setUploadProgress(0);
-        }, 3000);
+        }, 2000);
       };
 
       reader.readAsArrayBuffer(file);
@@ -102,6 +113,7 @@ export default function AddEmployeeDataBulk() {
                 }}
               >
                 <input type="file" id="upload" onChange={readUploadFile} style={{ display: "none" }} ref={uploadInputRef} />
+                {error && <p style={{ color: "red" }}>{error}</p>}
                 <label htmlFor="upload" style={{ cursor: "pointer" }}>
                   {/* SVG Path */}
                   <svg xmlns="http://www.w3.org/2000/svg" width="121" height="121" viewBox="0 0 121 121" fill="none">

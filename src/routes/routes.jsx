@@ -36,16 +36,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
-        loader: () => {
-          const dataLocal = JSON.parse(localStorage.privilege);
-          const isDashboard = dataLocal.dashboardView;
-          if (!isDashboard) {
-            localStorage.clear();
-            throw redirect("/login");
-          }
-
-          return null;
-        },
       },
       {
         path: "/profile",

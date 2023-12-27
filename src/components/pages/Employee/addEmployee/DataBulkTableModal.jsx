@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const ItemsPerPage = 2;
+const ItemsPerPage = 10;
 
 export default function DataBulkTableModal(props) {
   const { dataBulk, handleDelete } = props;
@@ -29,7 +29,7 @@ export default function DataBulkTableModal(props) {
     phoneNumber: item["Phone Number"].toString(),
     email: item.Email,
     maxAmount: item["Maximum Amount"],
-    employeeStatus: true,
+    employeeStatus: "Active",
   }));
 
   const maxPage = Math.ceil(originalData.length / ItemsPerPage);

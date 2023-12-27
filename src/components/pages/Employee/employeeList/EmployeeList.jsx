@@ -14,7 +14,7 @@ export default function Employee() {
   });
 
   const dataTable = employees.data;
-  // console.log(dataTable, "<<< dataaa");
+  console.log(dataTable, "<<< dataaa");
   const [inputDefault, setInputDefault] = useState({
     isCandidate: "No",
     employeeStatus: "",
