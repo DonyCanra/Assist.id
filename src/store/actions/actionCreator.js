@@ -27,6 +27,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_CHANGE_PASSWORD_SUCCESSS,
   PRIVILEGE_FETCH_SUCCESS,
+  TRANSACTION_FETCH_SUCCESS,
 } from "./actionTypes";
 
 // Action Creator Auth
@@ -69,6 +70,13 @@ export const usersChangePasswordSuccess = (data) => {
 export const dashboardFetchSuccess = (data) => {
   return {
     type: DASHBOARD_FETCH_SUCCESS,
+    payload: data,
+  };
+};
+
+export const transactionFetchSuccess = (data) => {
+  return {
+    type: TRANSACTION_FETCH_SUCCESS,
     payload: data,
   };
 };

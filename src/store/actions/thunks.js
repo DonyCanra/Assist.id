@@ -27,6 +27,7 @@ import {
   roleUpdateSuccess,
   roleDetailSuccess,
   privilegeFetchSuccess,
+  transactionFetchSuccess,
 } from "./actionCreator";
 
 import { SHA256 } from "crypto-js";
@@ -241,6 +242,35 @@ export function fetchDashboard(input) {
 
       const data = response.data.data;
       return dispatch(dashboardFetchSuccess(data));
+    } catch (error) {
+      const msgError = error.response.data.error.messageData;
+      const codeError = error.response.data.error.code;
+      if (codeError === 511) {
+        configureToast("warning", "WARNING", msgError);
+        localStorage.clear();
+        throw redirect("/login");
+      } else {
+        configureToast("error", "FAILED", msgError);
+      }
+    }
+  };
+}
+export function fetchDataTransaction(input) {
+  return async (dispatch) => {
+    try {
+      const unixTimes = unixTimestampInSeconds();
+      const config = {
+        headers: {
+          "X-Access-Key": localStorage.tokenDashboard,
+          "X-time": unixTimes,
+        },
+      };
+
+      const response = await axios.post(`${BASE_URL}/dashboard/chart/withdrawal`, input, config);
+
+      const data = response.data.data;
+      console.log(data, "<<< DT");
+      return dispatch(transactionFetchSuccess(data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;

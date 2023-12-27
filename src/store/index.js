@@ -15,10 +15,12 @@ import imagesReducer from "./reducers/imagesReducer";
 import logactivityReducer from "./reducers/logactivityReducer";
 import privilegeReducer from "./reducers/privilegeReducer";
 import authReducer from "./reducers/authReducer";
+import transactionReducer from "./reducers/transactionReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   dashboard: dashboardReducer,
+  transaction: transactionReducer,
   profile: profileReducer,
   logactivity: logactivityReducer,
   image: imagesReducer,

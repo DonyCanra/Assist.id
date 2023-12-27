@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDashboard } from "../../../../store/actions/thunks";
 import FilterDate from "./FilterDate";
-import LineChartWithdraw from "../../../charts/LineChartWithdraw";
-import LineChartTransaction from "../../../charts/LineChartTransaction";
+import LineChartWithdraw from "../charts/LineChartWithdraw";
+import LineChartTransaction from "../charts/LineChartTransaction";
 // import Loader from "../../../common/Loader";
 
 export default function Dashboard() {
