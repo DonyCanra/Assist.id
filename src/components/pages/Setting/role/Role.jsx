@@ -9,7 +9,7 @@ export default function UserList() {
   const { roles } = useSelector((state) => {
     return state.roles;
   });
-  
+
   const dataTable = roles;
 
   const [inputDefault] = useState({
@@ -35,8 +35,8 @@ export default function UserList() {
                 <h4 className="page-title mb-0 text-primary">Role</h4>
               </div>
               <div className="page-rightheader">
-                <div className="btn-list">
-                  <Link className="btn btn-secondary" to="/add-role" style={{ cursor: "pointer", display: dataLocal.roleAdd ? "block" : "none" }}>
+                <div className="btn-list" style={{ cursor: "pointer", display: dataLocal.roleAdd ? "" : "none" }}>
+                  <Link className="btn btn-secondary" to="/add-role">
                     {/* <button className="btn btn-secondary"> */}
                     <i className="fe fe-plus me-2"></i> Add New Data
                     {/* </button> */}

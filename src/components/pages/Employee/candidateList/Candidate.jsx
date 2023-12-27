@@ -126,11 +126,9 @@ export default function Candidate() {
             <div className="page-header" style={{ margin: "20px 20px 20px 20px" }}>
               <div className="page-leftheader">{/* <h4 className="page-title mb-0 text-primary">Employee List</h4> */}</div>
               <div className="page-rightheader">
-                <div className="btn-list">
-                  <Link className="btn btn-primary" onClick={handleDownloadExcel} style={{ cursor: "pointer", display: dataLocal.candidateDownload ? "block" : "none" }}>
-                    {/* <button className="btn btn-primary"> */}
+                <div className="btn-list" style={{ cursor: "pointer", display: dataLocal.candidateDownload ? "" : "none" }}>
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel}>
                     <i className="fe fe-download me-2 fs-14"></i> Download
-                    {/* </button> */}
                   </Link>
                 </div>
               </div>

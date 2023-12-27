@@ -27,7 +27,7 @@ export default function UserList() {
   useEffect(() => {
     dispatch(fetchUser(inputDefault));
   }, [dispatch, inputDefault]);
-  
+
   return (
     <>
       <div className="row">
@@ -38,8 +38,8 @@ export default function UserList() {
                 <h4 className="page-title mb-0 text-primary">User List</h4>
               </div>
               <div className="page-rightheader">
-                <div className="btn-list">
-                  <Link className="btn btn-secondary" to="/add-user" style={{ cursor: "pointer", display: dataLocal.userAdd ? "block" : "none" }}>
+                <div className="btn-list" style={{ cursor: "pointer", display: dataLocal.userAdd ? "" : "none" }}>
+                  <Link className="btn btn-secondary" to="/add-user">
                     {/* <button className="btn btn-secondary"> */}
                     <i className="fe fe-plus me-2"></i> Add New Data
                     {/* </button> */}

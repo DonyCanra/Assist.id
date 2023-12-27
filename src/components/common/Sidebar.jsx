@@ -16,7 +16,7 @@ export default function Sidebar() {
           </Link>
         </div>
         <ul className="side-menu app-sidebar3">
-          <li className="slide" style={{ cursor: "pointer", display: dataLocal.dashboardView ? "block" : "none" }}>
+          <li className="slide" style={{ cursor: "pointer", display: dataLocal.dashboardView ? "" : "none" }}>
             <NavLink className="side-menu__item" to="/">
               <svg xmlns="http://www.w3.org/2000/svg" className="side-menu__icon" width="24" height="24" viewBox="0 0 24 24">
                 <path
@@ -27,7 +27,7 @@ export default function Sidebar() {
               <span className="side-menu__label">Dashboard</span>
             </NavLink>
           </li>
-          <li className="slide" style={{ cursor: "pointer", display: dataLocal.employeeView ? "block" : "none" }}>
+          <li className="slide" style={{ cursor: "pointer", display: dataLocal.employeeView ? "" : "none" }}>
             <NavLink className="side-menu__item" to="/employee">
               <svg xmlns="http://www.w3.org/2000/svg" className="side-menu__icon" width="24" height="24" viewBox="0 0 24 24">
                 <g clipPath="url(#clip0_1_267)">
@@ -45,7 +45,7 @@ export default function Sidebar() {
               <span className="side-menu__label">Employee</span>
             </NavLink>
           </li>
-          <li className="slide" style={{ cursor: "pointer", display: dataLocal.feeView ? "block" : "none" }}>
+          <li className="slide" style={{ cursor: "pointer", display: dataLocal.feeView ? "" : "none" }}>
             <NavLink className="side-menu__item" to="/fee">
               <svg xmlns="http://www.w3.org/2000/svg" className="side-menu__icon" width="24" height="24" viewBox="0 0 24 24">
                 <path
@@ -56,7 +56,7 @@ export default function Sidebar() {
               <span className="side-menu__label">Fee</span>
             </NavLink>
           </li>
-          <Dropdown className="slide" style={{ cursor: "pointer", display: dataLocal.settingView ? "block" : "none" }}>
+          <Dropdown className="slide" style={{ cursor: "pointer", display: dataLocal.settingView ? "" : "none" }}>
             <Dropdown.Toggle id="dropdown-basic" className="side-menu__item" style={{ color: "#fff", background: "#2A2E3F", borderColor: "#2A2E3F", width: "198px", textAlign: "left" }}>
               <svg xmlns="http://www.w3.org/2000/svg" className="side-menu__icon" width="24" height="24" viewBox="0 0 24 24">
                 <path

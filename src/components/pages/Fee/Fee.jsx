@@ -83,10 +83,8 @@ export default function Fee() {
               <div className="page-leftheader">{/* <h4 className="page-title mb-0 text-primary">Employee List</h4> */}</div>
               <div className="page-rightheader">
                 <div className="btn-list">
-                  <Link className="btn btn-primary" onClick={handleDownloadExcel} style={{ cursor: "pointer", display: dataLocal.feeDownload ? "block" : "none" }}>
-                    {/* <button className="btn btn-primary"> */}
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel} style={{ cursor: "pointer", display: dataLocal.feeDownload ? "" : "none" }}>
                     <i className="fe fe-download me-2 fs-14"></i> Download
-                    {/* </button> */}
                   </Link>
                 </div>
               </div>
