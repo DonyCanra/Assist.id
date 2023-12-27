@@ -53,9 +53,18 @@ export default function EditEmployee() {
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
+    // Batasi panjang karakter untuk phone number
+    if (name === "phoneNumber" && value.length > 13) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
+    // Batasi panjang karakter untuk phone number
+    if (name === "nik" && value.length > 17) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
     if (name === "maxAmount") {
-      // Menghapus karakter non-digit dan mengonversinya ke nilai numerik
-      const numericValue = parseCurrencyRupiah(value);
+      const numericValue = value.trim() !== "" ? parseCurrencyRupiah(value) : 0;
       setInput((prevInput) => ({
         ...prevInput,
         [name]: numericValue,

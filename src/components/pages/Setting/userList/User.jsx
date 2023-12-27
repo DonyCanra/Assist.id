@@ -17,7 +17,7 @@ export default function UserList() {
     phoneNumber: "",
     email: "",
     page: 1,
-    limit: 10,
+    limit: 100,
   });
 
   const dataLocal = JSON.parse(localStorage.privilege);

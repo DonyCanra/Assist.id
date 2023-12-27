@@ -30,8 +30,17 @@ export default function AddEmployee() {
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
+    // Batasi panjang karakter untuk phone number
+    if (name === "phoneNumber" && value.length > 13) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
+    // Batasi panjang karakter untuk phone number
+    if (name === "nik" && value.length > 17) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
     if (name === "maxAmount") {
-      // Menghapus karakter non-digit dan mengonversinya ke nilai numerik
       const numericValue = value.trim() !== "" ? parseCurrencyRupiah(value) : 0;
       setInput((prevInput) => ({
         ...prevInput,
@@ -66,10 +75,7 @@ export default function AddEmployee() {
 
     input.maxAmount = parseFloat(input.maxAmount);
 
-    if (typeof input.employeeStatus === "boolean") {
-      input.employeeStatus = input.employeeStatus ? "Active" : "InActive";
-    }
-
+    input.employeeStatus = input.employeeStatus ? "Active" : "InActive";
     const dataInput = {
       data: [input],
     };
@@ -105,6 +111,8 @@ export default function AddEmployee() {
           errors[key] = "Format email not valid.";
         } else if (key === "phoneNumber" && !phoneNumberRegex.test(data[key])) {
           errors[key] = "Phone number must be between 9 and 13 digits.";
+        } else if (key === "maxAmount" && (isNaN(data[key]) || data[key] <= 0)) {
+          errors[key] = "Max Amount must be a positive number.";
         }
       }
     }

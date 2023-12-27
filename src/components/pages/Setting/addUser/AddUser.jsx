@@ -38,6 +38,11 @@ export default function AddUser() {
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
+    // Batasi panjang karakter untuk phone number
+    if (name === "phoneNumber" && value.length > 13) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
     setInput((prevInput) => ({
       ...prevInput,
       [name]: type === "checkbox" ? checked : value,

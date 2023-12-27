@@ -25,6 +25,10 @@ export default function EditProfile() {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
+    // Batasi panjang karakter untuk phone number
+    if (name === "phoneNumber" && value.length > 13) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
     setInput({
       ...input,
       [name]: value,
