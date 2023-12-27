@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const CheckboxInput = ({ input, handleChange }) => {
+  console.log(input, "<pri");
   const [isSubMenuDashboardVisible, setSubMenuDashboardVisible] = useState(false);
   const [isSubMenuEmployeeVisible, setSubMenuEmployeeVisible] = useState(false);
   const [isSubMenuFeeVisible, setSubMenuFeeVisible] = useState(false);
@@ -220,16 +221,8 @@ const CheckboxInput = ({ input, handleChange }) => {
                 <span style={{ marginLeft: "0px" }}>Update User</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="userDetail" value={input.userDetail} type="checkbox" checked={input.userDetail} onChange={handleChange} style={{ marginRight: "5px" }} />
-                <span style={{ marginLeft: "0px" }}>Detail User</span>
-              </div>
-              <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
                 <input name="roleAdd" value={input.roleAdd} type="checkbox" checked={input.roleAdd} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Add Role</span>
-              </div>
-              <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="roleDetail" value={input.roleDetail} type="checkbox" checked={input.roleDetail} onChange={handleChange} style={{ marginRight: "5px" }} />
-                <span style={{ marginLeft: "0px" }}>Detail Role</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
                 <input name="roleUpdate" value={input.roleUpdate} type="checkbox" checked={input.roleUpdate} onChange={handleChange} style={{ marginRight: "5px" }} />
