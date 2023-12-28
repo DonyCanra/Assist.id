@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { fetchDetailFee } from "../../../../store/actions/thunks";
+import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function DetailFee() {
   const { fee } = useSelector((state) => {
@@ -71,13 +72,13 @@ export default function DetailFee() {
                     <thead>
                       <tr>
                         <th style={{ width: "300px" }}>Transaction Number</th>
-                        <th>Fee</th>
+                        <th>Withdraw Fee</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>{fee.transactionNo}</td>
-                        <td>{fee.clientFee}</td>
+                        <td>{formatCurrencyRupiah(fee.bayarindFee + fee.clientFee)}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -134,6 +135,34 @@ export default function DetailFee() {
                       <tr>
                         <td>{fee.employeePhoneNumber}</td>
                         <td>{fee.employeeEmail}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style={{ width: "300px", height: "30px" }}></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style={{ width: "300px" }}>Bayarind Fee</th>
+                        <th>Client Fee</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{formatCurrencyRupiah(fee.bayarindFee)}</td>
+                        <td>{formatCurrencyRupiah(fee.clientFee)}</td>
                       </tr>
                     </tbody>
                   </table>

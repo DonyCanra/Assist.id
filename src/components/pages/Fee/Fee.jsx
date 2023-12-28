@@ -50,8 +50,10 @@ export default function Fee() {
       "Phone Number": dataTable.employeePhoneNumber,
       Email: dataTable.employeeEmail,
       "Disburse Amount": formatCurrencyRupiah(dataTable.disburseAmount),
-      Fee: formatCurrencyRupiah(dataTable.clientFee),
       Status: dataTable.status,
+      "Bayarind Fee": formatCurrencyRupiah(dataTable.bayarindFee),
+      "Client Fee": formatCurrencyRupiah(dataTable.clientFee),
+      "Withdraw Fee": formatCurrencyRupiah(dataTable.bayarindFee + dataTable.clientFee),
     }));
 
     // Buat objek worksheet dari data
