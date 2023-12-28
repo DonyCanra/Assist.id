@@ -6,14 +6,12 @@ import SearchComponent from "./SearchCandidate";
 import Row from "./CandidateTableRaw";
 import * as XLSX from "xlsx"; // Import pustaka xlsx
 import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
-// import "./Employee.css";
 
 export default function Candidate() {
   const { candidates } = useSelector((state) => {
     return state.candidates;
   });
   const dataTable = candidates.data;
-  console.log(dataTable, "<<< dataaa");
   const [inputDefault, setInputDefault] = useState({
     isCandidate: "Yes",
     employeeStatus: "",

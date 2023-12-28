@@ -1,15 +1,6 @@
-// import { Link } from "react-router-dom";
-// import "./Employee.css";
-
 export default function DetailUser() {
   return (
     <>
-      {/* <div className="page-header">
-        <div className="page-leftheader">
-          <h4 className="page-title mb-0 text-primary">Add New Employee</h4>
-        </div>
-      </div> */}
-
       <div className="row">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card" style={{ background: "#212332" }}>
@@ -17,13 +8,6 @@ export default function DetailUser() {
               <div className="page-leftheader">
                 <h4 className="page-title mb-0 text-primary">Detail Fee</h4>
               </div>
-              {/* <div className="page-rightheader">
-                <div className="btn-list">
-                  <button className="btn btn-secondary">
-                    <i className="fe fe-plus me-2"></i> Add New Data Bulk
-                  </button>
-                </div>
-              </div> */}
             </div>
 
             <div

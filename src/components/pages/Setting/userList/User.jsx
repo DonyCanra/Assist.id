@@ -10,7 +10,6 @@ export default function UserList() {
     return state.users;
   });
   const dataTable = users.data;
-  // console.log(dataTable, "<<< dataaa");
   const [inputDefault] = useState({
     status: "",
     name: "",

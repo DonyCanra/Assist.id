@@ -3,7 +3,6 @@ import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 export default function Raw({ employee, index, handleDeleteFunction }) {
   const onDeleteClick = () => {
     handleDeleteFunction(index);
-    // console.log("terdelete");
   };
   return (
     <>

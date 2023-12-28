@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { fetchFee } from "../../../store/actions/thunks";
 import SearchComponent from "./SearchFee";
 import Row from "./FeeTableRaw";
-import * as XLSX from "xlsx"; // Import pustaka xlsx
+import * as XLSX from "xlsx";
 import { formatCurrencyRupiah } from "../../../utils/formatCurrency";
 
 export default function Fee() {
   const { fees } = useSelector((state) => {
-    // console.log(state.fees, "<<state data");
     return state.fees;
   });
 

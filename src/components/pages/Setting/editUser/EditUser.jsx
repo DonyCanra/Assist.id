@@ -14,7 +14,6 @@ export default function EditUser() {
   });
 
   const dataRole = roles;
-  console.log(dataRole, "<< data role");
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -106,8 +105,6 @@ export default function EditUser() {
       const validationErrors = validateInput(input);
       if (Object.keys(validationErrors).length > 0) {
         setErrorMessages(validationErrors);
-        console.log("1");
-        console.log(validationErrors, "<<<");
         return;
       }
 

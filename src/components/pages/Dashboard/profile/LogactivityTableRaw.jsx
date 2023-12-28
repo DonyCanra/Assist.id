@@ -1,5 +1,5 @@
 export default function Row({ logactivity, index }) {
-  // console.log(profile, "<<<");
+
   return (
     <>
       <tr className="border-bottom">

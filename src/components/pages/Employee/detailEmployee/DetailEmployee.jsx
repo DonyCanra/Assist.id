@@ -11,7 +11,6 @@ export default function DetailEmployee() {
   });
 
   const historyEmployee = employee.historyEmployee;
-  console.log(historyEmployee, "<");
 
   const { id } = useParams();
   const dispatch = useDispatch();

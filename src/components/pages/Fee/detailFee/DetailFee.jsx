@@ -9,8 +9,6 @@ export default function DetailFee() {
     return state.fee;
   });
 
-  console.log(fee, "feeee");
-
   // Gunakan useLocation hook untuk mendapatkan informasi tentang lokasi
   const location = useLocation();
 
@@ -19,8 +17,6 @@ export default function DetailFee() {
   const transactionNo = queryParams.get("transactionNo");
 
   const dispatch = useDispatch();
-
-  console.log(transactionNo, "<<< id");
 
   useEffect(() => {
     dispatch(fetchDetailFee(transactionNo));
