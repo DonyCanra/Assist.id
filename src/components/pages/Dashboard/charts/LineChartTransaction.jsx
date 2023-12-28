@@ -26,8 +26,6 @@ const LineChartTransaction = () => {
     transaction: Object.entries(transaction).map(([label, value]) => ({ label, value })),
   };
 
-  console.log(dataChart, "chart");
-
   const data = {
     labels: dataChart.transaction.map((x) => x.label),
     datasets: [
