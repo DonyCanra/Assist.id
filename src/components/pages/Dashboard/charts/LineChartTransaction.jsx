@@ -27,6 +27,7 @@ const LineChartTransaction = () => {
     labels: transaction.map((x) => x.label),
     datasets: [
       {
+        label: "Transaction",
         data: transaction.map((x) => x.value),
         backgroundColor: "#25B47A",
         borderColor: "#25B47A",
