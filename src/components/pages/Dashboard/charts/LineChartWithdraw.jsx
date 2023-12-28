@@ -1,18 +1,7 @@
-import React from "react";
 import { Chart } from "react-google-charts";
-
-export const data = [
-  ["Year", "DATA AMOUNT WITHDRAWL"],
-  ["2004", 40],
-  ["2005", 46],
-  ["2006", 11],
-  ["2007", 54],
-  ["2008", 54],
-  ["2009", 54],
-  ["2010", 54],
-  ["2011", 54],
-  ["2012", 54],
-];
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDataWithdraw } from "../../../../store/actions/thunks";
 
 export const options = {
   curveType: "function",
@@ -28,5 +17,36 @@ export const options = {
 };
 
 export default function LineChartWithdraw() {
+  const { withdraw } = useSelector((state) => {
+    return state.withdraw;
+  });
+
+  const originalData = {
+    data: withdraw,
+  };
+
+  const transformData = (originalData) => {
+    const transformedData = [["No", "DATA WITHDRAW"]];
+
+    originalData.data.forEach((item) => {
+      transformedData.push([item.label, item.value]);
+    });
+
+    return transformedData;
+  };
+
+  const data = transformData(originalData);
+
+  const [input] = useState({
+    startDate: "2023-12-18",
+    endDate: "2023-12-18",
+  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchDataWithdraw(input));
+  }, [dispatch, input]);
+
   return <Chart chartType="LineChart" width="100%" height="400px" data={data} options={options} />;
 }

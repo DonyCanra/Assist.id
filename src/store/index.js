@@ -16,6 +16,7 @@ import logactivityReducer from "./reducers/logactivityReducer";
 import privilegeReducer from "./reducers/privilegeReducer";
 import authReducer from "./reducers/authReducer";
 import transactionReducer from "./reducers/transactionReducer";
+import withdrawReducer from "./reducers/withdrawReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   users: userReducer,
   user: detailUserReducer,
   privilege: privilegeReducer,
+  withdraw: withdrawReducer,
 });
 
 // middleware logger

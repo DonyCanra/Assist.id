@@ -8,6 +8,7 @@ export const USER_CHANGE_PASSWORD_SUCCESSS = "users/changePasswordSuccess";
 // Action Type Dashboard
 export const DASHBOARD_FETCH_SUCCESS = "dashboard/fetchSuccess";
 export const TRANSACTION_FETCH_SUCCESS = "transaction/fetchSuccess";
+export const WITHDRAW_FETCH_SUCCESS = "withdraw/fetchSuccess";
 export const PROFILE_FETCH_SUCCESS = "profile/fetchSuccess";
 export const LOGACTIVITY_FETCH_SUCCESS = "logactivity/fetchSuccess";
 export const IMAGE_CONVERT_SUCCESS = "images/convertSuccess";

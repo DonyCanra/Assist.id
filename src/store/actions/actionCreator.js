@@ -4,6 +4,8 @@ import {
   USER_RESEND_FORGOT_SUCCESSS,
   USER_CREATE_PASSWORD_SUCCESSS,
   DASHBOARD_FETCH_SUCCESS,
+  TRANSACTION_FETCH_SUCCESS,
+  WITHDRAW_FETCH_SUCCESS,
   PROFILE_FETCH_SUCCESS,
   LOGACTIVITY_FETCH_SUCCESS,
   IMAGE_CONVERT_SUCCESS,
@@ -27,7 +29,6 @@ import {
   USER_UPDATE_SUCCESS,
   USER_CHANGE_PASSWORD_SUCCESSS,
   PRIVILEGE_FETCH_SUCCESS,
-  TRANSACTION_FETCH_SUCCESS,
 } from "./actionTypes";
 
 // Action Creator Auth
@@ -77,6 +78,13 @@ export const dashboardFetchSuccess = (data) => {
 export const transactionFetchSuccess = (data) => {
   return {
     type: TRANSACTION_FETCH_SUCCESS,
+    payload: data,
+  };
+};
+
+export const withdrawFetchSuccess = (data) => {
+  return {
+    type: WITHDRAW_FETCH_SUCCESS,
     payload: data,
   };
 };
