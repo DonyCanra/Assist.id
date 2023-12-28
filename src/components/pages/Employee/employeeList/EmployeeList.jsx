@@ -9,12 +9,10 @@ import { formatCurrencyRupiah } from "../../../../utils/formatCurrency";
 
 export default function Employee() {
   const { employees } = useSelector((state) => {
-    // console.log(state.employees, "<<state data");
     return state.employees;
   });
 
   const dataTable = employees.data;
-  console.log(dataTable, "<<< dataaa");
   const [inputDefault, setInputDefault] = useState({
     isCandidate: "No",
     employeeStatus: "",

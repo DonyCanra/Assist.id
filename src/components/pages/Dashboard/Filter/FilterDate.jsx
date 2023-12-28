@@ -1,4 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
 import { useDispatch } from "react-redux";
 
@@ -8,7 +10,10 @@ export default function FilterDate({ handleFetch }) {
     endDate: "",
   });
 
-  const [activeFilter, setActiveFilter] = useState(""); // Tambahkan state untuk melacak filter yang aktif
+  const [activeFilter, setActiveFilter] = useState("");
+  const [customStartDate, setCustomStartDate] = useState(null);
+  const [customEndDate, setCustomEndDate] = useState(null);
+
   const dispatch = useDispatch();
 
   const handleFilter = async (start, end, filterName) => {
@@ -21,7 +26,22 @@ export default function FilterDate({ handleFetch }) {
     });
 
     await dispatch(handleFetch(input));
-    setActiveFilter(filterName); // Tetapkan filter yang aktif setelah mengubah input
+    setActiveFilter(filterName);
+  };
+
+  const handleCustomFilter = async () => {
+    if (customStartDate && customEndDate) {
+      const startDate = customStartDate.toLocaleDateString("en-CA"); // Format: yy/mm/dd
+      const endDate = customEndDate.toLocaleDateString("en-CA");
+
+      setInput({
+        startDate: startDate,
+        endDate: endDate,
+      });
+
+      await dispatch(handleFetch(input));
+      setActiveFilter("custom");
+    }
   };
 
   return (
@@ -50,8 +70,21 @@ export default function FilterDate({ handleFetch }) {
           <button onClick={() => handleFilter(180, 0, "last6months")} className={`dropdown-item ${activeFilter === "last6months" ? "active" : ""}`}>
             Last 6 months
           </button>
+          <button className={`dropdown-item ${activeFilter === "custom" ? "active" : ""}`} onClick={() => setActiveFilter("custom")}>
+            Custom
+          </button>
         </div>
       </div>
+
+      {activeFilter === "custom" && (
+        <div className="custom-datepicker">
+          <DatePicker selected={customStartDate} onChange={(date) => setCustomStartDate(date)} selectsStart startDate={customStartDate} endDate={customEndDate} placeholderText="Start Date" className="form-control" />
+          <DatePicker selected={customEndDate} onChange={(date) => setCustomEndDate(date)} selectsEnd startDate={customStartDate} endDate={customEndDate} placeholderText="End Date" className="form-control" />
+          <button onClick={handleCustomFilter} className="btn btn-primary">
+            Apply
+          </button>
+        </div>
+      )}
     </>
   );
 }

@@ -23,15 +23,11 @@ const LineChartTransaction = () => {
     dispatch(fetchDataTransaction(input));
   }, [dispatch, input]);
 
-  const dataChart = {
-    transaction: Object.entries(transaction).map(([label, value]) => ({ label, value })),
-  };
-
   const data = {
-    labels: dataChart.transaction.map((x) => x.label),
+    labels: transaction.map((x) => x.label),
     datasets: [
       {
-        data: dataChart.transaction.map((x) => x.value),
+        data: transaction.map((x) => x.value),
         backgroundColor: "#25B47A",
         borderColor: "#25B47A",
         borderWidth: 1,

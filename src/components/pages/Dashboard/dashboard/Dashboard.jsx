@@ -4,6 +4,7 @@ import { fetchDashboard, fetchDataTransaction, fetchDataWithdraw } from "../../.
 import LineChartWithdraw from "../charts/LineChartWithdraw";
 import LineChartTransaction from "../charts/LineChartTransaction";
 import FilterDate from "../Filter/FilterDate";
+import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
 
 export default function Dashboard() {
   const { dashboard } = useSelector((state) => {
@@ -11,8 +12,8 @@ export default function Dashboard() {
   });
 
   const [input] = useState({
-    startDate: "",
-    endDate: "",
+    startDate: subtractDaysFromCurrentDate(30),
+    endDate: subtractDaysFromCurrentDate(0),
   });
 
   let isDashboard = false;
