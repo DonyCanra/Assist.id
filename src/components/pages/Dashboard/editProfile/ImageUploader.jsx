@@ -4,30 +4,35 @@ import separateBase64String from "../../../../utils/separateBase64String";
 import { useDispatch } from "react-redux";
 
 const ImageUploader = ({ profile }) => {
-  // console.log(profile.avatar, "image");
   const [selectedImage, setSelectedImage] = useState({
     fileName: "",
     preview: "",
   });
+  const [error, setError] = useState("");
 
-  console.log(selectedImage, "selectedImages");
   const dispatch = useDispatch();
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+
+    // Validasi ukuran file
+    const maxSize = 5 * 1024 * 1024; // 5 MB
+    if (file && file.size > maxSize) {
+      setError("Image size is too large. Please choose an image below 5 MB.");
+      return;
+    }
+
     setSelectedImage({
       fileName: file,
       preview: URL.createObjectURL(file),
     });
-    // onImageChange(file);
+    setError(""); // Clear any previous error
+
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
       reader.onloadend = async () => {
-        // setSelectedImage({
-        //   fileName: separateBase64String(reader.result),
-        // });
         const input = {
           fileName: separateBase64String(reader.result),
         };
@@ -47,13 +52,12 @@ const ImageUploader = ({ profile }) => {
   return (
     <div className="col-lg-12 col-xl-8">
       <input type="file" accept="image/*" onChange={handleImageChange} />
-      {/* {selectedImage.fileName && ( */}
+      {error && <div style={{ color: "red" }}>{error}</div>}
       <div className="box-widget widget-user">
         <div className="widget-user-image1 d-xl-flex d-block">
           <img alt="" className="avatar" style={{ borderRadius: "20px" }} src={selectedImage.preview} />
         </div>
       </div>
-      {/* // )} */}
     </div>
   );
 };
