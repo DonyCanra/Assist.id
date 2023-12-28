@@ -249,6 +249,7 @@ export function fetchDashboard(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -278,6 +279,7 @@ export function fetchDataTransaction(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -307,6 +309,7 @@ export function fetchDataWithdraw(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -341,6 +344,7 @@ export function fetchProfile() {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -370,6 +374,7 @@ export function fetchLogactivity(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -401,6 +406,7 @@ export function fetchPrivilege() {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -430,6 +436,7 @@ export function convertImages(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -459,6 +466,7 @@ export function updateProfile(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -489,6 +497,7 @@ export function fetchEmployee(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -518,6 +527,7 @@ export function fetchDetailEmployee(id) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -548,6 +558,7 @@ export function createEmployee(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -578,6 +589,7 @@ export function bulkCreateEmployee(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -608,6 +620,7 @@ export function updateEmployee(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -637,6 +650,7 @@ export function fetchCandidate(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -667,6 +681,7 @@ export function approveCandidate(id) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -696,6 +711,7 @@ export function fetchFee(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -725,6 +741,7 @@ export function fetchDetailFee(transactionNo) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -755,6 +772,7 @@ export function fetchRole(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -784,6 +802,7 @@ export function fetchDetailRole(id) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -814,6 +833,7 @@ export function createRole(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -848,6 +868,7 @@ export function updateRole(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -876,6 +897,7 @@ export function fetchUser(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -905,6 +927,7 @@ export function fetchDetailUser(id) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -935,6 +958,7 @@ export function createUser(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);
@@ -965,6 +989,7 @@ export function updateUser(input) {
       if (codeError === 511) {
         configureToast("warning", "WARNING", msgError);
         localStorage.clear();
+        window.location.reload();
         throw redirect("/login");
       } else {
         configureToast("error", "FAILED", msgError);

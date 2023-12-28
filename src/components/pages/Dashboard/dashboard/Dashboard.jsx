@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDashboard } from "../../../../store/actions/thunks";
-import FilterDate from "./FilterDate";
-import FilterDateWD from "./FilterDateWD";
-import FilterDateTSX from "./FilterDateTSX";
+import { fetchDashboard, fetchDataTransaction, fetchDataWithdraw } from "../../../../store/actions/thunks";
 import LineChartWithdraw from "../charts/LineChartWithdraw";
 import LineChartTransaction from "../charts/LineChartTransaction";
+import FilterDate from "../Filter/FilterDate";
 
 export default function Dashboard() {
   const { dashboard } = useSelector((state) => {
@@ -45,7 +43,7 @@ export default function Dashboard() {
               <h4 className="page-title mb-0 text-primary">Dashboard</h4>
             </div>
             <div className="page-rightheader">
-              <FilterDate />
+              <FilterDate handleFetch={fetchDashboard} />
             </div>
           </div>
 
@@ -121,7 +119,7 @@ export default function Dashboard() {
                     </h6>
                   </div>
                   <div className="page-rightheader">
-                    <FilterDateWD />
+                    <FilterDate handleFetch={fetchDataWithdraw} />
                   </div>
                 </div>
                 <div className="card-body pt-0">
@@ -141,7 +139,7 @@ export default function Dashboard() {
                     </h4>
                   </div>
                   <div className="page-rightheader">
-                    <FilterDateTSX />
+                    <FilterDate handleFetch={fetchDataTransaction} />
                   </div>
                 </div>
                 <div className="card-body pt-0">

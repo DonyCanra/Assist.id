@@ -1,10 +1,9 @@
 import { useState } from "react";
 import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
 import { useDispatch } from "react-redux";
-import { fetchDataWithdraw } from "../../../../store/actions/thunks";
 
-export default function FilterDate() {
-  const [inputWithdraw, setInputWithdraw] = useState({
+export default function FilterDate({ handleFetch }) {
+  const [input, setInput] = useState({
     startDate: "",
     endDate: "",
   });
@@ -16,12 +15,12 @@ export default function FilterDate() {
     const startDate = subtractDaysFromCurrentDate(start);
     const endDate = subtractDaysFromCurrentDate(end);
 
-    setInputWithdraw({
+    setInput({
       startDate: startDate,
       endDate: endDate,
     });
 
-    await dispatch(fetchDataWithdraw(inputWithdraw));
+    await dispatch(handleFetch(input));
     setActiveFilter(filterName); // Tetapkan filter yang aktif setelah mengubah input
   };
 

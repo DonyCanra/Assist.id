@@ -14,8 +14,8 @@ export default function error() {
                     <h1 className="h3 mb-3 font-weight-bold">Sorry, an error has occured, Requested Page not found!</h1>
                     <p className="h5 font-weight-normal mb-7 leading-normal">You may have mistyped the address or the page may have moved.</p>
                     <Link className="btn btn-primary text-light mb-5 fs-18">Help</Link>
-                    <Link className="btn text-primary border-primary mb-5 ms-2 fs-18" href="index.html">
-                      Back to Home
+                    <Link to="/login" className="btn text-primary border-primary mb-5 ms-2 fs-18" href="index.html">
+                      Back to Login
                     </Link>
                   </div>
                 </div>

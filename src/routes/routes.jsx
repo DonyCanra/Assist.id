@@ -21,6 +21,7 @@ import EditUser from "../components/pages/Setting/editUser/EditUser";
 import Role from "../components/pages/Setting/role/Role";
 import AddRole from "../components/pages/Setting/addRole/AddRole";
 import EditRole from "../components/pages/Setting/editRole/EditRole";
+import ErrorPage from "../components/error/404";
 
 const router = createBrowserRouter([
   {
@@ -229,6 +230,10 @@ const router = createBrowserRouter([
   {
     path: "/create-password/:email",
     element: <CreatePassword />,
+  },
+  {
+    path: "/error",
+    element: <ErrorPage />,
   },
   {
     path: "/forgot-password",

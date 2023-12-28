@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDataTransaction } from "../../../../store/actions/thunks";
+import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -12,8 +13,8 @@ const LineChartTransaction = () => {
   });
 
   const [input] = useState({
-    startDate: "2023-12-18",
-    endDate: "2023-12-18",
+    startDate: subtractDaysFromCurrentDate(30),
+    endDate: subtractDaysFromCurrentDate(0),
   });
 
   const dispatch = useDispatch();

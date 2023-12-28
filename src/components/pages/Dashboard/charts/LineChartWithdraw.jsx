@@ -2,6 +2,7 @@ import { Chart } from "react-google-charts";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDataWithdraw } from "../../../../store/actions/thunks";
+import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
 
 export const options = {
   curveType: "function",
@@ -38,8 +39,8 @@ export default function LineChartWithdraw() {
   const data = transformData(originalData);
 
   const [input] = useState({
-    startDate: "2023-12-18",
-    endDate: "2023-12-18",
+    startDate: subtractDaysFromCurrentDate(30),
+    endDate: subtractDaysFromCurrentDate(0),
   });
 
   const dispatch = useDispatch();
