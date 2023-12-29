@@ -10,6 +10,10 @@ export default function Login() {
     password: "",
   });
 
+  // ...
+  const [loading, setLoading] = useState(false);
+  // ...
+
   const [showPassword, setShowPassword] = useState(false);
 
   // State untuk melacak pesan kesalahan
@@ -69,8 +73,17 @@ export default function Login() {
       return;
     }
 
-    await dispatch(login(input));
-    navigate("/");
+    setLoading(true); // Mulai loading
+
+    try {
+      await dispatch(login(input));
+      navigate("/");
+    } catch (error) {
+      // Handle error, misalnya menampilkan pesan kesalahan
+      console.error("Login error:", error);
+    } finally {
+      setLoading(false); // Selesai loading, baik sukses maupun gagal
+    }
   };
 
   const validateInput = (data) => {
@@ -139,11 +152,16 @@ export default function Login() {
                             </div>
                             <p className="text-danger">{errorMessages.password}</p>
                           </div>
-
                           <div className="form-group text-center mb-3">
-                            <button className="btn btn-primary btn-lg w-100 br-7" type="submit">
-                              Log In
-                            </button>
+                            {loading ? (
+                              <button className="btn btn-primary btn-lg w-100 br-7" type="button" disabled>
+                                Logging In...
+                              </button>
+                            ) : (
+                              <button className="btn btn-primary btn-lg w-100 br-7" type="submit">
+                                Log In
+                              </button>
+                            )}
                           </div>
                           <Link to="/forgot-password">
                             <div className="form-group fs-13 text-center">Forgot Password?</div>

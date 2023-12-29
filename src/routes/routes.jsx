@@ -28,11 +28,16 @@ const router = createBrowserRouter([
     element: <Layout />,
     loader: () => {
       const tokenDashboard = localStorage.getItem("tokenDashboard");
+      const accesPrivilege = localStorage.getItem("privilege");
       if (!tokenDashboard) {
+        throw redirect("/login");
+      }
+      if (!accesPrivilege) {
         throw redirect("/login");
       }
       return null;
     },
+
     children: [
       {
         path: "/",

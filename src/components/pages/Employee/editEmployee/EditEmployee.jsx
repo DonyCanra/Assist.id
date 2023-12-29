@@ -186,7 +186,7 @@ export default function EditEmployee() {
                   <label className="form-label">
                     Phone Number <span className="text-red">*</span>
                   </label>
-                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="Input phone number employee" />
+                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="number" className="form-control" placeholder="Input phone number employee" />
                   <p className="text-danger">{errorMessages.phoneNumber}</p>
                 </div>
               </div>

@@ -169,7 +169,7 @@ export default function EditUser() {
                   <label class="form-label">
                     Phone Number <span class="text-red">*</span>
                   </label>
-                  <input type="text" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
+                  <input type="number" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
                   <p className="text-danger">{errorMessages.phoneNumber}</p>
                 </div>
               </div>

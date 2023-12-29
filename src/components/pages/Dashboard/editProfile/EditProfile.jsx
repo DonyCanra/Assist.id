@@ -141,7 +141,7 @@ export default function EditProfile() {
                   <label className="form-label">
                     Phone Number <span className="text-red">*</span>
                   </label>
-                  <input value={input.phoneNumber} onChange={handleChange} onBlur={validatePhoneNumber} name="phoneNumber" type="text" className={`form-control ${error.phoneNumber && "is-invalid"}`} placeholder="" />
+                  <input value={input.phoneNumber} onChange={handleChange} onBlur={validatePhoneNumber} name="phoneNumber" type="number" className={`form-control ${error.phoneNumber && "is-invalid"}`} placeholder="" />
                   {error.phoneNumber && <div className="invalid-feedback">{error.phoneNumber}</div>}
                 </div>
               </div>
