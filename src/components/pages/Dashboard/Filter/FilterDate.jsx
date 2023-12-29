@@ -119,7 +119,7 @@ export default function FilterDate({ handleFetch }) {
 
   return (
     <>
-      <DateRangePicker ranges={predefinedRanges} showOneCalendar placeholder="Filter Calendar" style={{ width: 350, background: "#000" }} value={[input.startDate, input.endDate]} onChange={(value) => setInput({ startDate: value[0], endDate: value[1] })} />
+      <DateRangePicker ranges={predefinedRanges} showOneCalendar placeholder="Filter Calendar" style={{ width: 350, background: "red" }} value={[input.startDate, input.endDate]} onChange={(value) => setInput({ startDate: value[0], endDate: value[1] })} />
     </>
   );
 }
