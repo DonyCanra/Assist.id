@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Sidebar() {
   const dataLocal = JSON.parse(localStorage.privilege);
 
+  const [isSettingSubMenuVisible, setSettingSubMenuVisible] = useState(false);
+
+  const handleSettingClick = () => {
+    setSettingSubMenuVisible(!isSettingSubMenuVisible);
+  };
   return (
     <div>
       <aside className="app-sidebar">
@@ -62,8 +67,8 @@ export default function Sidebar() {
               </span>
             </NavLink>
           </li>
-          <Dropdown className="slide" style={{ cursor: "pointer", display: dataLocal.settingView ? "" : "none" }}>
-            <Dropdown.Toggle id="dropdown-basic" className="side-menu__item" style={{ color: "#fff", background: "#2A2E3F", borderColor: "#2A2E3F", width: "198px", textAlign: "left" }}>
+          <li className="slide" style={{ cursor: "pointer", display: dataLocal.settingView ? "" : "none" }}>
+            <div className="side-menu__item" onClick={handleSettingClick}>
               <svg xmlns="http://www.w3.org/2000/svg" className="side-menu__icon" width="24" height="24" viewBox="0 0 24 24">
                 <path
                   d="M12.0102 7.88394L10.9182 7.25394C11.0285 6.65901 11.0285 6.04887 10.9182 5.45394L12.0102 4.82394C12.0708 4.78883 12.1177 4.73423 12.1433 4.66904C12.1689 4.60385 12.1717 4.53191 12.1512 4.46494C11.8697 3.56295 11.3916 2.73469 10.7512 2.03994C10.704 1.9887 10.6408 1.95496 10.572 1.94424C10.5031 1.93353 10.4327 1.94647 10.3722 1.98094L9.28016 2.61094C8.82169 2.21614 8.29322 1.91086 7.72217 1.71094V0.453942C7.72221 0.383956 7.69833 0.316057 7.6545 0.261496C7.61067 0.206935 7.54951 0.168988 7.48116 0.153942C6.55912 -0.051314 5.60321 -0.051314 4.68116 0.153942C4.61282 0.168988 4.55166 0.206935 4.50783 0.261496C4.464 0.316057 4.44012 0.383956 4.44016 0.453942V1.71494C3.87059 1.91806 3.34268 2.22302 2.88217 2.61494L1.79316 1.98494C1.73304 1.94897 1.66223 1.93518 1.593 1.94596C1.52378 1.95674 1.46051 1.9914 1.41416 2.04394C0.772733 2.73793 0.29442 3.56644 0.0141651 4.46894C-0.00690645 4.53588 -0.00440706 4.60803 0.021249 4.67335C0.0469051 4.73867 0.0941677 4.79323 0.155164 4.82794L1.24716 5.45794C1.13686 6.05287 1.13686 6.66301 1.24716 7.25794L0.155164 7.88794C0.0945631 7.92305 0.0476388 7.97765 0.0220348 8.04284C-0.00356917 8.10803 -0.00634273 8.17997 0.0141651 8.24694C0.295593 9.14893 0.773764 9.97719 1.41416 10.6719C1.46135 10.7232 1.52452 10.7569 1.59336 10.7676C1.6622 10.7784 1.73263 10.7654 1.79316 10.7309L2.88517 10.1009C3.34364 10.4957 3.87211 10.801 4.44316 11.0009V12.2619C4.44312 12.3319 4.467 12.3998 4.51083 12.4544C4.55466 12.5089 4.61582 12.5469 4.68417 12.5619C5.60621 12.7672 6.56212 12.7672 7.48416 12.5619C7.55251 12.5469 7.61367 12.5089 7.6575 12.4544C7.70133 12.3998 7.7252 12.3319 7.72516 12.2619V11.0009C8.29474 10.7978 8.82265 10.4929 9.28316 10.1009L10.3752 10.7309C10.4353 10.7669 10.5061 10.7807 10.5753 10.7699C10.6445 10.7591 10.7078 10.7245 10.7542 10.6719C11.3956 9.97795 11.8739 9.14945 12.1542 8.24694C12.1741 8.17904 12.1708 8.10642 12.1447 8.04063C12.1186 7.97485 12.0712 7.91969 12.0102 7.88394ZM6.07916 8.40394C5.67371 8.40394 5.27737 8.28371 4.94025 8.05845C4.60312 7.8332 4.34037 7.51303 4.18521 7.13844C4.03005 6.76385 3.98946 6.35167 4.06855 5.95401C4.14765 5.55635 4.3429 5.19107 4.6296 4.90437C4.91629 4.61768 5.28157 4.42243 5.67923 4.34333C6.07689 4.26423 6.48908 4.30483 6.86367 4.45999C7.23825 4.61515 7.55842 4.8779 7.78368 5.21502C8.00893 5.55214 8.12916 5.94849 8.12916 6.35394C8.12758 6.89687 7.91099 7.41707 7.5268 7.8007C7.14261 8.18433 6.6221 8.40015 6.07916 8.40094V8.40394Z"
@@ -73,12 +78,27 @@ export default function Sidebar() {
               <span className="side-menu__label" style={{ color: "#fff" }}>
                 Setting
               </span>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="/users">User List</Dropdown.Item>
-              <Dropdown.Item href="/role">Role</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+            </div>
+            {/* Submenu for User and Role */}
+            {isSettingSubMenuVisible && (
+              <ul className="submenu" style={{ listStyleType: "none", paddingLeft: "20px" }}>
+                <li className="slide">
+                  <NavLink className="side-menu__item" to="/users">
+                    <span className="side-menu__label" style={{ color: "#fff" }}>
+                      User
+                    </span>
+                  </NavLink>
+                </li>
+                <li className="slide">
+                  <NavLink className="side-menu__item" to="/role">
+                    <span className="side-menu__label" style={{ color: "#fff" }}>
+                      Role
+                    </span>
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </li>
         </ul>
       </aside>
     </div>
