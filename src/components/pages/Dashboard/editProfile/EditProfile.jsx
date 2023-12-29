@@ -128,7 +128,7 @@ export default function EditProfile() {
               }}
             >
               <div className="col-md-12">
-                <div className="form-group">
+                <div className="form-group text-white">
                   <label className="form-label">
                     Name <span className="text-red">*</span>
                   </label>
@@ -137,7 +137,7 @@ export default function EditProfile() {
                 </div>
               </div>
               <div className="col-md-12">
-                <div className="form-group">
+                <div className="form-group text-white">
                   <label className="form-label">
                     Phone Number <span className="text-red">*</span>
                   </label>

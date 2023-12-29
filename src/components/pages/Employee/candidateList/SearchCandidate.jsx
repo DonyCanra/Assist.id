@@ -95,7 +95,7 @@ export default function SearchComponent() {
               <i style={{ color: "#3E80EB", fontSize: "24px" }} className="fa fa-chevron-circle-up" onClick={toggleCardVisibility}></i>
             </div>
           </div>
-          <div className="card-body pb-2">
+          <div className="card-body pb-2 text-white">
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Name</label>

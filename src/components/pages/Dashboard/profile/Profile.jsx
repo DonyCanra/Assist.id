@@ -73,7 +73,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="row">
+      <div className="row text-white">
         <div className="col-xl-6 col-lg-6 col-md-12">
           <div className="card-header" style={{ background: "#2B2E3F" }}>
             <h3 className="card-title">Personal Information</h3>
@@ -82,7 +82,7 @@ export default function Profile() {
             <div className="widget-user-image1 d-xl-flex mx-auto mt-5 d-block">
               <img alt="User Avatar" className="avatar brround p-0" src={profile.avatar} />
             </div>
-            <div className="card-body text-left">
+            <div className="card-body text-left text-white">
               <div className="" style={{ margin: "20px 10px" }}>
                 <tr>
                   <th scope="row">Name</th>

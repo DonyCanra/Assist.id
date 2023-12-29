@@ -64,7 +64,7 @@ export default function SearchComponent() {
 
   return (
     <div
-      className="card-body"
+      className="card-body text-white"
       style={{
         margin: "0 20px 20px 20px",
         padding: "0px 0px 0px 0px",

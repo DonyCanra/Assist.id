@@ -50,7 +50,7 @@ const ImageUploader = ({ profile }) => {
   }, [profile]);
 
   return (
-    <div className="col-lg-12 col-xl-8">
+    <div className="col-lg-12 col-xl-8 text-white">
       <input type="file" accept="image/*" onChange={handleImageChange} />
       {error && <div style={{ color: "red" }}>{error}</div>}
       <div className="box-widget widget-user">

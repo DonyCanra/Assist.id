@@ -121,7 +121,7 @@ export default function AddEmployee() {
 
   return (
     <>
-      <div className="row">
+      <div className="row text-white">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card" style={{ background: "#212332" }}>
             <div className="page-header" style={{ margin: "20px 20px 20px 20px" }}>

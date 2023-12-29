@@ -96,7 +96,7 @@ export default function ChangePassword() {
 
   return (
     <>
-      <div className="card">
+      <div className="card text-white">
         <div className="card-header">
           <h3 className="card-title">Change Password</h3>
         </div>
