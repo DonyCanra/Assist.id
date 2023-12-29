@@ -119,9 +119,7 @@ export default function Dashboard() {
                       DATA AMOUNT WITHDRAWAL
                     </h6>
                   </div>
-                  <div className="page-rightheader">
-                    <FilterDate handleFetch={fetchDataWithdraw} />
-                  </div>
+                  <FilterDate style={{ paddingRight: "200px" }} handleFetch={fetchDataWithdraw} />
                 </div>
                 <div className="card-body pt-0">
                   <LineChartWithdraw />

@@ -24,7 +24,9 @@ export default function Sidebar() {
                   fill="white"
                 />
               </svg>
-              <span className="side-menu__label">Dashboard</span>
+              <span className="side-menu__label" style={{ color: "#fff" }}>
+                Dashboard
+              </span>
             </NavLink>
           </li>
           <li className="slide" style={{ cursor: "pointer", display: dataLocal.employeeView ? "" : "none" }}>
@@ -42,7 +44,9 @@ export default function Sidebar() {
                   </clipPath>
                 </defs>
               </svg>
-              <span className="side-menu__label">Employee</span>
+              <span className="side-menu__label" style={{ color: "#fff" }}>
+                Employee
+              </span>
             </NavLink>
           </li>
           <li className="slide" style={{ cursor: "pointer", display: dataLocal.feeView ? "" : "none" }}>
@@ -53,7 +57,9 @@ export default function Sidebar() {
                   fill="white"
                 />
               </svg>
-              <span className="side-menu__label">Fee</span>
+              <span className="side-menu__label" style={{ color: "#fff" }}>
+                Fee
+              </span>
             </NavLink>
           </li>
           <Dropdown className="slide" style={{ cursor: "pointer", display: dataLocal.settingView ? "" : "none" }}>
@@ -64,7 +70,9 @@ export default function Sidebar() {
                   fill="white"
                 />
               </svg>
-              <span className="side-menu__label">Setting</span>
+              <span className="side-menu__label" style={{ color: "#fff" }}>
+                Setting
+              </span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href="/users">User List</Dropdown.Item>
