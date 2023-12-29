@@ -242,6 +242,14 @@ export function fetchDashboard(input) {
 
       const data = response.data.data;
       dispatch(dashboardFetchSuccess(data));
+      // Check if the window has already been reloaded
+      if (!localStorage.getItem("dashboardReloaded")) {
+        // Reload the window upon successful data fetch
+        window.location.reload();
+
+        // Set the flag to indicate that the window has been reloaded
+        localStorage.setItem("dashboardReloaded", "true");
+      }
     } catch (error) {
       const msgError = error.response.data.error.messageData;
       const codeError = error.response.data.error.code;

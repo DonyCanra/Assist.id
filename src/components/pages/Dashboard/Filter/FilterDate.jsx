@@ -9,6 +9,7 @@ import addMonths from "date-fns/addMonths";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
+
 export default function FilterDate({ handleFetch }) {
   const [input, setInput] = useState({
     startDate: new Date(),
@@ -123,3 +124,4 @@ export default function FilterDate({ handleFetch }) {
     </>
   );
 }
+

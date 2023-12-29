@@ -123,8 +123,8 @@ export default function Login() {
                     <div className="card">
                       <div className="card-body">
                         <div className="text-center mb-3">
-                          <h1 className="mb-2">Log In</h1>
-                          <h6 className="">Welcome Back!</h6>
+                          <h1 className="mb-2 text-white">Log In</h1>
+                          <h6 className="text-white">Welcome Back!</h6>
                         </div>
                         <form className="mt-5" onSubmit={handleLogin}>
                           <div className={`input-group mb-3 ${errorInputs.email ? "has-error" : ""}`}>
@@ -164,7 +164,7 @@ export default function Login() {
                             )}
                           </div>
                           <Link to="/forgot-password">
-                            <div className="form-group fs-13 text-center">Forgot Password?</div>
+                            <div className="form-group fs-13 text-center text-white">Forgot Password?</div>
                           </Link>
                         </form>
                       </div>
