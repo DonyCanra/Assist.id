@@ -17,7 +17,7 @@ export default function ModalCandidate(props) {
   };
 
   return (
-    <Modal {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal className="text-white" {...props} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Are you sure approve to move employee list ?</Modal.Title>
       </Modal.Header>

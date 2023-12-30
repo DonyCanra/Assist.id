@@ -65,7 +65,7 @@ export default function Candidate() {
   }, [dispatch, inputDefault]);
   return (
     <>
-      <div className="page-header">
+      <div className="page-header text-white">
         <div className="page-leftheader">
           <h4 className="page-title mb-0 text-primary">Employee</h4>
         </div>
@@ -166,7 +166,7 @@ export default function Candidate() {
                 <div className="col-lg">
                   <div className="page-header">
                     <div className="page-leftheader">
-                      <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                      <div className="dataTables_info text-white" id="example2_info" role="status" aria-live="polite">
                         Showing 1 to {candidates.page} of {candidates.totalPage} entries
                       </div>
                     </div>
