@@ -62,23 +62,16 @@ const configureToast = (type, title, message) => {
     text: message,
   });
 };
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-
-export function loginSuccess(userData) {
-  return {
-    type: LOGIN_SUCCESS,
-    payload: userData,
-  };
-}
 
 export function login(input) {
+  const newPassword = input.passwordLogin;
   return async (dispatch) => {
     try {
-      input.password = SHA256(input.password).toString();
+      const passwordHash = SHA256(newPassword).toString();
 
       const unixTimes = unixTimestampInSeconds();
 
-      var plainText = input.email + input.password;
+      var plainText = input.email + passwordHash;
       var sha256PlainText = SHA256(plainText).toString();
 
       var ewaSalt = SHA256(process.env.REACT_APP_SALT).toString();
@@ -92,13 +85,14 @@ export function login(input) {
           "X-Time": unixTimes,
         },
       };
+      // input.passwordLogin = SHA256(input.password).toString();
+      input.password = passwordHash;
 
-      const response = await axios.post(`${BASE_URL}/ewa/auth-dashboard`, input, config);
+      const response = await axios.post(`${BASE_URL}/ewa/auth-dashboard`, { email: input.email, password: passwordHash }, config);
 
       localStorage.setItem("tokenDashboard", response.data.data.token);
       localStorage.setItem("privilege", JSON.stringify(response.data.data.privilege));
 
-      dispatch(loginSuccess(response.data));
       configureToast("success", "Login Success", "Wellcome to EWA Dahboard");
       return dispatch(usersLoginSuccess(response.data));
     } catch (error) {

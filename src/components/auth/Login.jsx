@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Login() {
-  const [input, setInput] = useState({
+  const [inputDefault, setInputDefault] = useState({
     email: "",
-    password: "",
+    passwordLogin: "",
   });
 
   // ...
@@ -19,13 +19,13 @@ export default function Login() {
   // State untuk melacak pesan kesalahan
   const [errorMessages, setErrorMessages] = useState({
     email: "",
-    password: "",
+    passwordLogin: "",
   });
 
   // State untuk melacak apakah input memiliki kesalahan atau tidak
   const [errorInputs, setErrorInputs] = useState({
     email: false,
-    password: false,
+    passwordLogin: false,
   });
 
   const dispatch = useDispatch();
@@ -34,8 +34,8 @@ export default function Login() {
   const handleChange = (event) => {
     const { value, name } = event.target;
 
-    setInput((prevInput) => ({
-      ...prevInput,
+    setInputDefault((prevInputDefault) => ({
+      ...prevInputDefault,
       [name]: value,
     }));
 
@@ -60,7 +60,7 @@ export default function Login() {
     event.preventDefault();
 
     // Validasi sebelum login
-    const validationErrors = validateInput(input);
+    const validationErrors = validateInput(inputDefault);
     if (Object.keys(validationErrors).length > 0) {
       setErrorMessages(validationErrors);
 
@@ -76,7 +76,7 @@ export default function Login() {
     setLoading(true); // Mulai loading
 
     try {
-      await dispatch(login(input));
+      await dispatch(login(inputDefault));
       navigate("/");
     } catch (error) {
       // Handle error, misalnya menampilkan pesan kesalahan
@@ -132,25 +132,25 @@ export default function Login() {
                               <Link className={`input-group-text ${errorInputs.email ? "border-danger" : ""}`}>
                                 <i className="fe fe-user"></i>
                               </Link>
-                              <input value={input.email} onChange={handleChange} name="email" type="text" className={`form-control ${errorInputs.email ? "border-danger" : ""}`} placeholder="Email" />
+                              <input value={inputDefault.email} onChange={handleChange} name="email" type="text" className={`form-control ${errorInputs.email ? "border-danger" : ""}`} placeholder="Email" />
                             </div>
                             <p className="text-danger">{errorMessages.email}</p>
                           </div>
-                          <div className={`input-group mb-3 ${errorInputs.password ? "has-error" : ""}`}>
+                          <div className={`input-group mb-3 ${errorInputs.passwordLogin ? "has-error" : ""}`}>
                             <div className="input-group" id="Password-toggle1">
-                              <Link className={`input-group-text ${errorInputs.password ? "border-danger" : ""}`} onClick={togglePasswordVisibility}>
+                              <Link className={`input-group-text ${errorInputs.passwordLogin ? "border-danger" : ""}`} onClick={togglePasswordVisibility}>
                                 <i className={`fe ${showPassword ? "fe-eye" : "fe-eye-off"}`} aria-hidden="true"></i>
                               </Link>
                               <input
-                                value={input.password}
-                                name="password"
+                                value={inputDefault.passwordLogin}
+                                name="passwordLogin"
                                 onChange={handleChange}
                                 type={showPassword ? "text" : "password"}
-                                className={`form-control ${errorInputs.password ? "border-danger" : ""}`}
+                                className={`form-control ${errorInputs.passwordLogin ? "border-danger" : ""}`}
                                 placeholder="Password"
                               />
                             </div>
-                            <p className="text-danger">{errorMessages.password}</p>
+                            <p className="text-danger">{errorMessages.passwordLogin}</p>
                           </div>
                           <div className="form-group text-center mb-3">
                             {loading ? (
