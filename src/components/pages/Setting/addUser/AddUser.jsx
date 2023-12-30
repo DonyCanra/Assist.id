@@ -22,6 +22,7 @@ export default function AddUser() {
     email: "",
     role: "",
     status: true,
+    roleId: "",
   });
 
   // State untuk melacak pesan kesalahan pada setiap input
@@ -38,21 +39,33 @@ export default function AddUser() {
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
-    // Batasi panjang karakter untuk phone number
-    if (name === "phoneNumber" && value.length > 13) {
-      return; // Kembalikan jika panjang karakter melebihi batas
+    // Handle roleId specifically when role is selected
+    if (name === "role") {
+      const selectedRole = dataRole.find((role) => role.roleName === value);
+      if (selectedRole) {
+        setInput((prevInput) => ({
+          ...prevInput,
+          roleId: selectedRole.id, // Set roleId to the id of the selected role
+          [name]: value,
+        }));
+      }
+    } else {
+      // Batasi panjang karakter untuk phone number
+      if (name === "phoneNumber" && value.length > 13) {
+        return; // Kembalikan jika panjang karakter melebihi batas
+      }
+
+      setInput((prevInput) => ({
+        ...prevInput,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+
+      // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
+      setErrorMessages((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
     }
-
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-
-    // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
-    setErrorMessages((prevErrors) => ({
-      ...prevErrors,
-      [name]: "",
-    }));
   };
 
   useEffect(() => {
