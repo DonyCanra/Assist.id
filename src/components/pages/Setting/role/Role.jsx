@@ -12,21 +12,21 @@ export default function UserList() {
 
   const dataTable = roles;
 
-  const [inputDefault, setInputDefault] = useState({
+  const [inputDefault] = useState({
     search: "",
     status: "",
   });
 
   const dataLocal = JSON.parse(localStorage.privilege);
 
-  const pageCount = roles.totalPage; // Jumlah halaman yang ingin ditampilkan
+  // const pageCount = roles.totalPage; // Jumlah halaman yang ingin ditampilkan
 
-  const handlePageChange = (page) => {
-    setInputDefault((prevInput) => ({
-      ...prevInput,
-      page,
-    }));
-  };
+  // const handlePageChange = (page) => {
+  //   setInputDefault((prevInput) => ({
+  //     ...prevInput,
+  //     page,
+  //   }));
+  // };
 
   const dispatch = useDispatch();
 
@@ -66,22 +66,30 @@ export default function UserList() {
             >
               <div className="table-responsive">
                 <table className="table table-bordered card-table table-vcenter text-nowrap">
-                  <thead text-center>
+                  <thead className="text-center">
                     <tr className="border-top border-bottom">
-                      <th className="wd-15p border-bottom-0">Role ID.</th>
-                      <th className="wd-15p border-bottom-0">Role Name</th>
-                      <th className="wd-25p border-bottom-0">Status</th>
-                      <th className="wd-25p border-bottom-0">Action</th>
+                      <th style={{ width: "69px" }} className="wd-15p border-bottom-0">
+                        Role ID.
+                      </th>
+                      <th style={{ width: "580px" }} className="wd-15p border-bottom-0">
+                        Role Name
+                      </th>
+                      <th style={{ width: "580px" }} className="wd-25p border-bottom-0">
+                        Status
+                      </th>
+                      <th style={{ width: "580px" }} className="wd-25p border-bottom-0">
+                        Action
+                      </th>
                     </tr>
                   </thead>
-                  <tbody className="text-white">
+                  <tbody className="text-white text-center">
                     {dataTable?.map((role, index) => {
                       return <Row key={index} role={role} index={index} />;
                     })}
                   </tbody>
                 </table>
               </div>
-              <div className="row row-sm">
+              {/* <div className="row row-sm">
                 <div className="col-lg">
                   <div className="page-header">
                     <div className="page-leftheader">
@@ -117,7 +125,7 @@ export default function UserList() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

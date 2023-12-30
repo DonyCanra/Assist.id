@@ -54,7 +54,7 @@ export default function SearchComponent() {
       }}
     >
       {isCardOneVisible ? (
-        <div>
+        <div className="text-white">
           <div className="page-header" style={{ margin: "20px 20px 20px 20px" }}>
             <div className="page-leftheader">
               <h4 className="page-title mb-0 text-primary">Search</h4>
@@ -68,13 +68,13 @@ export default function SearchComponent() {
         <div>
           <div className="page-header" style={{ margin: "0px 0px 20px 0px", padding: "20px 20px 20px 20px", borderBottom: "1px solid white" }}>
             <div className="page-leftheader">
-              <h4 className="page-title mb-0 text-primary">Search</h4>
+              <h4 className="page-title mb-0 text-white">Search</h4>
             </div>
             <div className="page-rightheader">
               <i style={{ color: "#3E80EB", fontSize: "24px" }} className="fa fa-chevron-circle-up" onClick={toggleCardVisibility}></i>
             </div>
           </div>
-          <div className="card-body pb-2">
+          <div className="card-body pb-2 text-white">
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Role Name</label>

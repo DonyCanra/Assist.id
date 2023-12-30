@@ -89,7 +89,7 @@ export default function SearchComponent() {
             </div>
           </div>
           <form onSubmit={handleFilter}>
-            <div className="card-body pb-2">
+            <div className="card-body pb-2 text-white">
               <div className="row row-sm">
                 <div className="col-lg">
                   <label className="form-label">Name</label>

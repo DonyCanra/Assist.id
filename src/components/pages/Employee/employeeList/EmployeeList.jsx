@@ -174,7 +174,7 @@ export default function Employee() {
                   </tbody>
                 </table>
               </div>
-              <div className="row row-sm">
+              <div className="row row-sm text-white">
                 <div className="col-lg">
                   <div className="page-header">
                     <div className="page-leftheader">
