@@ -27,7 +27,7 @@ export default function DetailEmployee() {
         </div>
       </div>
 
-      <div className="row">
+      <div className="row text-white">
         <div className="col-xl-6 col-lg-12 col-md-12">
           <div className="card">
             <div className="card-header">
