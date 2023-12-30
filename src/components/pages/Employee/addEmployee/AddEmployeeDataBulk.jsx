@@ -2,16 +2,41 @@ import React, { useState, useRef } from "react";
 import * as xlsx from "xlsx";
 import DataBulkTableModal from "./DataBulkTableModal";
 import { useNavigate } from "react-router-dom";
+import * as XLSX from "xlsx"; // Import pustaka xlsx
+import { templateUpload } from "../../../constants/template";
 
 export default function AddEmployeeDataBulk() {
   const [dataBulk, setDatabulk] = useState({
     data: [],
   });
+
   const [modalShow, setModalShow] = React.useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState(null);
   const uploadInputRef = useRef(null);
   const navigate = useNavigate();
+
+  const handleDownloadFormat = () => {
+    // Data untuk diekspor
+    const exportData = templateUpload.map((el, index) => ({
+      "No.": index + 1,
+      Name: el.name,
+      NIK: el.nik,
+      "Phone Number": el.phoneNumber,
+      Email: el.email,
+      "Max Amount": el.maxAmount,
+    }));
+
+    // Buat objek worksheet dari data
+    const ws = XLSX.utils.json_to_sheet(exportData);
+
+    // Buat objek workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Simpan file Excel
+    XLSX.writeFile(wb, "templateEmployee.xlsx");
+  };
 
   const readUploadFile = (e) => {
     e.preventDefault();
@@ -134,6 +159,7 @@ export default function AddEmployeeDataBulk() {
                 </label>
               </div>
               <p
+                onClick={handleDownloadFormat}
                 style={{
                   color: "#3674FF",
                   fontSize: "14px",
@@ -141,6 +167,7 @@ export default function AddEmployeeDataBulk() {
                   fontWeight: "700",
                   lineHeight: "normal",
                   marginTop: "15px",
+                  cursor: "pointer",
                 }}
               >
                 Download Format
