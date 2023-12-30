@@ -50,7 +50,7 @@ export default function DataBulkTableModal(props) {
   };
 
   return (
-    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal className="text-white" {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       {/* ... (bagian lain dari modal tetap sama) */}
       <Modal.Body style={{ background: "#2B2E3F", border: "1px solid #000" }}>
         <div className="card">

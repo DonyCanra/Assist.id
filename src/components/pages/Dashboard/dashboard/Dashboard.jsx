@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDashboard, fetchDataTransaction, fetchDataWithdraw } from "../../../../store/actions/thunks";
+import { fetchDashboard } from "../../../../store/actions/thunks";
 import LineChartWithdraw from "../charts/LineChartWithdraw";
 import LineChartTransaction from "../charts/LineChartTransaction";
 import FilterDate from "../Filter/FilterDate";
@@ -35,7 +35,6 @@ export default function Dashboard() {
       {!isDashboard ? (
         <div className="welcome-message">
           <h3>Selamat datang di ewa dashboard!</h3>
-          {/* Tambahkan pesan atau konten selamat datang sesuai kebutuhan Anda */}
         </div>
       ) : (
         <>
@@ -63,6 +62,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+
             <div className="col-xl-3 col-lg-6 col-md-6 col-xm-12">
               <div className="card overflow-hidden dash1-card border-0 dash4">
                 <div className="card-body">
@@ -107,46 +107,9 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="row" style={{ marginTop: "50px" }}>
-            <svg style={{ marginTop: "10px", marginBottom: "10px" }} xmlns="http://www.w3.org/2000/svg" width="1661" height="8" viewBox="0 0 1661 8" fill="none">
-              <path d="M0.957031 0.527344L1660.94 7.40462" stroke="#3B405B" />
-            </svg>
-            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-              <div className="card">
-                <div className="page-header card-header" style={{ margin: "0" }}>
-                  <div className="page-leftheader">
-                    <h6 className="page-title text-primary" style={{ fontSize: "16px" }}>
-                      DATA AMOUNT WITHDRAWAL
-                    </h6>
-                  </div>
-                  <FilterDate style={{ paddingRight: "200px" }} handleFetch={fetchDataWithdraw} />
-                </div>
-                <div className="card-body pt-0">
-                  <LineChartWithdraw />
-                </div>
-              </div>
-            </div>
-          </div>
+          <LineChartWithdraw />
 
-          <div className="row">
-            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-              <div className="card">
-                <div className="page-header card-header" style={{ margin: "0" }}>
-                  <div className="page-leftheader">
-                    <h4 className="page-title text-primary" style={{ fontSize: "16px" }}>
-                      DATA TRANSACTION
-                    </h4>
-                  </div>
-                  <div className="page-rightheader">
-                    <FilterDate handleFetch={fetchDataTransaction} />
-                  </div>
-                </div>
-                <div className="card-body pt-0">
-                  <LineChartTransaction />
-                </div>
-              </div>
-            </div>
-          </div>
+          <LineChartTransaction />
         </>
       )}
     </>

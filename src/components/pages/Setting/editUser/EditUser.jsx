@@ -241,7 +241,7 @@ export default function EditUser() {
       </div>
 
       {/* Confirmation Modal */}
-      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+      <Modal className="text-white" show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
         <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
           <Modal.Title>CONFIRMATION</Modal.Title>
         </Modal.Header>

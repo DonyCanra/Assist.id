@@ -9,7 +9,6 @@ import addMonths from "date-fns/addMonths";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-
 export default function FilterDate({ handleFetch }) {
   const [input, setInput] = useState({
     startDate: new Date(),
@@ -33,9 +32,6 @@ export default function FilterDate({ handleFetch }) {
     month: "2-digit",
     day: "2-digit",
   });
-
-  console.log(formattedStartDate); // Output: "2023-12-30"
-  console.log(formattedEndDate); // Output: "2023-12-30"
 
   const predefinedRanges = [
     {
@@ -120,8 +116,14 @@ export default function FilterDate({ handleFetch }) {
 
   return (
     <>
-      <DateRangePicker ranges={predefinedRanges} showOneCalendar placeholder="Filter Calendar" style={{ width: 350, background: "red" }} value={[input.startDate, input.endDate]} onChange={(value) => setInput({ startDate: value[0], endDate: value[1] })} />
+      <DateRangePicker
+        ranges={predefinedRanges}
+        showOneCalendar
+        placeholder="Filter Calendar"
+        style={{ width: 350, background: "red" }}
+        value={[input.startDate, input.endDate]}
+        onChange={(value) => setInput({ startDate: value[0], endDate: value[1] })}
+      />
     </>
   );
 }
-

@@ -4,6 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDataTransaction } from "../../../../store/actions/thunks";
 import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
+import FilterDate from "../Filter/FilterDate";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -51,7 +52,25 @@ const LineChartTransaction = () => {
 
   return (
     <div>
-      <Line data={data} height={400} options={options} />
+      <div className="row">
+        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div className="card">
+            <div className="page-header card-header" style={{ margin: "0" }}>
+              <div className="page-leftheader">
+                <h4 className="page-title text-primary" style={{ fontSize: "16px" }}>
+                  DATA TRANSACTION
+                </h4>
+              </div>
+              <div className="page-rightheader">
+                <FilterDate handleFetch={fetchDataTransaction} />
+              </div>
+            </div>
+            <div className="card-body pt-0">
+              <Line data={data} height={400} options={options} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -97,12 +97,8 @@ const CheckboxInput = ({ input, handleChange }) => {
           {isSubMenuDashboardVisible && (
             <div className="submenu-privileges" style={{ marginLeft: "20px", display: "flex", flexDirection: "column" }}>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="dashboardView" value={privilege.dashboard ? (input.dashboardView = true) : (input.dashboardView = false)} type="checkbox" checked={input.dashboardView} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="dashboardView" value={privilege.dashboard} type="checkbox" checked={input.dashboardView} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>View Dashboard</span>
-              </div>
-              <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="dashboardView" value={input.dashboardView} type="checkbox" checked={input.dashboardView} onChange={handleChange} style={{ marginRight: "5px" }} />
-                <span style={{ marginLeft: "0px" }}>Filter Dashboard</span>
               </div>
             </div>
           )}
@@ -143,77 +139,35 @@ const CheckboxInput = ({ input, handleChange }) => {
           {isSubMenuEmployeeVisible && (
             <div className="submenu-privileges" style={{ marginLeft: "20px", display: "flex", flexDirection: "column" }}>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="employeeView" value={privilege.employee ? (input.employeeView = true) : (input.employeeView = false)} type="checkbox" checked={input.employeeView} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="employeeView" value={input.employeeView} type="checkbox" checked={input.employeeView} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>View Employee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="employeeAdd" value={privilege.employee ? (input.employeeAdd = true) : (input.employeeAdd = false)} type="checkbox" checked={input.employeeAdd} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="employeeAdd" value={input.employeeAdd} type="checkbox" checked={input.employeeAdd} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Add Employee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input
-                  name="employeeUpdate"
-                  value={privilege.employee ? (input.employeeUpdate = true) : (input.employeeUpdate = false)}
-                  type="checkbox"
-                  checked={input.employeeUpdate}
-                  onChange={handleChange}
-                  style={{ marginRight: "5px" }}
-                />
+                <input name="employeeUpdate" value={input.employeeUpdate} type="checkbox" checked={input.employeeUpdate} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Update Employee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input
-                  name="employeeDetail"
-                  value={privilege.employee ? (input.employeeDetail = true) : (input.employeeDetail = false)}
-                  type="checkbox"
-                  checked={input.employeeDetail}
-                  onChange={handleChange}
-                  style={{ marginRight: "5px" }}
-                />
+                <input name="employeeDetail" value={input.employeeDetail} type="checkbox" checked={input.employeeDetail} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Detail Employee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input
-                  name="employeeDownload"
-                  value={privilege.employee ? (input.employeeDownload = true) : (input.employeeDownload = false)}
-                  type="checkbox"
-                  checked={input.employeeDownload}
-                  onChange={handleChange}
-                  style={{ marginRight: "5px" }}
-                />
+                <input name="employeeDownload" value={input.employeeDownload} type="checkbox" checked={input.employeeDownload} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Download Employee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input
-                  name="employeeSearch"
-                  value={privilege.employee ? (input.employeeSearch = true) : (input.employeeSearch = false)}
-                  type="checkbox"
-                  checked={input.employeeSearch}
-                  onChange={handleChange}
-                  style={{ marginRight: "5px" }}
-                />
+                <input name="employeeSearch" value={input.employeeSearch} type="checkbox" checked={input.employeeSearch} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Search Employee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input
-                  name="candidateApprove"
-                  value={privilege.employee ? (input.candidateApprove = true) : (input.candidateApprove = false)}
-                  type="checkbox"
-                  checked={input.candidateApprove}
-                  onChange={handleChange}
-                  style={{ marginRight: "5px" }}
-                />
+                <input name="candidateApprove" value={input.candidateApprove} type="checkbox" checked={input.candidateApprove} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Approve Candidate</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input
-                  name="candidateDownload"
-                  value={privilege.employee ? (input.candidateDownload = true) : (input.candidateDownload = false)}
-                  type="checkbox"
-                  checked={input.candidateDownload}
-                  onChange={handleChange}
-                  style={{ marginRight: "5px" }}
-                />
+                <input name="candidateDownload" value={input.candidateDownload} type="checkbox" checked={input.candidateDownload} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Download Candidate</span>
               </div>
             </div>
@@ -255,19 +209,19 @@ const CheckboxInput = ({ input, handleChange }) => {
           {isSubMenuFeeVisible && (
             <div className="submenu-privileges" style={{ marginLeft: "20px", display: "flex", flexDirection: "column" }}>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="feeView" value={privilege.fee ? (input.feeView = true) : (input.feeView = false)} type="checkbox" checked={input.feeView} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="feeView" value={input.feeView} type="checkbox" checked={input.feeView} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>View Fee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="feeDetail" value={privilege.fee ? (input.feeDetail = true) : (input.feeDetail = false)} type="checkbox" checked={input.feeDetail} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="feeDetail" value={input.feeDetail} type="checkbox" checked={input.feeDetail} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Detail Fee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="feeSearch" value={privilege.fee ? (input.feeSearch = true) : (input.feeSearch = false)} type="checkbox" checked={input.feeSearch} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="feeSearch" value={input.feeSearch} type="checkbox" checked={input.feeSearch} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Search Fee</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="feeDownload" value={privilege.fee ? (input.feeDownload = true) : (input.feeDownload = false)} type="checkbox" checked={input.feeDownload} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="feeDownload" value={input.feeDownload} type="checkbox" checked={input.feeDownload} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Download Fee</span>
               </div>
             </div>
@@ -309,23 +263,23 @@ const CheckboxInput = ({ input, handleChange }) => {
           {isSubMenuSettingVisible && (
             <div className="submenu-privileges" style={{ marginLeft: "20px", display: "flex", flexDirection: "column" }}>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="settingView" value={privilege.setting ? (input.settingView = true) : (input.settingView = false)} type="checkbox" checked={input.settingView} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="settingView" value={input.settingView} type="checkbox" checked={input.settingView} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>View Setting</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="userAdd" value={privilege.setting ? (input.userAdd = true) : (input.userAdd = false)} type="checkbox" checked={input.userAdd} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="userAdd" value={input.userAdd} type="checkbox" checked={input.userAdd} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Add User</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="userUpdate" value={privilege.setting ? (input.userUpdate = true) : (input.userUpdate = false)} type="checkbox" checked={input.userUpdate} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="userUpdate" value={input.userUpdate} type="checkbox" checked={input.userUpdate} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Update User</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="roleAdd" value={privilege.setting ? (input.roleAdd = true) : (input.roleAdd = false)} type="checkbox" checked={input.roleAdd} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="roleAdd" value={input.roleAdd} type="checkbox" checked={input.roleAdd} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Add Role</span>
               </div>
               <div style={{ marginBottom: "5px", marginLeft: "10px", display: "flex", alignItems: "center" }}>
-                <input name="roleUpdate" value={privilege.setting ? (input.roleUpdate = true) : (input.roleUpdate = false)} type="checkbox" checked={input.roleUpdate} onChange={handleChange} style={{ marginRight: "5px" }} />
+                <input name="roleUpdate" value={input.roleUpdate} type="checkbox" checked={input.roleUpdate} onChange={handleChange} style={{ marginRight: "5px" }} />
                 <span style={{ marginLeft: "0px" }}>Update Role</span>
               </div>
             </div>

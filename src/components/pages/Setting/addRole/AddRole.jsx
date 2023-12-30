@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createRole } from "../../../../store/actions/thunks";
 import { Modal, Button } from "react-bootstrap";
-import CheckboxInput from "./Checkbox";
+import CheckboxInput from "./CheckboxAdd";
 
 export default function AddRole() {
   const [input, setInput] = useState({
@@ -187,7 +187,7 @@ export default function AddRole() {
       </div>
 
       {/* Confirmation Modal */}
-      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+      <Modal className="text-white" show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
         <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
           <Modal.Title>CONFIRMATION</Modal.Title>
         </Modal.Header>

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
 import { fetchFee } from "../../../store/actions/thunks";
+import FilterDate from "./Filter/FilterDate";
 
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
-    transactionDate: "",
+    startDate: "",
+    endDate: "",
     transactionNo: "",
     name: "",
     phoneNumber: "",
@@ -97,7 +98,7 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Transaction Date</label>
-                <input value={input.transactionDate} onChange={handleChange} name="transactionDate" className="form-control mb-4" placeholder="Input Transaction Date" type="text" />
+                <FilterDate input={input} />
               </div>
               <div className="col-lg">
                 <label className="form-label">Name</label>

@@ -146,7 +146,7 @@ export default function EditEmployee() {
 
   return (
     <>
-      <div className="row">
+      <div className="row text-white">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card" style={{ background: "#212332" }}>
             <div className="page-header" style={{ margin: "20px 20px 20px 20px" }}>
@@ -250,7 +250,7 @@ export default function EditEmployee() {
       </div>
 
       {/* Confirmation Modal */}
-      <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
+      <Modal className="text-white" show={showConfirmationModal} onHide={handleCloseConfirmationModal} centered>
         <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
           <Modal.Title>CONFIRMATION</Modal.Title>
         </Modal.Header>
