@@ -1,9 +1,20 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-import { fetchUser } from "../../../../store/actions/thunks";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRole, fetchUser } from "../../../../store/actions/thunks";
 
 export default function SearchComponent() {
+  const { roles } = useSelector((state) => {
+    return state.roles;
+  });
+
+  const dataRole = roles;
+
+  const [inputDefault] = useState({
+    search: "",
+    status: "Active",
+  });
+
+  const dispatch = useDispatch();
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
     status: "",
@@ -44,7 +55,10 @@ export default function SearchComponent() {
     );
   };
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchRole(inputDefault));
+  }, [dispatch, inputDefault]);
+
   // const navigate = useNavigate();
 
   const handleFilter = async (event) => {
@@ -128,10 +142,10 @@ export default function SearchComponent() {
                 <div className="col-lg mb-3">
                   <label className="form-label">Status</label>
                   <select
-                    value={input.status}
-                    onChange={handleChange}
-                    name="status"
                     className="form-select"
+                    value={input.role}
+                    onChange={handleChange}
+                    name="role"
                     aria-label="select example"
                     style={{
                       background: "#2B2E3F",
@@ -139,9 +153,13 @@ export default function SearchComponent() {
                       border: "1px solid #707070",
                     }}
                   >
-                    <option value="">Open this select menu</option>
-                    <option value="Active">Active</option>
-                    <option value="InActive">InActive</option>
+                    <option value="">-- Select role --</option>
+                    {dataRole &&
+                      dataRole?.map((role, index) => (
+                        <option key={index} value={role.roleName}>
+                          {role.roleName}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>

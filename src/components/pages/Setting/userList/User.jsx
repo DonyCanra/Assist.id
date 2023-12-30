@@ -69,7 +69,7 @@ export default function UserList() {
               <div className="table-responsive">
                 <table className="table table-bordered card-table table-vcenter text-nowrap">
                   <thead className="text-center">
-                    <tr className="border-top">
+                    <tr className="border-top border-bottom">
                       <th className="wd-15p border-bottom-0">No.</th>
                       <th className="wd-15p border-bottom-0">Name</th>
                       <th className="wd-15p border-bottom-0">Phone Number</th>

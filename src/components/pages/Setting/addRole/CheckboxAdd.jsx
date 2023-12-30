@@ -13,6 +13,12 @@ const CheckboxInput = ({ input, handleChange }) => {
       ...prevPrivilege,
       dashboard: !prevPrivilege.dashboard,
     }));
+
+    if (!privilege.dashboard) {
+      input.dashboardView = true;
+    } else {
+      input.dashboardView = false;
+    }
   };
 
   const handleSelectAllEmployee = () => {
@@ -20,6 +26,26 @@ const CheckboxInput = ({ input, handleChange }) => {
       ...prevPrivilege,
       employee: !prevPrivilege.employee,
     }));
+
+    if (!privilege.employee) {
+      input.employeeView = true;
+      input.employeeAdd = true;
+      input.employeeDetail = true;
+      input.employeeDownload = true;
+      input.employeeSearch = true;
+      input.employeeUpdate = true;
+      input.candidateApprove = true;
+      input.candidateDownload = true;
+    } else {
+      input.employeeView = false;
+      input.employeeAdd = false;
+      input.employeeDetail = false;
+      input.employeeDownload = false;
+      input.employeeSearch = false;
+      input.employeeUpdate = false;
+      input.candidateApprove = false;
+      input.candidateDownload = false;
+    }
   };
 
   const handleSelectAllFee = () => {
@@ -27,6 +53,18 @@ const CheckboxInput = ({ input, handleChange }) => {
       ...prevPrivilege,
       fee: !prevPrivilege.fee,
     }));
+
+    if (!privilege.fee) {
+      input.feeView = true;
+      input.feeSearch = true;
+      input.feeDetail = true;
+      input.feeDownload = true;
+    } else {
+      input.feeView = false;
+      input.feeSearch = false;
+      input.feeDetail = false;
+      input.feeDownload = false;
+    }
   };
 
   const handleSelectAllSetting = () => {
@@ -34,6 +72,19 @@ const CheckboxInput = ({ input, handleChange }) => {
       ...prevPrivilege,
       setting: !prevPrivilege.setting,
     }));
+    if (!privilege.setting) {
+      input.settingView = true;
+      input.roleAdd = true;
+      input.roleUpdate = true;
+      input.userAdd = true;
+      input.userUpdate = true;
+    } else {
+      input.settingView = false;
+      input.roleAdd = false;
+      input.roleUpdate = false;
+      input.userAdd = false;
+      input.userUpdate = false;
+    }
   };
 
   const [isSubMenuDashboardVisible, setSubMenuDashboardVisible] = useState(false);
@@ -90,7 +141,14 @@ const CheckboxInput = ({ input, handleChange }) => {
               )}
             </div>
             <div style={{ display: "flex", alignItems: "center", cursor: "pointer", userSelect: "none" }}>
-              <input name="dashboard" value={privilege.dashboard} type="checkbox" checked={privilege.dashboard} onChange={handleSelectAllDashboard} style={{ marginRight: "5px" }} />
+              <input
+                name="dashboard"
+                value={input.dashboardView ? (privilege.dashboard = true) : (privilege.dashboard = false)}
+                type="checkbox"
+                checked={privilege.dashboard}
+                onChange={handleSelectAllDashboard}
+                style={{ marginRight: "5px" }}
+              />
               Dashboard
             </div>
           </div>
@@ -132,7 +190,18 @@ const CheckboxInput = ({ input, handleChange }) => {
               )}
             </div>
             <div style={{ display: "flex", alignItems: "center", cursor: "pointer", userSelect: "none" }}>
-              <input name="employee" value={privilege.employee} type="checkbox" checked={privilege.employee} onChange={handleSelectAllEmployee} style={{ marginRight: "5px" }} />
+              <input
+                name="employee"
+                value={
+                  input.employeeView && input.employeeAdd && input.employeeDetail && input.employeeDownload && input.employeeSearch && input.employeeUpdate && input.candidateDownload && input.candidateApprove
+                    ? (privilege.employee = true)
+                    : (privilege.employee = false)
+                }
+                type="checkbox"
+                checked={privilege.employee}
+                onChange={handleSelectAllEmployee}
+                style={{ marginRight: "5px" }}
+              />
               Employee
             </div>
           </div>
@@ -202,7 +271,14 @@ const CheckboxInput = ({ input, handleChange }) => {
               )}
             </div>
             <div style={{ display: "flex", alignItems: "center", cursor: "pointer", userSelect: "none" }}>
-              <input name="fee" value={privilege.fee} type="checkbox" checked={privilege.fee} onChange={handleSelectAllFee} style={{ marginRight: "5px" }} />
+              <input
+                name="fee"
+                value={input.feeView && input.feeDetail && input.feeDownload && input.feeSearch ? (privilege.fee = true) : (privilege.fee = false)}
+                type="checkbox"
+                checked={privilege.fee}
+                onChange={handleSelectAllFee}
+                style={{ marginRight: "5px" }}
+              />
               Fee
             </div>
           </div>
@@ -256,7 +332,14 @@ const CheckboxInput = ({ input, handleChange }) => {
               )}
             </div>
             <div style={{ display: "flex", alignItems: "center", cursor: "pointer", userSelect: "none" }}>
-              <input name="setting" value={privilege.setting} type="checkbox" checked={privilege.setting} onChange={handleSelectAllSetting} style={{ marginRight: "5px" }} />
+              <input
+                name="setting"
+                value={input.settingView && input.roleAdd && input.roleUpdate && input.userAdd && input.userUpdate ? (privilege.setting = true) : (privilege.setting = false)}
+                type="checkbox"
+                checked={privilege.setting}
+                onChange={handleSelectAllSetting}
+                style={{ marginRight: "5px" }}
+              />
               Setting
             </div>
           </div>

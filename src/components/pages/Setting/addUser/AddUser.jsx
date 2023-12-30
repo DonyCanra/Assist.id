@@ -9,6 +9,8 @@ export default function AddUser() {
     return state.roles;
   });
 
+  console.log(roles, "<<roles");
+
   const dataRole = roles;
 
   const [inputDefault] = useState({
