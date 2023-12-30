@@ -12,12 +12,21 @@ export default function UserList() {
 
   const dataTable = roles;
 
-  const [inputDefault] = useState({
+  const [inputDefault, setInputDefault] = useState({
     search: "",
     status: "",
   });
 
   const dataLocal = JSON.parse(localStorage.privilege);
+
+  const pageCount = roles.totalPage; // Jumlah halaman yang ingin ditampilkan
+
+  const handlePageChange = (page) => {
+    setInputDefault((prevInput) => ({
+      ...prevInput,
+      page,
+    }));
+  };
 
   const dispatch = useDispatch();
 
@@ -71,6 +80,43 @@ export default function UserList() {
                     })}
                   </tbody>
                 </table>
+              </div>
+              <div className="row row-sm">
+                <div className="col-lg">
+                  <div className="page-header">
+                    <div className="page-leftheader">
+                      <div className="dataTables_info text-white" id="example2_info" role="status" aria-live="polite">
+                        Showing 1 to {inputDefault.page} of {roles.totalPage} entries
+                      </div>
+                    </div>
+                    <div className="page-rightheader">
+                      <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                        <ul className="pagination">
+                          <li className={inputDefault.page === 1 ? "paginate_button page-item disabled" : "paginate_button page-item"} onClick={() => inputDefault.page > 1 && handlePageChange(inputDefault.page - 1)}>
+                            <Link href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" className="page-link">
+                              Previous
+                            </Link>
+                          </li>
+                          {[...Array(pageCount)]?.map((_, index) => (
+                            <li key={index} className={`paginate_button page-item ${inputDefault.page === index + 1 ? "active" : ""}`} onClick={() => handlePageChange(index + 1)}>
+                              <Link href="#" aria-controls="example2" data-dt-idx={index + 1} tabindex="0" className="page-link">
+                                {index + 1}
+                              </Link>
+                            </li>
+                          ))}
+                          <li
+                            className={inputDefault.page === roles.totalPage ? "paginate_button page-item disabled" : "paginate_button page-item"}
+                            onClick={() => inputDefault.page < roles.totalPage && handlePageChange(inputDefault.page + 1)}
+                          >
+                            <Link href="#" aria-controls="example2" data-dt-idx={pageCount + 1} tabindex="0" className="page-link">
+                              Next
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
