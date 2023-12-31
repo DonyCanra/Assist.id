@@ -3,7 +3,7 @@ import * as xlsx from "xlsx";
 import DataBulkTableModal from "./DataBulkTableModal";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx"; // Import pustaka xlsx
-import { templateUpload } from "../../../constants/template";
+import { templateUpload } from "../../../constants/templateUpload";
 
 export default function AddEmployeeDataBulk() {
   const [dataBulk, setDatabulk] = useState({

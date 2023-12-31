@@ -72,7 +72,13 @@ export default function Candidate() {
       </div>
 
       <div className="nav-row">
-        <Link to="/employee">
+        <Link to="/employee" style={{ position: "relative", display: "inline-block" }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="221" height="41" viewBox="0 0 221 41" fill="none">
+            <path
+              d="M217.919 33.0225C213.602 32.4436 209.643 30.3174 206.775 27.0387C203.907 23.7601 202.326 19.5516 202.325 15.1949L202.307 15.3853C201.681 11.111 199.539 7.20469 196.272 4.37992C193.005 1.55514 188.831 0.000501148 184.513 0H36.4866C32.1686 0.000501148 27.9949 1.55514 24.728 4.37992C21.4611 7.20469 19.3191 11.111 18.6933 15.3853L18.6751 15.1949C18.6742 19.5516 17.0931 23.7601 14.2253 27.0387C11.3574 30.3174 7.39777 32.4436 3.08147 33.0225H0V41H221V33.0225H217.919Z"
+              fill="#2A2E3F"
+            />
+          </svg>
           <h1
             style={{
               position: "absolute",
@@ -81,20 +87,22 @@ export default function Candidate() {
               fontStyle: "normal",
               fontWeight: "400",
               lineHeight: "normal",
-              left: "315px",
-              top: "225px",
+              left: "50%", // Mengatur posisi horizontal di tengah
+              top: "50%", // Mengatur posisi vertical di tengah
+              transform: "translate(-50%, -50%)", // Membuat h1 berada tepat di tengah
             }}
           >
             Employee List
           </h1>
+        </Link>
+
+        <Link to="/candidate" style={{ position: "relative", display: "inline-block" }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="221" height="41" viewBox="0 0 221 41" fill="none">
             <path
               d="M217.919 33.0225C213.602 32.4436 209.643 30.3174 206.775 27.0387C203.907 23.7601 202.326 19.5516 202.325 15.1949L202.307 15.3853C201.681 11.111 199.539 7.20469 196.272 4.37992C193.005 1.55514 188.831 0.000501148 184.513 0H36.4866C32.1686 0.000501148 27.9949 1.55514 24.728 4.37992C21.4611 7.20469 19.3191 11.111 18.6933 15.3853L18.6751 15.1949C18.6742 19.5516 17.0931 23.7601 14.2253 27.0387C11.3574 30.3174 7.39777 32.4436 3.08147 33.0225H0V41H221V33.0225H217.919Z"
-              fill="#2A2E3F"
+              fill="#3B4051"
             />
           </svg>
-        </Link>
-        <Link to="/candidate">
           <h1
             style={{
               position: "absolute",
@@ -103,18 +111,13 @@ export default function Candidate() {
               fontStyle: "normal",
               fontWeight: "400",
               lineHeight: "normal",
-              left: "550px",
-              top: "225px",
+              left: "50%", // Mengatur posisi horizontal di tengah
+              top: "50%", // Mengatur posisi vertical di tengah
+              transform: "translate(-50%, -50%)", // Membuat h1 berada tepat di tengah
             }}
           >
             Candidate
           </h1>
-          <svg xmlns="http://www.w3.org/2000/svg" width="221" height="41" viewBox="0 0 221 41" fill="none">
-            <path
-              d="M217.919 33.0225C213.602 32.4436 209.643 30.3174 206.775 27.0387C203.907 23.7601 202.326 19.5516 202.325 15.1949L202.307 15.3853C201.681 11.111 199.539 7.20469 196.272 4.37992C193.005 1.55514 188.831 0.000501148 184.513 0H36.4866C32.1686 0.000501148 27.9949 1.55514 24.728 4.37992C21.4611 7.20469 19.3191 11.111 18.6933 15.3853L18.6751 15.1949C18.6742 19.5516 17.0931 23.7601 14.2253 27.0387C11.3574 30.3174 7.39777 32.4436 3.08147 33.0225H0V41H221V33.0225H217.919Z"
-              fill="#3B4051"
-            />
-          </svg>
         </Link>
       </div>
 

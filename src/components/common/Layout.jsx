@@ -8,7 +8,6 @@ export default function Layout() {
   return (
     <>
       <Loader />
-
       <div className="page">
         <div className="page-main">
           <Sidebar />
@@ -21,8 +20,8 @@ export default function Layout() {
             </div>
           </div>
         </div>
+        <BackTop />
       </div>
-      <BackTop />
     </>
   );
 }

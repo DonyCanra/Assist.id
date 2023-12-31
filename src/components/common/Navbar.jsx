@@ -63,7 +63,9 @@ export default function Navbar() {
                       </a>
                       <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow animated">
                         <div className="text-center">
-                          <div className="text-center user pb-0 font-weight-bold">{profile.name}</div>
+                          <div className="text-center user pb-0 font-weight-bold" style={{ textTransform: "none" }}>
+                            {profile.name}
+                          </div>
                           <span className="text-center user-semi-title">{profile.role}</span>
                           <div className="dropdown-divider"></div>
                         </div>
