@@ -9,6 +9,8 @@ export default function EditProfile() {
   const { profile } = useSelector((state) => state.profile);
   const { image } = useSelector((state) => state.image);
 
+  console.log(profile, "<< prof");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,6 +18,7 @@ export default function EditProfile() {
     name: "",
     phoneNumber: "",
     avatar: "",
+    roleId: "",
   });
 
   const [error, setError] = useState({
@@ -47,6 +50,7 @@ export default function EditProfile() {
         name: profile.name,
         phoneNumber: profile.phoneNumber,
         avatar: profile.avatar,
+        roleId: profile.roleId,
       });
     }
   }, [profile]);

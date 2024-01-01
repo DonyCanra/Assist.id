@@ -41,9 +41,21 @@ export default function FilterDate({ input }) {
     marginBottom: 10,
   };
 
+  const calendarStyles = {
+    backgroundColor: "black", // Ganti warna latar belakang sesuai keinginan, contoh warna hitam
+  };
+
   return (
     <>
-      <DateRangePicker size="md" placeholder="Transaction Date" style={styles} value={[selectedDate.startDate, selectedDate.endDate]} onChange={handleDateSelect} />
+      <DateRangePicker
+        className="bg-dark rs-picker rs-picker-toolbar" // Tambahkan class rs-picker dan rs-picker-toolbar
+        size="md"
+        placeholder="Transaction Date"
+        style={styles}
+        calendarStyle={calendarStyles}
+        value={[selectedDate.startDate, selectedDate.endDate]}
+        onChange={handleDateSelect}
+      />
     </>
   );
 }

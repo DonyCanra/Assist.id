@@ -5,6 +5,6 @@ export const templateUpload = [
     nik: "1413121110987239",
     phoneNumber: "082224034567",
     email: "example@gmail.com",
-    maxAmount: 0,
+    maxAmount: 100000,
   },
 ];

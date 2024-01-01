@@ -24,7 +24,7 @@ export default function AddEmployeeDataBulk() {
       NIK: el.nik,
       "Phone Number": el.phoneNumber,
       Email: el.email,
-      "Max Amount": el.maxAmount,
+      "Maximum Amount": el.maxAmount,
     }));
 
     // Buat objek worksheet dari data

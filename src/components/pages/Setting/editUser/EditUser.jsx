@@ -9,6 +9,8 @@ export default function EditUser() {
     return state.user;
   });
 
+  console.log(user, "<");
+
   const { roles } = useSelector((state) => {
     return state.roles;
   });

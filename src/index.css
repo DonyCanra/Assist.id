@@ -14,3 +14,18 @@ code {
 iframe {
   display: none;
 }
+
+.rs-picker-toggle-textbox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding-left: 10px;
+  padding-right: 32px;
+  color: #fff;
+  color: #fff;
+  background-color: #3b405b;
+  background-color: #3b405b;
+  outline: none;
+}
