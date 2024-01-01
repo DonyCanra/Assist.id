@@ -123,8 +123,30 @@ export default function Login() {
                     <div className="card">
                       <div className="card-body">
                         <div className="text-center mb-3">
-                          <h1 className="mb-2 text-white">Log In</h1>
-                          <h6 className="text-white">Welcome Back!</h6>
+                          <h1
+                            style={{
+                              color: "#DDD",
+                              fontSize: "30px",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              lineHeight: "normal",
+                            }}
+                            className="mb-2 text-white"
+                          >
+                            Log In
+                          </h1>
+                          <h6
+                            style={{
+                              color: "#DDD",
+                              fontSize: "13px",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              lineHeight: "normal",
+                            }}
+                            className="text-white"
+                          >
+                            Welcome Back!
+                          </h6>
                         </div>
                         <form className="mt-5" onSubmit={handleLogin}>
                           <div className={`input-group mb-3 ${errorInputs.email ? "has-error" : ""}`}>

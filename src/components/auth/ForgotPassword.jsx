@@ -101,7 +101,30 @@ export default function ForgotPassword() {
                     <div className="card">
                       <div className="card-body">
                         <div className="text-center mb-3">
-                          <h1 className="mb-2">Forgot Password</h1>
+                          <h1
+                            style={{
+                              color: "#DDD",
+                              fontSize: "30px",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              lineHeight: "normal",
+                            }}
+                            className="mb-2"
+                          >
+                            Forgot Password
+                          </h1>
+                          <h6
+                            style={{
+                              color: "#DDD",
+                              fontSize: "13px",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              lineHeight: "normal",
+                            }}
+                            className="text-white"
+                          >
+                            Please put your email below, we will send instruction to your email for recover your password
+                          </h6>
                         </div>
                         <form onSubmit={handleResetPassword} className="mt-5">
                           <div className={`input-group mb-4 ${errorInputs.email ? "has-error" : ""}`}>
@@ -117,7 +140,9 @@ export default function ForgotPassword() {
                             </button>
                           </div>
                           <Link to="/login">
-                            <div className="form-group fs-13 text-center">Login</div>
+                            <div style={{ color: "#fff" }} className="form-group fs-13 text-center">
+                              Login
+                            </div>
                           </Link>
                         </form>
                       </div>

@@ -139,7 +139,18 @@ export default function CreatePassword() {
                     <div className="card">
                       <div className="card-body">
                         <div className="text-center mb-3">
-                          <h1 className="mb-2">Create Password</h1>
+                          <h1
+                            style={{
+                              color: "#DDD",
+                              fontSize: "30px",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              lineHeight: "normal",
+                            }}
+                            className="mb-2"
+                          >
+                            Create Password
+                          </h1>
                         </div>
                         <form onSubmit={handleCreatePassword} className="mt-5">
                           <div className={`input-group mb-4 ${errorInputs.password ? "has-error" : ""}`}>
