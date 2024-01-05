@@ -45,11 +45,11 @@ export default function Navbar() {
               <img src="/images/brand/favicon1.png" className="header-brand-img darkmobile-logo" alt="Ewa logo" />
             </a>
             <div className="app-sidebar__toggle d-flex" data-bs-toggle="sidebar">
-              <a href="/profile" className="open-toggle">
+              <Link className="open-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" className="feather feather-align-left header-icon" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
                 </svg>
-              </a>
+              </Link>
             </div>
             <div className="d-flex order-lg-2 ms-auto main-header-end">
               <div className="navbar navbar-expand-lg navbar-collapse responsive-navbar p-0">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createUser, fetchRole, resendEmailCreateUser } from "../../../../store/actions/thunks";
+import { createUser, fetchRole } from "../../../../store/actions/thunks";
 import { Modal, Button } from "react-bootstrap";
 
 export default function AddUser() {
@@ -88,9 +88,9 @@ export default function AddUser() {
     if (typeof input.status === "boolean") {
       input.status = input.status ? "Active" : "InActive";
     }
-    const inputData = {
-      email: input.email,
-    };
+    // const inputData = {
+    //   email: input.email,
+    // };
 
     // Validasi wajib pada setiap input
     const validationErrors = validateInput(input);
@@ -101,7 +101,7 @@ export default function AddUser() {
 
     try {
       await dispatch(createUser(input)); // Sesuaikan parameter sesuai kebutuhan
-      await dispatch(resendEmailCreateUser(inputData)); // Sesuaikan parameter sesuai kebutuhan
+      // await dispatch(resendEmailCreateUser(inputData)); // Sesuaikan parameter sesuai kebutuhan
       handleCloseConfirmationModal();
       navigate("/users");
     } catch (error) {

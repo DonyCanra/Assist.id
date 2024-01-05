@@ -48,7 +48,6 @@ export default function FilterDate({ input }) {
   return (
     <>
       <DateRangePicker
-        className="bg-dark rs-picker rs-picker-toolbar" // Tambahkan class rs-picker dan rs-picker-toolbar
         size="md"
         placeholder="Transaction Date"
         style={styles}

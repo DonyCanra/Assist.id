@@ -1,129 +1,65 @@
-import { DateRangePicker } from "rsuite";
-import subDays from "date-fns/subDays";
-import startOfWeek from "date-fns/startOfWeek";
-import endOfWeek from "date-fns/endOfWeek";
-import addDays from "date-fns/addDays";
-import startOfMonth from "date-fns/startOfMonth";
-import endOfMonth from "date-fns/endOfMonth";
-import addMonths from "date-fns/addMonths";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
+import { fetchDashboard } from "../../../../store/actions/thunks";
 
-export default function FilterDate({ handleFetch }) {
-  const [input, setInput] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
+export default function FilterDate() {
+  const [value, setValue] = useState({
+    startDate: subtractDaysFromCurrentDate(0),
+    endDate: subtractDaysFromCurrentDate(0),
   });
 
-  let changeStartDate = input.startDate;
-  let changeEndDate = input.endDate;
+  const [activeOption, setActiveOption] = useState("Today");
 
-  const inputStartDate = new Date(changeStartDate);
-  const inputEndDate = new Date(changeEndDate);
+  const formatDate = (inputDate) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = new Date(inputDate).toLocaleDateString("en-US", options);
+    return formattedDate;
+  };
 
-  const formattedStartDate = inputStartDate.toLocaleDateString("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-
-  const formattedEndDate = inputEndDate.toLocaleDateString("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-
-  const predefinedRanges = [
-    {
-      label: "Today",
-      value: [new Date(), new Date()],
-      placement: "left",
-    },
-    {
-      label: "Yesterday",
-      value: [addDays(new Date(), -1), addDays(new Date(), -1)],
-      placement: "left",
-    },
-    {
-      label: "This week",
-      value: [startOfWeek(new Date()), endOfWeek(new Date())],
-      placement: "left",
-    },
-    {
-      label: "Last 7 days",
-      value: [subDays(new Date(), 6), new Date()],
-      placement: "left",
-    },
-    {
-      label: "Last 30 days",
-      value: [subDays(new Date(), 29), new Date()],
-      placement: "left",
-    },
-    {
-      label: "This month",
-      value: [startOfMonth(new Date()), new Date()],
-      placement: "left",
-    },
-    {
-      label: "Last month",
-      value: [startOfMonth(addMonths(new Date(), -1)), endOfMonth(addMonths(new Date(), -1))],
-      placement: "left",
-    },
-    {
-      label: "This year",
-      value: [new Date(new Date().getFullYear(), 0, 1), new Date()],
-      placement: "left",
-    },
-    {
-      label: "Last year",
-      value: [new Date(new Date().getFullYear() - 1, 0, 1), new Date(new Date().getFullYear(), 0, 0)],
-      placement: "left",
-    },
-    {
-      label: "All time",
-      value: [new Date(new Date().getFullYear() - 1, 0, 1), new Date()],
-      placement: "left",
-    },
-    {
-      label: "Last week",
-      closeOverlay: false,
-      value: (value) => {
-        const [start = new Date()] = value || [];
-        return [addDays(startOfWeek(start, { weekStartsOn: 0 }), -7), addDays(endOfWeek(start, { weekStartsOn: 0 }), -7)];
-      },
-      appearance: "default",
-    },
-    {
-      label: "Next week",
-      closeOverlay: false,
-      value: (value) => {
-        const [start = new Date()] = value || [];
-        return [addDays(startOfWeek(start, { weekStartsOn: 0 }), 7), addDays(endOfWeek(start, { weekStartsOn: 0 }), 7)];
-      },
-      appearance: "default",
-    },
-  ];
-
-  const dispatch = useDispatch();
+  const handleDateChange = (startDate, endDate, option) => {
+    setValue({ startDate, endDate });
+    setActiveOption(option);
+  };
 
   useEffect(() => {
-    const inputFilter = {
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-    };
-    dispatch(handleFetch(inputFilter));
-  }, [dispatch, handleFetch, formattedStartDate, formattedEndDate]);
+    // Fetch data when value.startDate or value.endDate changes
+    fetchDashboard(value.startDate, value.endDate);
+  }, [value.startDate, value.endDate]);
 
   return (
     <>
-      <DateRangePicker
-        ranges={predefinedRanges}
-        showOneCalendar
-        placeholder="Filter Calendar"
-        style={{ width: 350, background: "red" }}
-        value={[input.startDate, input.endDate]}
-        onChange={(value) => setInput({ startDate: value[0], endDate: value[1] })}
-      />
+      <div className="page-rightheader">
+        <div className="btn-list">
+          <Link className="btn btn-primary btn-pill" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i className="fa fa-calendar me-2 fs-14"></i> {formatDate(value.startDate)} - {formatDate(value.endDate)}
+          </Link>
+          <div className="dropdown-menu border-0">
+            <button className={`dropdown-item ${activeOption === "All the time" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(0), "All the time")}>
+              All the time
+            </button>
+            <button className={`dropdown-item ${activeOption === "Today" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(0), "Today")}>
+              Today
+            </button>
+            <button className={`dropdown-item ${activeOption === "Yesterday" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(1), subtractDaysFromCurrentDate(1), "Yesterday")}>
+              Yesterday
+            </button>
+            <button className={`dropdown-item ${activeOption === "Last 7 days" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(6), "Last 7 days")}>
+              Last 7 days
+            </button>
+            <button className={`dropdown-item ${activeOption === "This Month" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(29), "This Month")}>
+              This Month
+            </button>
+            <button className={`dropdown-item ${activeOption === "Last Month" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(29), subtractDaysFromCurrentDate(58), "Last Month")}>
+              Last Month
+            </button>
+            <button className={`dropdown-item ${activeOption === "Last Year" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(365), subtractDaysFromCurrentDate(0), "Last Year")}>
+              Last Year
+            </button>
+            {/* Tambahkan event handler untuk opsi-opsi lainnya */}
+          </div>
+        </div>
+      </div>
     </>
   );
 }
