@@ -9,7 +9,7 @@ export default function TotalDashboard() {
     return state.dashboard;
   });
 
-  const [input] = useState({
+  const [input, setInput] = useState({
     startDate: subtractDaysFromCurrentDate(0),
     endDate: subtractDaysFromCurrentDate(0),
   });
@@ -19,6 +19,15 @@ export default function TotalDashboard() {
   useEffect(() => {
     dispatch(fetchDashboard(input));
   }, [dispatch, input]);
+
+  const handleChange = (startDate, endDate) => {
+    setInput({
+      ...input,
+      startDate: startDate,
+      endDate: endDate,
+    });
+  };
+
   return (
     <>
       <div className="page-header">
@@ -26,7 +35,7 @@ export default function TotalDashboard() {
           <h4 className="page-title mb-0 text-primary">Dashboard</h4>
         </div>
         <div className="page-rightheader">
-          <FilterDate input={input} />
+          <FilterDate input={input} onChange={handleChange} />
         </div>
       </div>
 

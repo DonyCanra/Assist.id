@@ -13,7 +13,7 @@ const LineChartTransaction = () => {
     return state.transaction;
   });
 
-  const [input] = useState({
+  const [input, setInput] = useState({
     startDate: subtractDaysFromCurrentDate(0),
     endDate: subtractDaysFromCurrentDate(0),
   });
@@ -23,6 +23,14 @@ const LineChartTransaction = () => {
   useEffect(() => {
     dispatch(fetchDataTransaction(input));
   }, [dispatch, input]);
+
+  const handleChange = (startDate, endDate) => {
+    setInput({
+      ...input,
+      startDate: startDate,
+      endDate: endDate,
+    });
+  };
 
   const data = {
     labels: transaction.map((x) => x.label),
@@ -62,7 +70,7 @@ const LineChartTransaction = () => {
                 </h4>
               </div>
               <div className="page-rightheader">
-                <FilterDate handleFetch={fetchDataTransaction} />
+                <FilterDate input={input} onChange={handleChange} />
               </div>
             </div>
             <div className="card-body pt-0">

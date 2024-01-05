@@ -39,7 +39,7 @@ export default function LineChartWithdraw() {
 
   const data = transformData(originalData);
 
-  const [input] = useState({
+  const [input, setInput] = useState({
     startDate: subtractDaysFromCurrentDate(0),
     endDate: subtractDaysFromCurrentDate(0),
   });
@@ -49,6 +49,14 @@ export default function LineChartWithdraw() {
   useEffect(() => {
     dispatch(fetchDataWithdraw(input));
   }, [dispatch, input]);
+
+  const handleChange = (startDate, endDate) => {
+    setInput({
+      ...input,
+      startDate: startDate,
+      endDate: endDate,
+    });
+  };
 
   return (
     <>
@@ -64,7 +72,7 @@ export default function LineChartWithdraw() {
                   DATA AMOUNT WITHDRAWAL
                 </h6>
               </div>
-              <FilterDate style={{ paddingRight: "200px" }} handleFetch={fetchDataWithdraw} input={input} />
+              <FilterDate style={{ paddingRight: "200px" }} input={input} onChange={handleChange} />
             </div>
             <div className="card-body pt-0">
               <Chart chartType="LineChart" width="100%" height="400px" data={data} options={options} />;

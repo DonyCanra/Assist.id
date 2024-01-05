@@ -1,15 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
-import { fetchDashboard } from "../../../../store/actions/thunks";
 
-export default function FilterDate() {
-  const [value, setValue] = useState({
-    startDate: subtractDaysFromCurrentDate(0),
-    endDate: subtractDaysFromCurrentDate(0),
-  });
+export default function FilterDate(props) {
+  const { input, onChange } = props;
 
-  const [activeOption, setActiveOption] = useState("Today");
+  const [activeFilter, setActiveFilter] = useState("allTime");
 
   const formatDate = (inputDate) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -17,46 +13,45 @@ export default function FilterDate() {
     return formattedDate;
   };
 
-  const handleDateChange = (startDate, endDate, option) => {
-    setValue({ startDate, endDate });
-    setActiveOption(option);
+  const handleFilterClick = (startDate, endDate, filterName) => {
+    onChange(startDate, endDate);
+    setActiveFilter(filterName);
   };
 
   useEffect(() => {
-    // Fetch data when value.startDate or value.endDate changes
-    fetchDashboard(value.startDate, value.endDate);
-  }, [value.startDate, value.endDate]);
+    // Update the active filter when input changes
+    setActiveFilter("allTime"); // You can set the default active filter based on your requirement
+  }, [input]);
 
   return (
     <>
       <div className="page-rightheader">
         <div className="btn-list">
           <Link className="btn btn-primary btn-pill" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i className="fa fa-calendar me-2 fs-14"></i> {formatDate(value.startDate)} - {formatDate(value.endDate)}
+            <i className="fa fa-calendar me-2 fs-14"></i> {formatDate(input.startDate)} - {formatDate(input.endDate)}
           </Link>
           <div className="dropdown-menu border-0">
-            <button className={`dropdown-item ${activeOption === "All the time" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(0), "All the time")}>
+            <button className={`dropdown-item ${activeFilter === "allTime" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(0), "allTime")}>
               All the time
             </button>
-            <button className={`dropdown-item ${activeOption === "Today" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(0), "Today")}>
+            <button className={`dropdown-item ${activeFilter === "today" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(0), "today")}>
               Today
             </button>
-            <button className={`dropdown-item ${activeOption === "Yesterday" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(1), subtractDaysFromCurrentDate(1), "Yesterday")}>
+            <button className={`dropdown-item ${activeFilter === "yesterday" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(1), subtractDaysFromCurrentDate(1), "yesterday")}>
               Yesterday
             </button>
-            <button className={`dropdown-item ${activeOption === "Last 7 days" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(6), "Last 7 days")}>
+            <button className={`dropdown-item ${activeFilter === "last7Days" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(6), "last7Days")}>
               Last 7 days
             </button>
-            <button className={`dropdown-item ${activeOption === "This Month" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(29), "This Month")}>
+            <button className={`dropdown-item ${activeFilter === "thisMonth" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(0), subtractDaysFromCurrentDate(29), "thisMonth")}>
               This Month
             </button>
-            <button className={`dropdown-item ${activeOption === "Last Month" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(29), subtractDaysFromCurrentDate(58), "Last Month")}>
+            <button className={`dropdown-item ${activeFilter === "lastMonth" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(29), subtractDaysFromCurrentDate(58), "lastMonth")}>
               Last Month
             </button>
-            <button className={`dropdown-item ${activeOption === "Last Year" && "active"}`} onClick={() => handleDateChange(subtractDaysFromCurrentDate(365), subtractDaysFromCurrentDate(0), "Last Year")}>
+            <button className={`dropdown-item ${activeFilter === "lastYear" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(365), subtractDaysFromCurrentDate(0), "lastYear")}>
               Last Year
             </button>
-            {/* Tambahkan event handler untuk opsi-opsi lainnya */}
           </div>
         </div>
       </div>
