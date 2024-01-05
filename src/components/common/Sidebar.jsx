@@ -10,7 +10,7 @@ export default function Sidebar() {
     setSettingSubMenuVisible(!isSettingSubMenuVisible);
   };
   return (
-    <div>
+    <>
       <aside className="app-sidebar">
         <div className="app-sidebar__logo" style={{ background: "#2a2e3f" }}>
           <Link to="/" className="header-brand">
@@ -101,6 +101,8 @@ export default function Sidebar() {
           </li>
         </ul>
       </aside>
-    </div>
+      <script src="/plugins/p-scrollbar/p-scroll1.js"></script>
+      <script src="/plugins/p-scrollbar/p-scroll.js"></script>
+    </>
   );
 }
