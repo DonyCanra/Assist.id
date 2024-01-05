@@ -40,7 +40,7 @@ export default function LineChartWithdraw() {
   const data = transformData(originalData);
 
   const [input] = useState({
-    startDate: subtractDaysFromCurrentDate(30),
+    startDate: subtractDaysFromCurrentDate(0),
     endDate: subtractDaysFromCurrentDate(0),
   });
 

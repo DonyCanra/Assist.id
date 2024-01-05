@@ -14,7 +14,7 @@ const LineChartTransaction = () => {
   });
 
   const [input] = useState({
-    startDate: subtractDaysFromCurrentDate(30),
+    startDate: subtractDaysFromCurrentDate(0),
     endDate: subtractDaysFromCurrentDate(0),
   });
 
