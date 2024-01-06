@@ -113,6 +113,8 @@ export default function ModalCandidate(props) {
               src="http://localhost:3030/file/tnc.pdf"
               type="application/pdf"
             />
+
+            {/* <iframe src={tncView} title="tnc" frameborder="0"></iframe> */}
           </div>
         </Modal.Body>
 

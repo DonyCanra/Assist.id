@@ -3,11 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchLogactivity, fetchPrivilege, fetchProfile } from "../../../../store/actions/thunks";
 import { Link, useNavigate } from "react-router-dom";
 import Row from "./LogactivityTableRaw";
+import { images } from "../../../constants/images";
 
 export default function Profile() {
   const { profile } = useSelector((state) => {
     return state.profile;
   });
+
+  const avatarDefault = images[0].avatarDefault;
+  console.log(avatarDefault, "images");
 
   const { logactivity } = useSelector((state) => {
     return state.logactivity;
@@ -78,26 +82,31 @@ export default function Profile() {
           <div className="card-header" style={{ background: "#2B2E3F" }}>
             <h3 className="card-title">Personal Information</h3>
           </div>
-          <div className="card box-widget widget-user">
+          <div className="card box-widget widget-user" style={{ height: "389px" }}>
             <div className="widget-user-image1 d-xl-flex mx-auto mt-5 d-block">
-              <img alt="User Avatar" className="avatar brround p-0" src={profile.avatar} />
+              <img style={{ width: "77px", height: "77px" }} alt="User Avatar" className="avatar brround p-0" src={profile.avatar === "" ? avatarDefault : profile.avatar} />
             </div>
             <div className="card-body text-left text-white">
-              <div className="" style={{ margin: "20px 10px" }}>
-                <tr>
+              <div className="" style={{ margin: "50px 10px 10px 10px" }}>
+                <tr style={{ height: "30px" }}>
                   <th scope="row">Name</th>
                   <td className="text-center w-8"> : </td>
                   <td> {profile.name}</td>
                 </tr>
-                <tr className="border-bottom">
+                <tr style={{ height: "30px" }} className="border-bottom">
                   <th scope="row">Phone Number</th>
                   <td className="text-center w-8"> : </td>
                   <td> {profile.phoneNumber}</td>
                 </tr>
-                <tr className="border-bottom">
+                <tr style={{ height: "30px" }} className="border-bottom">
                   <th scope="row">Email</th>
                   <td className="text-center w-8"> : </td>
                   <td> {profile.email}</td>
+                </tr>
+                <tr style={{ height: "30px" }} className="border-bottom">
+                  <th scope="row">Role</th>
+                  <td className="text-center w-8"> : </td>
+                  <td> {profile.role}</td>
                 </tr>
               </div>
             </div>

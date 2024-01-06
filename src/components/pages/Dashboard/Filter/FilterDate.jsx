@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css"; // Import the styles
+import "react-date-range/dist/theme/default.css"; // Import the theme
+
 import subtractDaysFromCurrentDate from "../../../../utils/subtractDaysFromCurrentDate";
 
 export default function FilterDate(props) {
   const { input, onChange } = props;
 
   const [activeFilter, setActiveFilter] = useState("Today");
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const formatDate = (inputDate) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -19,11 +24,44 @@ export default function FilterDate(props) {
   };
 
   const handleAllTimeClick = () => {
-    // Set startDate and endDate to empty string for "All the time"
     onChange("", "");
     setActiveFilter("allTime");
   };
 
+  const handleCustomRangeClick = () => {
+    setShowDatePicker(!showDatePicker);
+  };
+
+  const handleDateRangeChange = (ranges) => {
+    const { startDate, endDate } = ranges.selection;
+
+    // Format the dates to "YYYY-MM-DD" format
+    const formattedStartDate = formatCustomDate(startDate);
+    const formattedEndDate = formatCustomDate(endDate);
+
+    onChange(formattedStartDate, formattedEndDate);
+    setShowDatePicker(false);
+    setActiveFilter("customRange");
+  };
+
+  const formatCustomDate = (date) => {
+    if (!(date instanceof Date)) {
+      // If the input is not a Date object, you can try creating one
+      date = new Date(date);
+
+      // Check if the created date is valid
+      if (isNaN(date.getTime())) {
+        // If the date is still not valid, handle the error as needed
+        throw new Error("Invalid date");
+      }
+    }
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
 
   return (
     <>
@@ -54,9 +92,26 @@ export default function FilterDate(props) {
             <button className={`dropdown-item ${activeFilter === "lastYear" ? "active" : ""}`} onClick={() => handleFilterClick(subtractDaysFromCurrentDate(365), subtractDaysFromCurrentDate(0), "lastYear")}>
               Last Year
             </button>
-            <button className="dropdown-item">Customs Range</button>
+            <button id="daterange-btn" className={`dropdown-item ${activeFilter === "customRange" ? "active" : ""}`} onClick={handleCustomRangeClick}>
+              Custom Range
+            </button>
           </div>
         </div>
+
+        {/* Custom Date Range Picker */}
+        {showDatePicker && (
+          <DateRangePicker
+            onChange={handleDateRangeChange}
+            ranges={[
+              {
+                startDate: input.startDate || new Date(),
+                endDate: input.endDate || new Date(),
+                key: "selection",
+              },
+            ]}
+            numberOfCalendars={2}
+          />
+        )}
       </div>
     </>
   );

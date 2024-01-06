@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { convertImages } from "../../../../store/actions/thunks";
 import separateBase64String from "../../../../utils/separateBase64String";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ const ImageUploader = ({ profile }) => {
     preview: "",
   });
   const [error, setError] = useState("");
+  const fileInputRef = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -51,11 +52,15 @@ const ImageUploader = ({ profile }) => {
 
   return (
     <div className="col-lg-12 col-xl-8 text-white">
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <button style={{ marginBottom: "10px", width: "149px", height: "35px" }} className="btn btn-pill btn-dark" type="button" onClick={() => fileInputRef.current.click()}>
+        Choose File
+      </button>
+
+      <input ref={fileInputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleImageChange} />
       {error && <div style={{ color: "red" }}>{error}</div>}
       <div className="box-widget widget-user">
         <div className="widget-user-image1 d-xl-flex d-block">
-          <img alt="" className="avatar" style={{ borderRadius: "20px" }} src={selectedImage.preview} />
+          <img alt="" className="avatar" style={{ borderRadius: "20px", width: "124px", height: "153px" }} src={selectedImage.preview} />
         </div>
       </div>
     </div>
