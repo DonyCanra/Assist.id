@@ -31,6 +31,7 @@
     "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-google-charts": "^4.0.1",
+    "react-helmet": "^6.1.0",
     "react-loader-spinner": "^6.1.0",
     "react-pdf": "^7.6.0",
     "react-redux": "^9.0.3",
