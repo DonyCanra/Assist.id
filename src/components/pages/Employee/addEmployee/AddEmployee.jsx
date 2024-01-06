@@ -36,7 +36,7 @@ export default function AddEmployee() {
     }
 
     // Batasi panjang karakter untuk phone number
-    if (name === "nik" && value.length > 17) {
+    if (name === "nik" && value.length > 16) {
       return; // Kembalikan jika panjang karakter melebihi batas
     }
 

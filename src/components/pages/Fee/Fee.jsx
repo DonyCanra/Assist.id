@@ -18,9 +18,9 @@ export default function Fee() {
     startDate: "",
     endDate: "",
     transactionNo: "",
-    name: "",
+    employeeName: "",
     phoneNumber: "",
-    email: "",
+    employeeEmail: "",
     status: "",
     page: 1,
     limit: 10,
@@ -90,7 +90,9 @@ export default function Fee() {
                 </div>
               </div>
             </div>
-            <SearchComponent />
+            <div className="" style={{ display: dataLocal.feeSearch ? "" : "none" }}>
+              <SearchComponent />
+            </div>
             <div
               className="card-body"
               style={{

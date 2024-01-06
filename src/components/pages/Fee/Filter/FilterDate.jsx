@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DateRangePicker } from "rsuite";
 
-export default function FilterDate({ input }) {
+export default function FilterDate({ input, handleReset }) {
   const [selectedDate, setSelectedDate] = useState({
     startDate: "",
     endDate: "",

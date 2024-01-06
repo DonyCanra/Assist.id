@@ -27,7 +27,8 @@ export default function SearchComponent() {
 
   const handleReset = () => {
     setInput({
-      transactionDate: "",
+      startDate: "",
+      endDate: "",
       transactionNo: "",
       name: "",
       phoneNumber: "",
@@ -40,6 +41,8 @@ export default function SearchComponent() {
     // Fetch employee data with default values
     dispatch(
       fetchFee({
+        startDate: "",
+        endDate: "",
         transactionDate: "",
         transactionNo: "",
         name: "",
@@ -74,13 +77,13 @@ export default function SearchComponent() {
       }}
     >
       {isCardOneVisible ? (
-        <div>
+        <div className="" style={{height: "56px"}}>
           <div className="page-header" style={{ margin: "20px 20px 20px 20px" }}>
             <div className="page-leftheader">
-              <h4 className="page-title mb-0 text-primary">Search</h4>
+              <h4 style={{ marginTop: "10px"}} className="page-title mb-0 text-primary">Search</h4>
             </div>
             <div className="page-rightheader">
-              <i style={{ color: "#3E80EB", fontSize: "24px" }} className="fa fa-chevron-circle-down" onClick={toggleCardVisibility}></i>
+              <i style={{ color: "#3E80EB", fontSize: "24px", marginTop: "10px" }} className="fa fa-chevron-circle-down" onClick={toggleCardVisibility}></i>
             </div>
           </div>
         </div>
@@ -98,7 +101,7 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Transaction Date</label>
-                <FilterDate input={input} />
+                <FilterDate input={input} handleReset={handleReset}/>
               </div>
               <div className="col-lg">
                 <label className="form-label">Name</label>
@@ -118,7 +121,7 @@ export default function SearchComponent() {
                     border: "1px solid #707070",
                   }}
                 >
-                  <option value="">Open this select menu</option>
+                  <option disabled value="">Open this select menu</option>
                   <option value="SUCCESS">Success</option>
                   <option value="FAILED">Failed</option>
                 </select>
@@ -127,7 +130,7 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Phone Number</label>
-                <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input phone number" type="text" />
+                <input value={input.employeePhoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input phone number" type="number" />
               </div>
               <div className="col-lg">
                 <label className="form-label">Transaction Number</label>

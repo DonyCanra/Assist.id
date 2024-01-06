@@ -69,7 +69,7 @@ export default function UserList() {
                   <thead className="text-center">
                     <tr className="border-top border-bottom">
                       <th style={{ width: "69px" }} className="wd-15p border-bottom-0">
-                        Role ID.
+                        No
                       </th>
                       <th style={{ width: "580px" }} className="wd-15p border-bottom-0">
                         Role Name

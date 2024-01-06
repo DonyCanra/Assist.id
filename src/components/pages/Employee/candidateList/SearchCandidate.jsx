@@ -119,7 +119,7 @@ export default function SearchComponent() {
                     border: "1px solid #707070",
                   }}
                 >
-                  <option value="">Open this select menu</option>
+                  <option disabled value="">Open this select menu</option>
                   <option value="Active">Registered</option>
                   <option value="InActive">Not Registered</option>
                 </select>

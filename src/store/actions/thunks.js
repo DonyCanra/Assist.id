@@ -93,7 +93,7 @@ export function login(input) {
       localStorage.setItem("tokenDashboard", response.data.data.token);
       localStorage.setItem("privilege", JSON.stringify(response.data.data.privilege));
 
-      configureToast("success", "Login Success", "Wellcome to EWA Dahboard");
+      configureToast("success", "Login Success", "Welcome to EWA Dashboard");
       return dispatch(usersLoginSuccess(response.data));
     } catch (error) {
       const msgError = error.response.data.error.messageData;

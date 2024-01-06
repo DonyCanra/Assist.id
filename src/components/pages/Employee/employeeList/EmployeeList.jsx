@@ -75,7 +75,7 @@ export default function Employee() {
       </div>
 
       <div className="nav-row">
-        <Link to="/employee" style={{ position: "relative", display: "inline-block" }}>
+        <Link to="/employee" style={{ position: "relative", display: "inline-block", bottom: "-8px" }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="221" height="41" viewBox="0 0 221 41" fill="none">
             <path
               d="M217.919 33.0225C213.602 32.4436 209.643 30.3174 206.775 27.0387C203.907 23.7601 202.326 19.5516 202.325 15.1949L202.307 15.3853C201.681 11.111 199.539 7.20469 196.272 4.37992C193.005 1.55514 188.831 0.000501148 184.513 0H36.4866C32.1686 0.000501148 27.9949 1.55514 24.728 4.37992C21.4611 7.20469 19.3191 11.111 18.6933 15.3853L18.6751 15.1949C18.6742 19.5516 17.0931 23.7601 14.2253 27.0387C11.3574 30.3174 7.39777 32.4436 3.08147 33.0225H0V41H221V33.0225H217.919Z"
@@ -99,7 +99,7 @@ export default function Employee() {
           </h1>
         </Link>
 
-        <Link to="/candidate" style={{ position: "relative", display: "inline-block" }}>
+        <Link to="/candidate" style={{ position: "relative", display: "inline-block", bottom: "-8px" }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="221" height="41" viewBox="0 0 221 41" fill="none">
             <path
               d="M217.919 33.0225C213.602 32.4436 209.643 30.3174 206.775 27.0387C203.907 23.7601 202.326 19.5516 202.325 15.1949L202.307 15.3853C201.681 11.111 199.539 7.20469 196.272 4.37992C193.005 1.55514 188.831 0.000501148 184.513 0H36.4866C32.1686 0.000501148 27.9949 1.55514 24.728 4.37992C21.4611 7.20469 19.3191 11.111 18.6933 15.3853L18.6751 15.1949C18.6742 19.5516 17.0931 23.7601 14.2253 27.0387C11.3574 30.3174 7.39777 32.4436 3.08147 33.0225H0V41H221V33.0225H217.919Z"
@@ -136,7 +136,7 @@ export default function Employee() {
                     <i className="fe fe-plus me-2"></i> Add New Data
                     {/* </button> */}
                   </Link>
-                  <Link className="btn btn-primary" onClick={handleDownloadExcel} style={{ cursor: "pointer", display: dataLocal.dashboardView ? "" : "none" }}>
+                  <Link className="btn btn-primary" onClick={handleDownloadExcel} style={{ cursor: "pointer", display: dataLocal.employeeDownload ? "" : "none" }}>
                     {/* <button className="btn btn-primary"> */}
                     <i className="fe fe-download me-2 fs-14"></i> Download
                     {/* </button> */}
@@ -144,8 +144,9 @@ export default function Employee() {
                 </div>
               </div>
             </div>
-
-            <SearchComponent />
+            <div className="" style={{ display: dataLocal.employeeSearch ? "" : "none" }}>
+              <SearchComponent />
+            </div>
 
             <div
               className="card-body border-bottom"

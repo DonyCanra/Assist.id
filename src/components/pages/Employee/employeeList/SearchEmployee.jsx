@@ -75,13 +75,15 @@ export default function SearchComponent() {
       }}
     >
       {isCardOneVisible ? (
-        <div>
+        <div className="" style={{ height: "56px" }}>
           <div className="page-header" style={{ margin: "20px 20px 20px 20px" }}>
             <div className="page-leftheader">
-              <h4 className="page-title mb-0 text-primary">Search</h4>
+              <h4 style={{ marginTop: "10px" }} className="page-title mb-0 text-primary">
+                Search
+              </h4>
             </div>
             <div className="page-rightheader">
-              <i style={{ color: "#3E80EB", fontSize: "24px" }} className="fa fa-chevron-circle-down" onClick={toggleCardVisibility}></i>
+              <i style={{ color: "#3E80EB", fontSize: "24px", marginTop: "10px" }} className="fa fa-chevron-circle-down" onClick={toggleCardVisibility}></i>
             </div>
           </div>
         </div>
@@ -119,7 +121,9 @@ export default function SearchComponent() {
                     border: "1px solid #707070",
                   }}
                 >
-                  <option value="">Open this select menu</option>
+                  <option disabled value="">
+                    Open this select menu
+                  </option>
                   <option value="Active">Registered</option>
                   <option value="InActive">Not Registered</option>
                 </select>
@@ -148,7 +152,9 @@ export default function SearchComponent() {
                     border: "1px solid #707070",
                   }}
                 >
-                  <option value="">Open this select menu</option>
+                  <option disabled value="">
+                    Open this select menu
+                  </option>
                   <option value="Active">Active</option>
                   <option value="InActive">InActive</option>
                 </select>

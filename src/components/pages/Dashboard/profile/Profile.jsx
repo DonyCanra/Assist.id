@@ -121,7 +121,7 @@ export default function Profile() {
                         </label>
                         <label className="custom-control custom-checkbox">
                           <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option2" checked={privilege.dashboardView} />
-                          <span className="custom-control-label">Search by date on grafic</span>
+                          <span className="custom-control-label">Search by date on graphic</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">EMPLOYEE</div>
@@ -148,7 +148,7 @@ export default function Profile() {
                         </label>
                         <label className="custom-control custom-checkbox">
                           <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={privilege.employeeSearch} />
-                          <span className="custom-control-label">Seach employee</span>
+                          <span className="custom-control-label">Search employee</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">CANDIDATE</div>
@@ -178,7 +178,7 @@ export default function Profile() {
                         </label>
                         <label className="custom-control custom-checkbox">
                           <input type="checkbox" className="custom-control-input" name="example-checkbox2" value="option3" checked={privilege.feeSearch} />
-                          <span className="custom-control-label">Seach fee</span>
+                          <span className="custom-control-label">Search fee</span>
                         </label>
                       </div>
                       <div className="form-label mb-4">SETTING</div>

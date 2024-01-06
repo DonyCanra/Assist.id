@@ -14,23 +14,15 @@ export default function Row({ role, index }) {
       <tr className="border-top border-bottom">
         <td>{index + 1}</td>
         <td>{role.roleName}</td>
-        <td>
-          <button
-            style={{
-              color: role.status ? "#38CB89" : "#FF7979",
-              fontSize: "12px",
-              fontStyle: "normal",
-              fontWeight: 400,
-              lineHeight: "normal",
-              borderRadius: "5px",
-              border: role.status ? "1px solid #38CB89" : "1px solid #FF7979",
-              background: "rgba(56, 203, 137, 0.10)",
-              width: "78px",
-              height: "22px",
-            }}
-          >
-            {role.status ? "Active" : "InActive"}
-          </button>
+        <td
+          style={{
+            color: role.status ? "#00EC42" : "#FF7979",
+            fontStyle: "normal",
+            fontWeight: 400,
+            lineHeight: "normal",
+          }}
+        >
+          {role.status ? "Active" : "InActive"}
         </td>
         <td>
           <svg style={{ cursor: "pointer", display: dataLocal.roleUpdate ? "" : "none" }} xmlns="http://www.w3.org/2000/svg" className="side-menu__icon ms-3" width="24" height="24" viewBox="0 0 24 24" onClick={handleEditClick}>
