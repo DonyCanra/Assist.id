@@ -110,7 +110,7 @@ export default function ModalCandidate(props) {
                 width: "100%",
                 height: "100%",
               }}
-              src="http://localhost:3030/file/tnc.pdf"
+              src="/file/tnc.pdf"
               type="application/pdf"
             />
 
