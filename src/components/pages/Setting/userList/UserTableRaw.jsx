@@ -10,7 +10,7 @@ export default function Row({ user, index }) {
   };
 
   return (
-    <>
+
       <tr className="border-top border-bottom">
         <td>{index + 1}</td>
         <td>{user.name}</td>
@@ -44,6 +44,5 @@ export default function Row({ user, index }) {
           </svg>
         </td>
       </tr>
-    </>
   );
 }

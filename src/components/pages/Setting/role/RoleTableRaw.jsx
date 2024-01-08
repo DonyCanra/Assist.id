@@ -10,7 +10,6 @@ export default function Row({ role, index }) {
   };
 
   return (
-    <>
       <tr className="border-top border-bottom">
         <td>{index + 1}</td>
         <td>{role.roleName}</td>
@@ -33,6 +32,5 @@ export default function Row({ role, index }) {
           </svg>
         </td>
       </tr>
-    </>
   );
 }

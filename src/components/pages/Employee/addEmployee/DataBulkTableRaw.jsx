@@ -5,7 +5,6 @@ export default function Raw({ employee, index, handleDeleteFunction }) {
     handleDeleteFunction(index);
   };
   return (
-    <>
       <tr className="border-bottom border-top">
         <td>{index + 1}</td>
         <td>{employee.name}</td>
@@ -22,6 +21,5 @@ export default function Raw({ employee, index, handleDeleteFunction }) {
           </svg>
         </td>
       </tr>
-    </>
   );
 }

@@ -10,7 +10,6 @@ export default function Row({ fee, index }) {
     navigate(`/detail-fee?transactionNo=${fee.transactionNo}`);
   };
   return (
-    <>
       <tr className="border-bottom border-top">
         <td>{index + 1}</td>
         <td>{fee.transactionDate}</td>
@@ -48,6 +47,5 @@ export default function Row({ fee, index }) {
           </svg>
         </td>
       </tr>
-    </>
   );
 }

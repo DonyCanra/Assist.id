@@ -106,7 +106,6 @@ const CheckboxInput = ({ input, handleChange }) => {
   };
 
   return (
-    <>
       <div className="" style={{ background: "#373B51", borderRadius: "5px" }}>
         <div className="text-white" style={{ height: "23px", background: "#404356", borderRadius: "5px 5px 0px 0px", padding: "5px 8px" }}>
           <h6 style={{ background: "#404356", borderRadius: "5px 5px 0px 0px" }}>Feature</h6>
@@ -369,7 +368,6 @@ const CheckboxInput = ({ input, handleChange }) => {
           )}
         </div>
       </div>
-    </>
   );
 };
 

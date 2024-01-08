@@ -16,7 +16,6 @@ export default function Row({ employee, index }) {
   };
 
   return (
-    <>
       <tr className="border-bottom border-top">
         <td>{index + 1}</td>
         <td>{employee.name}</td>
@@ -77,6 +76,5 @@ export default function Row({ employee, index }) {
           </svg>
         </td>
       </tr>
-    </>
   );
 }
