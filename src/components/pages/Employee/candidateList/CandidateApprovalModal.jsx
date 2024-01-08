@@ -3,11 +3,17 @@ import Modal from "react-bootstrap/Modal";
 import { approveCandidate } from "../../../../store/actions/thunks";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// import { filePDF } from "../../../constants/data";
+const BASE_URL = process.env.REACT_APP_TNC;
 
 export default function ModalCandidate(props) {
   const { employee } = props;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const fileTNC = filePDF[0].tnc;
+  const src = `${BASE_URL}/file/tnc.pdf`;
 
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [invalidCheck, setInvalidCheck] = useState(false);
@@ -79,10 +85,15 @@ export default function ModalCandidate(props) {
         >
           Note : if you approve then automatically active as an employee
         </p> */}
-        <div class="col-12">
-          <div class="form-check">
-            <input onClick={handleShowPDFModal} class="form-check-input" type="checkbox" value="" id="invalidCheck" checked={invalidCheck} onChange={() => setInvalidCheck(!invalidCheck)} />
-            <label class="form-check-label" for="invalidCheck">
+        <div className="col-12">
+          <div
+            className="form-check"
+            style={{
+              marginLeft: "10px",
+            }}
+          >
+            <input onClick={handleShowPDFModal} className="form-check-input" type="checkbox" value="" id="invalidCheck" checked={invalidCheck} onChange={() => setInvalidCheck(!invalidCheck)} />
+            <label className="form-check-label" for="invalidCheck">
               Agree to terms and conditions
             </label>
           </div>
@@ -110,11 +121,11 @@ export default function ModalCandidate(props) {
                 width: "100%",
                 height: "100%",
               }}
-              src="http://localhost:3030/file/tnc.pdf"
+              src={src}
               type="application/pdf"
             />
 
-            {/* <iframe src={tncView} title="tnc" frameborder="0"></iframe> */}
+            {/* <iframe allowFullScreen width="100%" height="600px" frameBorder="0" seamless title="TNC" src={src + fileTNC}></iframe> */}
           </div>
         </Modal.Body>
 

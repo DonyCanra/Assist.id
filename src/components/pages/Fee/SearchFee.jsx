@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchFee } from "../../../store/actions/thunks";
-import FilterDate from "./Filter/FilterDate";
+import { DateRangePicker } from "rsuite";
 
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
   const [input, setInput] = useState({
-    startDate: "",
-    endDate: "",
+    startDate: " ",
+    endDate: " ",
     transactionNo: "",
-    name: "",
+    employeeName: "",
     phoneNumber: "",
-    email: "",
+    employeeEmail: "",
     status: "",
     page: 1,
     limit: 10,
@@ -43,11 +43,10 @@ export default function SearchComponent() {
       fetchFee({
         startDate: "",
         endDate: "",
-        transactionDate: "",
         transactionNo: "",
-        name: "",
+        employeeName: "",
         phoneNumber: "",
-        email: "",
+        employeeEmail: "",
         status: "",
         page: 1,
         limit: 10,
@@ -57,7 +56,64 @@ export default function SearchComponent() {
 
   const dispatch = useDispatch();
 
+  const [selectedDate, setSelectedDate] = useState({
+    startDate: "",
+    endDate: "",
+  });
+
+  const changeStartDate = selectedDate.startDate;
+  const changeEndDate = selectedDate.endDate;
+
+  const inputStartDate = new Date(changeStartDate);
+  const inputEndDate = new Date(changeEndDate);
+
+  const formattedStartDate = inputStartDate.toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const formattedEndDate = inputEndDate.toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  input.startDate = formattedStartDate;
+  input.endDate = formattedEndDate;
+
+  const handleDateSelect = (value) => {
+    setSelectedDate({
+      startDate: value[0],
+      endDate: value[1],
+    });
+  };
+
+  const handleResetClick = () => {
+    handleReset();
+    setSelectedDate({
+      startDate: "",
+      endDate: "",
+    });
+  };
+
+  const styles = {
+    width: "100%",
+    display: "block",
+    marginBottom: 10,
+  };
+
+  const calendarStyles = {
+    backgroundColor: "black",
+  };
+
   const handleFilter = async (event) => {
+    if (input.startDate === "" || input.startDate === "Invalid Date") {
+      input.startDate = "";
+    }
+    if (input.endDate === "" || input.endDate === "Invalid Date") {
+      input.endDate = "";
+    }
     event.preventDefault();
     await dispatch(fetchFee(input));
   };
@@ -103,7 +159,7 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Transaction Date</label>
-                <FilterDate input={input} handleReset={handleReset} />
+                <DateRangePicker size="md" placeholder="Transaction Date" style={styles} calendarStyle={calendarStyles} value={[selectedDate.startDate, selectedDate.endDate]} onChange={handleDateSelect} />
               </div>
               <div className="col-lg">
                 <label className="form-label">Name</label>
@@ -149,7 +205,7 @@ export default function SearchComponent() {
               <div className="col-lg">
                 <div className="page-header">
                   <div className="page-leftheader">
-                    <button onClick={handleReset} className="btn btn-danger page-leftheader">
+                    <button onClick={handleResetClick} className="btn btn-danger page-leftheader">
                       Reset
                     </button>
                   </div>

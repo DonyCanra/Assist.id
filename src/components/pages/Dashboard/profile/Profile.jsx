@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchLogactivity, fetchPrivilege, fetchProfile } from "../../../../store/actions/thunks";
 import { Link, useNavigate } from "react-router-dom";
 import Row from "./LogactivityTableRaw";
-import { images } from "../../../constants/images";
+import { images } from "../../../constants/data";
 
 export default function Profile() {
   const { profile } = useSelector((state) => {
@@ -11,7 +11,6 @@ export default function Profile() {
   });
 
   const avatarDefault = images[0].avatarDefault;
-  console.log(avatarDefault, "images");
 
   const { logactivity } = useSelector((state) => {
     return state.logactivity;
