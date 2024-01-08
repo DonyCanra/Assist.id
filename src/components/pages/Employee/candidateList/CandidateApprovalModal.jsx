@@ -4,16 +4,12 @@ import { approveCandidate } from "../../../../store/actions/thunks";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { filePDF } from "../../../constants/data";
-const BASE_URL = process.env.REACT_APP_TNC;
 
 export default function ModalCandidate(props) {
   const { employee } = props;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const src = `${BASE_URL}/file/tnc.pdf`;
-
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [invalidCheck, setInvalidCheck] = useState(false);
 
@@ -115,13 +111,15 @@ export default function ModalCandidate(props) {
 
         <Modal.Body style={{ overflowY: "auto", maxHeight: "100vh", background: "#2B2E3F", height: "600px", display: "flex", flexDirection: "column", alignItems: "center" }}>
           <div style={{ flex: 1, width: "100%", marginBottom: "20px" }}>
-            <embed
+            <iframe
               style={{
                 width: "100%",
                 height: "100%",
+                display: "unset",
               }}
-              src={src}
+              src="/file/tnc.pdf"
               type="application/pdf"
+              title="pdf"
             />
 
             {/* <iframe allowFullScreen width="100%" height="600px" frameBorder="0" seamless title="TNC" src={src + fileTNC}></iframe> */}
