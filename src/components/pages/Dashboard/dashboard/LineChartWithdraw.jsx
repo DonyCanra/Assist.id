@@ -66,13 +66,11 @@ export default function LineChartWithdraw() {
         </svg>
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card">
-            <div className="page-header card-header" style={{ margin: "0" }}>
-              <div className="page-leftheader">
-                <h6 className="page-title text-primary" style={{ fontSize: "16px" }}>
-                  DATA AMOUNT WITHDRAWAL
-                </h6>
+            <div className="card-header">
+              <h3 className="card-title text-white">DATA AMOUNT WITHDRAWAL</h3>
+              <div className="card-options">
+                <FilterDate input={input} onChange={handleChange} />
               </div>
-              <FilterDate style={{ paddingRight: "200px" }} input={input} onChange={handleChange} />
             </div>
             <div className="card-body pt-0">
               <Chart chartType="LineChart" width="100%" height="400px" data={data} options={options} />;

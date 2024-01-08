@@ -21,8 +21,9 @@ export default function Dashboard() {
           <TotalDashboard />
 
           <LineChartWithdraw />
-
+          
           <LineChartTransaction />
+
         </>
       )}
     </>
