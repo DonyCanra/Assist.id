@@ -11,6 +11,7 @@ export default function Candidate() {
   const { candidates } = useSelector((state) => {
     return state.candidates;
   });
+
   const dataTable = candidates.data;
   const [inputDefault, setInputDefault] = useState({
     isCandidate: "Yes",
@@ -23,6 +24,7 @@ export default function Candidate() {
     page: 1,
     limit: 10,
   });
+
 
   const dataLocal = JSON.parse(localStorage.privilege);
 
@@ -170,7 +172,8 @@ export default function Candidate() {
                   <div className="page-header">
                     <div className="page-leftheader">
                       <div className="dataTables_info text-white" id="example2_info" role="status" aria-live="polite">
-                        Showing 1 to {candidates.page} of {candidates.totalPage} entries
+                      Showing 1 to {inputDefault.page !== candidates.totalPage ? inputDefault.page * candidates.limit : (candidates.totalData)} of {candidates.totalData} entries
+
                       </div>
                     </div>
                     <div className="page-rightheader">

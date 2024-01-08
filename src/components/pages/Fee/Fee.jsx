@@ -129,7 +129,8 @@ export default function Fee() {
                   <div className="page-header">
                     <div className="page-leftheader">
                       <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                        Showing 1 to {inputDefault.page} of {fees.totalPage} entries
+                      Showing 1 to {inputDefault.page !== fees.totalPage ? inputDefault.page * fees.limit : (fees.totalData)} of {fees.totalData} entries
+
                       </div>
                     </div>
                     <div className="page-rightheader">

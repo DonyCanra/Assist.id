@@ -183,7 +183,7 @@ export default function Employee() {
                   <div className="page-header">
                     <div className="page-leftheader">
                       <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                        Showing 1 to {inputDefault.page} of {employees.totalPage} entries
+                        Showing 1 to {inputDefault.page !== employees.totalPage ? inputDefault.page * employees.limit : (employees.totalData)} of {employees.totalData} entries
                       </div>
                     </div>
                     <div className="page-rightheader">
