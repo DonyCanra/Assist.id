@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchPrivilege, fetchProfile } from "../../store/actions/thunks";
+import { images } from "../constants/data";
 
 export default function Navbar() {
   const { profile } = useSelector((state) => {
@@ -10,6 +11,7 @@ export default function Navbar() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const avatarDefault = images[0].avatarDefault;
 
   useEffect(() => {
     dispatch(fetchProfile());
@@ -58,7 +60,7 @@ export default function Navbar() {
                     <div className="dropdown profile-dropdown d-flex">
                       <a href="/" className="nav-link pe-0 leading-none" data-bs-toggle="dropdown">
                         <span className="header-avatar1">
-                          <img src={profile.avatar} alt="img" className="avatar avatar-md brround" />
+                          <img src={profile.avatar === "" ? avatarDefault : profile.avatar} alt="img" className="avatar avatar-md brround" />
                         </span>
                       </a>
                       <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow animated">

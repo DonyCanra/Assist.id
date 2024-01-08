@@ -106,7 +106,7 @@ export default function ModalCandidate(props) {
       {/* Modal for displaying PDF */}
       <Modal show={showPDFModal} onHide={handleClosePDFModal} size="lg" centered>
         <Modal.Header style={{ background: "#2B2E3F", display: "flex", justifyContent: "center" }} closeButton>
-          <Modal.Title className="text-white">TERM & CONDITION</Modal.Title>
+          <Modal.Title className="text-white text-center">TERM & CONDITION</Modal.Title>
         </Modal.Header>
 
         <Modal.Body style={{ overflowY: "auto", maxHeight: "100vh", background: "#2B2E3F", height: "600px", display: "flex", flexDirection: "column", alignItems: "center" }}>

@@ -14,7 +14,7 @@ export default function Dashboard() {
     <>
       {!isDashboard ? (
         <div className="welcome-message">
-          <h3>Selamat datang di ewa dashboard!</h3>
+          <h3 className="text-white">Selamat datang di ewa dashboard!</h3>
         </div>
       ) : (
         <>

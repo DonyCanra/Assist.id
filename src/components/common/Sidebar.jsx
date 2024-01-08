@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -85,10 +85,10 @@ export default function Sidebar() {
           </li>
         </ul>
       </aside>
-      <Helmet>
+      {/* <Helmet>
         <script src="/plugins/p-scrollbar/p-scroll1.js" type="text/javascript"></script>
         <script src="/plugins/p-scrollbar/p-scroll.js" type="text/javascript"></script>
-      </Helmet>
+      </Helmet> */}
     </>
   );
 }
