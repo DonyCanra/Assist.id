@@ -12,7 +12,6 @@ export default function ModalCandidate(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const fileTNC = filePDF[0].tnc;
   const src = `${BASE_URL}/file/tnc.pdf`;
 
   const [showPDFModal, setShowPDFModal] = useState(false);
