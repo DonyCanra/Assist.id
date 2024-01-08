@@ -64,6 +64,10 @@ export default function LineChartWithdraw() {
         <svg style={{ marginTop: "10px", marginBottom: "10px" }} xmlns="http://www.w3.org/2000/svg" width="1661" height="8" viewBox="0 0 1661 8" fill="none">
           <path d="M0.957031 0.527344L1660.94 7.40462" stroke="#3B405B" />
         </svg>
+      </div>
+
+
+        <div className="row row-deck">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card">
             <div className="card-header">
@@ -77,7 +81,7 @@ export default function LineChartWithdraw() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
     </>
   );
 }
