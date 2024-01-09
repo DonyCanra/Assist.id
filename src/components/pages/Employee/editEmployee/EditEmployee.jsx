@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchDetailEmployee, updateEmployee } from "../../../../store/actions/thunks";
 import { Modal, Button } from "react-bootstrap";
 import { formatCurrencyRupiah, parseCurrencyRupiah } from "../../../../utils/formatCurrency";
+import "./editEmployee.css";
 
 export default function EditEmployee() {
   const { employee } = useSelector((state) => {
@@ -221,11 +222,31 @@ export default function EditEmployee() {
                     Status <span className="text-red">*</span>
                   </label>
                   <div className="form-group">
-                    <label className="custom-switch">
+                    <label
+                      className="custom-switch"
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
                       {/* <span className="custom-switch-description me-2">Check Box</span> */}
                       <input checked={input.employeeStatus} onChange={handleChange} name="employeeStatus" className="custom-switch-input" type="checkbox" />
                       <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
                     </label>
+                    <h1
+                      style={{
+                        position: "absolute",
+                        color: "#FFF",
+                        fontSize: "15px",
+                        fontStyle: "normal",
+                        fontWeight: "400",
+                        lineHeight: "normal",
+                        left: "9%", // Mengatur posisi horizontal di tengah
+                        top: "65%", // Mengatur posisi vertical di tengah
+                        transform: "translate(-50%, -50%)", // Membuat h1 berada tepat di tengah
+                      }}
+                    >
+                      {input.employeeStatus ? "Active" : ""}
+                    </h1>
                   </div>
                 </div>
               </div>

@@ -196,10 +196,30 @@ export default function EditRole() {
                 <div className="form-group">
                   <label className="form-label">Status</label>
                   <div className="form-group">
-                    <label className="custom-switch">
+                    <label
+                      className="custom-switch"
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
                       <input checked={input.status} onChange={handleChange} name="status" className="custom-switch-input" type="checkbox" />
                       <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
                     </label>
+                    <h1
+                      style={{
+                        position: "absolute",
+                        color: "#FFF",
+                        fontSize: "15px",
+                        fontStyle: "normal",
+                        fontWeight: "400",
+                        lineHeight: "normal",
+                        left: "4.5%", // Mengatur posisi horizontal di tengah
+                        top: "65%", // Mengatur posisi vertical di tengah
+                        transform: "translate(-50%, -50%)", // Membuat h1 berada tepat di tengah
+                      }}
+                    >
+                      {input.status ? "Active" : ""}
+                    </h1>
                   </div>
                 </div>
               </div>

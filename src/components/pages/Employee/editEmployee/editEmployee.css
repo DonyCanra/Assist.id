@@ -1,0 +1,31 @@
+.custom-switch-input:checked ~ .custom-switch-indicator {
+  width: 94px;
+  height: 38px;
+  flex-shrink: 0;
+  background: #3e80eb;
+}
+
+.custom-switch-input:checked ~ .custom-switch-indicator-lg:before {
+  left: calc(1.46rem + 40px);
+  margin-top: 7px;
+  width: 21px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.custom-switch-indicator-lg {
+  display: inline-block;
+  width: 94px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.custom-switch-indicator-lg:before {
+  content: "";
+  position: absolute;
+  width: 21px;
+  height: 20px;
+  top: 1px;
+  left: 5px;
+  margin-top: 7px;
+}
