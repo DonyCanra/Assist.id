@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchFee } from "../../../store/actions/thunks";
 import { DateRangePicker } from "rsuite";
+import "./fee.css"
 
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);

@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <RouterProvider theme="dark" router={router} />
       </Provider>
     </>
   );
