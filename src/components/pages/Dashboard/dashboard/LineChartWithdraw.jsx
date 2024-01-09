@@ -66,8 +66,7 @@ export default function LineChartWithdraw() {
         </svg>
       </div>
 
-
-        <div className="row row-deck">
+      <div className="row row-deck">
         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div className="card">
             <div className="card-header">
@@ -81,7 +80,9 @@ export default function LineChartWithdraw() {
             </div>
           </div>
         </div>
-        </div>
+      </div>
+
+      
     </>
   );
 }

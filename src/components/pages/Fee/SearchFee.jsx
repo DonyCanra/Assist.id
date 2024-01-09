@@ -17,6 +17,8 @@ export default function SearchComponent() {
     limit: 10,
   });
 
+  // console.log(input, "input");
+
   const handleChange = (event) => {
     const { value, name } = event.target;
     setInput({
@@ -56,45 +58,16 @@ export default function SearchComponent() {
 
   const dispatch = useDispatch();
 
-  const [selectedDate, setSelectedDate] = useState({
-    startDate: "",
-    endDate: "",
-  });
+  const [selectedDateRange, setSelectedDateRange] = useState(null);
 
-  const changeStartDate = selectedDate.startDate;
-  const changeEndDate = selectedDate.endDate;
-
-  const inputStartDate = new Date(changeStartDate);
-  const inputEndDate = new Date(changeEndDate);
-
-  const formattedStartDate = inputStartDate.toLocaleDateString("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-
-  const formattedEndDate = inputEndDate.toLocaleDateString("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-
-  input.startDate = formattedStartDate;
-  input.endDate = formattedEndDate;
-
-  const handleDateSelect = (value) => {
-    setSelectedDate({
-      startDate: value[0],
-      endDate: value[1],
-    });
+  const handleDateSelect = (selectedDates) => {
+    setSelectedDateRange(selectedDates);
   };
 
   const handleResetClick = () => {
     handleReset();
-    setSelectedDate({
-      startDate: "",
-      endDate: "",
-    });
+    selectedDateRange[0] = null;
+    selectedDateRange[1] = null;
   };
 
   const styles = {
@@ -114,6 +87,22 @@ export default function SearchComponent() {
     if (input.endDate === "" || input.endDate === "Invalid Date") {
       input.endDate = "";
     }
+
+    const inputStartDate = new Date(selectedDateRange[0]);
+    const inputEndDate = new Date(selectedDateRange[1]);
+  
+    input.startDate = inputStartDate.toLocaleDateString("en-CA", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  
+    input.endDate = inputEndDate.toLocaleDateString("en-CA", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    
     event.preventDefault();
     await dispatch(fetchFee(input));
   };
@@ -159,7 +148,9 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Transaction Date</label>
-                <DateRangePicker size="md" placeholder="Transaction Date" style={styles} calendarStyle={calendarStyles} value={[selectedDate.startDate, selectedDate.endDate]} onChange={handleDateSelect} />
+                <DateRangePicker size="md" placeholder="Transaction Date" style={styles} calendarStyle={calendarStyles} onChange={handleDateSelect} />
+                {/* You can display the selected date range if needed */}
+                {/* <div>Selected Date Range: {selectedDateRange && `${selectedDateRange[0]} to ${selectedDateRange[1]}`}</div> */}
               </div>
               <div className="col-lg">
                 <label className="form-label">Name</label>
