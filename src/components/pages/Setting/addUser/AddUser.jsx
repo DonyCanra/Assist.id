@@ -50,9 +50,20 @@ export default function AddUser() {
         }));
       }
     } else {
+      
+      // Batasi panjang karakter untuk name
+      if (name === "name" && value.length > 49) {
+        return; // Kembalikan jika panjang karakter melebihi batas
+      }
+
       // Batasi panjang karakter untuk phone number
       if (name === "phoneNumber" && value.length > 13) {
         return; // Kembalikan jika panjang karakter melebihi batas
+      }
+
+      // Validasi phoneNumber agar hanya berisi angka
+      if (name === "phoneNumber" && !/^\d+$/.test(value)) {
+        return; // Kembalikan jika phoneNumber tidak berisi angka
       }
 
       setInput((prevInput) => ({
@@ -148,37 +159,37 @@ export default function AddUser() {
                 borderRadius: "5px",
               }}
             >
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="form-label">
-                    Name <span class="text-red">*</span>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    Name <span className="text-red">*</span>
                   </label>
-                  <input type="text" class={`form-control ${errorMessages.name ? "border-red" : ""}`} value={input.name} onChange={handleChange} name="name" placeholder="Input name" />
+                  <input type="text" className={`form-control ${errorMessages.name ? "border-red" : ""}`} value={input.name} onChange={handleChange} name="name" placeholder="Input name" />
                   <p className="text-danger">{errorMessages.name}</p>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="form-label">
-                    Phone Number <span class="text-red">*</span>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    Phone Number <span className="text-red">*</span>
                   </label>
-                  <input type="number" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
+                  <input type="text" className={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
                   <p className="text-danger">{errorMessages.phoneNumber}</p>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="form-label">
-                    Email <span class="text-red">*</span>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    Email <span className="text-red">*</span>
                   </label>
-                  <input type="email" class={`form-control ${errorMessages.email ? "border-red" : ""}`} value={input.email} onChange={handleChange} name="email" placeholder="Input email" />
+                  <input type="email" className={`form-control ${errorMessages.email ? "border-red" : ""}`} value={input.email} onChange={handleChange} name="email" placeholder="Input email" />
                   <p className="text-danger">{errorMessages.email}</p>
                 </div>
               </div>
               <div className="col-md-12">
                 <div className="form-group">
                   <label className="form-label">
-                    Role <span class="text-red">*</span>
+                    Role <span className="text-red">*</span>
                   </label>
                   <select
                     class={`form-select ${errorMessages.role}`}

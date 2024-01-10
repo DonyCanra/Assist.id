@@ -9,8 +9,6 @@ export default function EditProfile() {
   const { profile } = useSelector((state) => state.profile);
   const { image } = useSelector((state) => state.image);
 
-  console.log(profile, "<< prof");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,10 +26,22 @@ export default function EditProfile() {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
+
+    // Batasi panjang karakter untuk name
+    if (name === "name" && value.length > 49) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
     // Batasi panjang karakter untuk phone number
     if (name === "phoneNumber" && value.length > 13) {
       return; // Kembalikan jika panjang karakter melebihi batas
     }
+
+    // Validasi phoneNumber agar hanya berisi angka
+    if (name === "phoneNumber" && !/^\d+$/.test(value)) {
+      return; // Kembalikan jika phoneNumber tidak berisi angka
+    }
+
     setInput({
       ...input,
       [name]: value,
@@ -145,7 +155,7 @@ export default function EditProfile() {
                   <label className="form-label">
                     Phone Number <span className="text-red">*</span>
                   </label>
-                  <input value={input.phoneNumber} onChange={handleChange} onBlur={validatePhoneNumber} name="phoneNumber" type="number" className={`form-control ${error.phoneNumber && "is-invalid"}`} placeholder="" />
+                  <input value={input.phoneNumber} onChange={handleChange} onBlur={validatePhoneNumber} name="phoneNumber" type="text" className={`form-control ${error.phoneNumber && "is-invalid"}`} placeholder="" />
                   {error.phoneNumber && <div className="invalid-feedback">{error.phoneNumber}</div>}
                 </div>
               </div>

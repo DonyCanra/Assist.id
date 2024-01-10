@@ -31,9 +31,19 @@ export default function AddEmployee() {
   const handleChange = (event) => {
     const { value, name, type, checked } = event.target;
 
+    // Batasi panjang karakter untuk name
+    if (name === "name" && value.length > 49) {
+      return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
     // Batasi panjang karakter untuk phone number
     if (name === "phoneNumber" && value.length > 13) {
       return; // Kembalikan jika panjang karakter melebihi batas
+    }
+
+    // Validasi phoneNumber agar hanya berisi angka
+    if (name === "phoneNumber" && !/^\d+$/.test(value)) {
+      return; // Kembalikan jika phoneNumber tidak berisi angka
     }
 
     // Batasi panjang karakter untuk phone number
@@ -171,7 +181,7 @@ export default function AddEmployee() {
                   <label className="form-label">
                     Phone Number <span className="text-red">*</span>
                   </label>
-                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="number" className="form-control" placeholder="Input phone number employee" />
+                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="Input phone number employee" />
                   <p className="text-danger">{errorMessages.phoneNumber}</p>
                 </div>
               </div>

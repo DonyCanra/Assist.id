@@ -81,8 +81,6 @@ export default function LineChartWithdraw() {
           </div>
         </div>
       </div>
-
-      
     </>
   );
 }

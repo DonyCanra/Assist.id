@@ -82,9 +82,19 @@ export default function EditUser() {
         }));
       }
     } else {
+      // Batasi panjang karakter untuk name
+      if (name === "name" && value.length > 49) {
+        return; // Kembalikan jika panjang karakter melebihi batas
+      }
+
       // Batasi panjang karakter untuk phone number
       if (name === "phoneNumber" && value.length > 13) {
         return; // Kembalikan jika panjang karakter melebihi batas
+      }
+
+      // Validasi phoneNumber agar hanya berisi angka
+      if (name === "phoneNumber" && !/^\d+$/.test(value)) {
+        return; // Kembalikan jika phoneNumber tidak berisi angka
       }
 
       setInput((prevInput) => ({
@@ -187,7 +197,7 @@ export default function EditUser() {
                   <label class="form-label">
                     Phone Number <span class="text-red">*</span>
                   </label>
-                  <input type="number" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
+                  <input type="text" class={`form-control ${errorMessages.phoneNumber ? "border-red" : ""}`} value={input.phoneNumber} onChange={handleChange} name="phoneNumber" placeholder="Input phone number" />
                   <p className="text-danger">{errorMessages.phoneNumber}</p>
                 </div>
               </div>
