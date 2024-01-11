@@ -21,7 +21,12 @@ export default function UserList() {
 
   const dataLocal = JSON.parse(localStorage.privilege);
 
-  const pageCount = users.totalPage; // Jumlah halaman yang ingin ditampilkan
+  const maxVisiblePages = 5;
+
+  const pageCount = Math.max(1, users.totalPage || 1);
+
+  const lowerBound = Math.max(1, Math.min(inputDefault.page - Math.floor(maxVisiblePages / 2), pageCount - maxVisiblePages + 1));
+  // const upperBound = Math.min(pageCount, lowerBound + maxVisiblePages - 1); // Jumlah halaman yang ingin ditampilkan// Jumlah halaman yang ingin ditampilkan
 
   const handlePageChange = (page) => {
     setInputDefault((prevInput) => ({
@@ -91,29 +96,40 @@ export default function UserList() {
                   <div className="page-header">
                     <div className="page-leftheader">
                       <div className="dataTables_info text-white" id="example2_info" role="status" aria-live="polite">
-                      Showing 1 to {inputDefault.page !== users.totalPage ? inputDefault.page * users.limit : (users.totalData)} of {users.totalData} entries
+                        Showing 1 to {inputDefault.page !== users.totalPage ? inputDefault.page * users.limit : users.totalData} of {users.totalData} entries
                       </div>
                     </div>
+
                     <div className="page-rightheader">
                       <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                         <ul className="pagination">
                           <li className={inputDefault.page === 1 ? "paginate_button page-item disabled" : "paginate_button page-item"} onClick={() => inputDefault.page > 1 && handlePageChange(inputDefault.page - 1)}>
-                            <Link href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" className="page-link">
+                            <Link href="#" aria-controls="example2" data-dt-idx="0" tabIndex="0" className="page-link">
                               Previous
                             </Link>
                           </li>
-                          {[...Array(pageCount)]?.map((_, index) => (
-                            <li key={index} className={`paginate_button page-item ${inputDefault.page === index + 1 ? "active" : ""}`} onClick={() => handlePageChange(index + 1)}>
-                              <Link href="#" aria-controls="example2" data-dt-idx={index + 1} tabindex="0" className="page-link">
-                                {index + 1}
-                              </Link>
-                            </li>
-                          ))}
-                          <li
-                            className={inputDefault.page === users.totalPage ? "paginate_button page-item disabled" : "paginate_button page-item"}
-                            onClick={() => inputDefault.page < users.totalPage && handlePageChange(inputDefault.page + 1)}
-                          >
-                            <Link href="#" aria-controls="example2" data-dt-idx={pageCount + 1} tabindex="0" className="page-link">
+                          {users.totalPage > maxVisiblePages
+                            ? // Jika totalPage lebih dari 5, gunakan logika pergeseran halaman
+                              [...Array(maxVisiblePages)].map((_, index) => {
+                                const pageNumber = Math.min(lowerBound + index, pageCount);
+                                return (
+                                  <li key={index} className={`paginate_button page-item ${inputDefault.page === pageNumber ? "active" : ""}`} onClick={() => handlePageChange(pageNumber)}>
+                                    <Link href="#" aria-controls="example2" data-dt-idx={pageNumber} tabIndex="0" className="page-link">
+                                      {pageNumber}
+                                    </Link>
+                                  </li>
+                                );
+                              })
+                            : // Jika totalPage kurang dari atau sama dengan 5, gunakan logika tautan halaman langsung
+                              [...Array(pageCount)].map((_, index) => (
+                                <li key={index} className={`paginate_button page-item ${inputDefault.page === index + 1 ? "active" : ""}`} onClick={() => handlePageChange(index + 1)}>
+                                  <Link href="#" aria-controls="example2" data-dt-idx={index + 1} tabIndex="0" className="page-link">
+                                    {index + 1}
+                                  </Link>
+                                </li>
+                              ))}
+                          <li className={inputDefault.page === pageCount ? "paginate_button page-item disabled" : "paginate_button page-item"} onClick={() => inputDefault.page < pageCount && handlePageChange(inputDefault.page + 1)}>
+                            <Link href="#" aria-controls="example2" data-dt-idx={pageCount + 1} tabIndex="0" className="page-link">
                               Next
                             </Link>
                           </li>

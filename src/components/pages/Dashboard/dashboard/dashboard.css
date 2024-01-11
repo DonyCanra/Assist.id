@@ -1,0 +1,31 @@
+.rdrDefinedRangesWrapper {
+  display: none;
+}
+
+.rdrMonthsVertical {
+  background: #292d33;
+}
+
+.rdrDayNumber span {
+  color: #fff;
+}
+
+/* .rdrDayNumber {
+  color: #000;
+} */
+
+.rdrMonthAndYearWrapper {
+  background: #292d33;
+}
+
+.rdrDateDisplayWrapper {
+  background: #292d33;
+}
+
+.rdrMonthAndYearPickers select {
+  color: #fff;
+}
+
+.rdrWeekDay {
+  color: #fff;
+}

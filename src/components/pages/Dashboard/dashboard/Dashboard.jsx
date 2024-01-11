@@ -1,6 +1,7 @@
 import LineChartWithdraw from "./LineChartWithdraw";
 import LineChartTransaction from "./LineChartTransaction";
 import TotalDashboard from "./TotalDashboard";
+import "./dashboard.css"
 
 export default function Dashboard() {
   let isDashboard = false;
