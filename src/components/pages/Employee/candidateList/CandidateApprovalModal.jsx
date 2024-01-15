@@ -36,6 +36,7 @@ export default function ModalCandidate(props) {
   };
 
   const handleAgree = () => {
+    setInvalidCheck(true);
     handleClosePDFModal();
   };
 
@@ -87,7 +88,7 @@ export default function ModalCandidate(props) {
               marginLeft: "10px",
             }}
           >
-            <input onClick={handleShowPDFModal} className="form-check-input" type="checkbox" value="" id="invalidCheck" checked={invalidCheck} onChange={() => setInvalidCheck(!invalidCheck)} />
+            <input onClick={handleShowPDFModal} className="form-check-input" type="checkbox" value="" id="invalidCheck" checked={invalidCheck} onChange={() => setInvalidCheck(false)} />
             <label className="form-check-label" for="invalidCheck">
               Agree to terms and conditions
             </label>
@@ -98,8 +99,18 @@ export default function ModalCandidate(props) {
         <button onClick={props.onHide} className="btn btn-danger">
           Cancel
         </button>
-        <button onClick={handleApprove} className="btn btn-primary ms-1" type="submit">
-          Confirm
+        <button
+          onClick={handleApprove}
+          className="btn btn-primary ms-1"
+          type="submit"
+          style={{
+            background: invalidCheck ? "#3D80E9" : "#B9B9B9",
+            border: "none",
+            cursor: !invalidCheck ? "not-allowed" : "pointer",
+          }}
+          disabled={!invalidCheck}
+        >
+          Submit
         </button>
       </Modal.Footer>
 
@@ -127,7 +138,15 @@ export default function ModalCandidate(props) {
         </Modal.Body>
 
         <Modal.Footer style={{ background: "#2B2E3F" }}>
-          <button onClick={handleAgree} className="btn btn-primary ms-1" type="submit">
+          <button
+            style={{
+              background: "#3D80E9",
+              border: "none",
+            }}
+            onClick={handleAgree}
+            className="btn btn-primary ms-1"
+            type="submit"
+          >
             Agree
           </button>
         </Modal.Footer>
