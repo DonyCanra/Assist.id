@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchPrivilege, fetchProfile } from "../../store/actions/thunks";
-import { images } from "../constants/data";
+import { images } from "../../constants/data";
 
 export default function Navbar() {
   const { profile } = useSelector((state) => {
