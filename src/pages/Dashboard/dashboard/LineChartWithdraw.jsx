@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDataWithdraw } from "../../../store/actions/thunks";
 import subtractDaysFromCurrentDate from "../../../utils/subtractDaysFromCurrentDate";
-import FilterDate from "../Filter/FilterDate";
+import FilterDate from "../../../components/datePicker/DatePickerRange";
 
 export const options = {
   curveType: "function",

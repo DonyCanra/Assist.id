@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDashboard } from "../../../store/actions/thunks";
-import FilterDate from "../Filter/FilterDate";
+import FilterDate from "../../../components/datePicker/DatePickerRange";
 import subtractDaysFromCurrentDate from "../../../utils/subtractDaysFromCurrentDate";
 
 export default function TotalDashboard() {

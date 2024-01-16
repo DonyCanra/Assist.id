@@ -4,7 +4,7 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // Import the styles
 import "react-date-range/dist/theme/default.css"; // Import the theme
 
-import subtractDaysFromCurrentDate from "../../../utils/subtractDaysFromCurrentDate";
+import subtractDaysFromCurrentDate from "../../utils/subtractDaysFromCurrentDate";
 
 export default function FilterDate(props) {
   const { input, onChange } = props;
