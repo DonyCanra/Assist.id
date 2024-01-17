@@ -88,7 +88,18 @@ export default function ModalCandidate(props) {
               marginLeft: "10px",
             }}
           >
-            <input className="form-check-input" type="checkbox" value="" id="invalidCheck" checked={invalidCheck} onChange={() => setInvalidCheck(false)} />
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="invalidCheck"
+              checked={invalidCheck}
+              onChange={() => setInvalidCheck(false)}
+              onClick={handleShowPDFModal}
+              style={{
+                cursor: "pointer",
+              }}
+            />
             <label className="form-check-label" for="invalidCheck">
               Agree to{" "}
               <span
