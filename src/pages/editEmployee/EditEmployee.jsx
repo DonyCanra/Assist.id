@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Modal, Button } from "react-bootstrap";
-import "./addEmployee.css";
-import { createEmployee, fetchDistrict, fetchProvince, fetchRegency, fetchVillage } from "../../../store/actions/thunks";
+import "./editEmployee.css"
+import { fetchDetailEmployee, fetchDistrict, fetchProvince, fetchRegency, fetchVillage, updateEmployee } from "../../store/actions/thunks";
 
 export default function AddEmployee() {
+  const { employee } = useSelector((state) => state.employee);
   const { province } = useSelector((state) => state.province);
   const { regency } = useSelector((state) => state.regency);
   const { district } = useSelector((state) => state.district);
   const { village } = useSelector((state) => state.village);
 
+  // console.log(employee, "detail");
+
   const dataProvince = province;
   const dataRegency = regency;
   const dataDistrict = district;
   const dataVillage = village;
-
-  const modifiedDataProvince = dataProvince.map((el) => ({ label: `${el.name}`, id: el.id }));
 
   const [input, setInput] = useState({
     name: "",
@@ -32,46 +33,31 @@ export default function AddEmployee() {
 
   // console.log(input, "input");
 
-  const selectedProvince = dataProvince.find((obj) => obj.id === input.province);
-  const selectedRegency = dataRegency.find((obj) => obj.id === input.regency);
-  const selectedDistrict = dataDistrict.find((obj) => obj.id === input.district);
-  const selectedVillage = dataVillage.find((obj) => obj.id === input.village);
+  const employeeProvince = dataProvince.find((obj) => obj.name === input.province);
+  const employeeRegency = dataRegency.find((obj) => obj.name === input.regency);
+  const employeeDistrict = dataDistrict.find((obj) => obj.name === input.district);
+  const employeeVillage = dataVillage.find((obj) => obj.name === input.village);
 
-  const inputProvince = selectedProvince ? selectedProvince.name : "";
-  const inputRegency = selectedRegency ? selectedRegency.name : "";
-  const inputDistrict = selectedDistrict ? selectedDistrict.name : "";
-  const inputVillage = selectedVillage ? selectedVillage.name : "";
+  const employeeIdProvince = employeeProvince ? employeeProvince.id : "";
+  const employeeIdRegency = employeeRegency ? employeeRegency.id : "";
+  const employeeIdDistrict = employeeDistrict ? employeeDistrict.id : "";
+  const employeeIdVillage = employeeVillage ? employeeVillage.id : "";
 
-  // console.log(inputProvince, "<<");
-  // console.log(inputRegency, "<<");
-  // console.log(inputDistrict, "<<");
-  // console.log(inputVillage, "<<");
+  const containsDigits = (inputString) => /\d/.test(inputString);
 
+  const containsDigitsProvince = containsDigits(input.province) ? input.province : employeeIdProvince;
+  const containsDigitsRegency = containsDigits(input.regency) ? input.regency : employeeIdRegency;
+  const containsDigitsDistrict = containsDigits(input.district) ? input.district : employeeIdDistrict;
+  const containsDigitsVillage = containsDigits(input.village) ? input.village : employeeIdVillage;
+
+  // console.log(containsDigitsProvince, "1");
+  // console.log(containsDigitsRegency, "2");
+  // console.log(containsDigitsDistrict, "3");
+  // console.log(containsDigitsVillage, "4");
+
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-
-    setInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-
-    if (name === "regency") {
-      handleRegencyChange(value);
-    } else if (name === "district") {
-      handleDistrictChange(value);
-    }
-  };
-
-  const handleProvinceChange1 = (event, newValue) => {
-    const selectedProvince = newValue.id;
-    setInput((prevInput) => ({
-      ...prevInput,
-      province: selectedProvince,
-    }));
-  };
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
@@ -82,6 +68,139 @@ export default function AddEmployee() {
     navigate("/");
   };
 
+  const handleAutocompleteChange = (name, value) => {
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value ? value.id : "",
+    }));
+
+    // Check the name of the input field and fetch data accordingly
+    switch (name) {
+      case "province":
+        dispatch(fetchRegency(value ? value.id : ""));
+        setInput((prevInput) => ({
+          ...prevInput,
+          regency: "",
+          district: "",
+          village: "",
+        }));
+        break;
+      case "regency":
+        dispatch(fetchDistrict(value ? value.id : ""));
+        setInput((prevInput) => ({
+          ...prevInput,
+          district: "",
+          village: "",
+        }));
+        break;
+      case "district":
+        dispatch(fetchVillage(value ? value.id : ""));
+        setInput((prevInput) => ({
+          ...prevInput,
+          village: "",
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+
+    // Check the name of the input field and fetch data accordingly
+    switch (name) {
+      case "province":
+        dispatch(fetchRegency(value));
+        setInput((prevInput) => ({
+          ...prevInput,
+          regency: "",
+          district: "",
+          village: "",
+        }));
+        break;
+      case "regency":
+        dispatch(fetchDistrict(value));
+        setInput((prevInput) => ({
+          ...prevInput,
+          district: "",
+          village: "",
+        }));
+        break;
+      case "district":
+        dispatch(fetchVillage(value));
+        setInput((prevInput) => ({
+          ...prevInput,
+          village: "",
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const selectedProvince = dataProvince.find((obj) => obj.id === input.province);
+  const selectedRegency = dataRegency.find((obj) => obj.id === input.regency);
+  const selectedDistrict = dataDistrict.find((obj) => obj.id === input.district);
+  const selectedVillage = dataVillage.find((obj) => obj.id === input.village);
+
+  const inputProvince = selectedProvince ? selectedProvince.name : "";
+  const inputRegency = selectedRegency ? selectedRegency.name : "";
+  const inputDistrict = selectedDistrict ? selectedDistrict.name : "";
+  const inputVillage = selectedVillage ? selectedVillage.name : "";
+
+  const inputUpdateEmployee = {
+    nama: input.name,
+    jalan: input.address,
+    provinsi: inputProvince ? inputProvince : input.province,
+    kabupaten: inputRegency ? inputRegency : input.regency,
+    kecamatan: inputDistrict ? inputDistrict : input.district,
+    kelurahan: inputVillage ? inputVillage : input.village,
+  };
+
+  // console.log(inputUpdateEmployee, "inputtt");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    event.persist();
+
+    try {
+      await dispatch(updateEmployee(inputUpdateEmployee, id));
+      handleCloseConfirmationModal();
+      navigate("/");
+    } catch (error) {
+      console.error("Error updating employee:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (employee) {
+      const employeeProvince = employee.provinsi || "";
+      const employeeRegency = employee.kabupaten || "";
+      const employeeDistrict = employee.kecamatan || "";
+      const employeeVillage = employee.kelurahan || "";
+
+      setInput({
+        name: employee.nama,
+        address: employee.jalan,
+        province: employeeProvince,
+        regency: employeeRegency,
+        district: employeeDistrict,
+        village: employeeVillage,
+      });
+    }
+  }, [employee]);
+
+  useEffect(() => {
+    // Fetch list of detail employee
+    dispatch(fetchDetailEmployee(id));
+  }, [dispatch, id]);
+
   useEffect(() => {
     // Fetch list of provinces
     dispatch(fetchProvince());
@@ -90,41 +209,23 @@ export default function AddEmployee() {
   useEffect(() => {
     // Fetch list of provinces conditionally based on input.province
     if (input.province) {
-      dispatch(fetchRegency(input.province));
+      dispatch(fetchRegency(employeeIdProvince));
     }
-  }, [input.province, dispatch]);
+  }, [input.province, employeeIdProvince, dispatch]);
 
-  const handleRegencyChange = (regencyId) => {
-    dispatch(fetchDistrict(regencyId));
-  };
-
-  const handleDistrictChange = (districtId) => {
-    dispatch(fetchVillage(districtId));
-  };
-
-  const inputCreateEmployee = {
-    nama: input.name,
-    jalan: input.address,
-    provinsi: inputProvince,
-    kabupaten: inputRegency,
-    kecamatan: inputDistrict,
-    kelurahan: inputVillage,
-  };
-
-  console.log(inputCreateEmployee, "inputtt");
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    event.persist();
-
-    try {
-      await dispatch(createEmployee(inputCreateEmployee));
-      handleCloseConfirmationModal();
-      navigate("/");
-    } catch (error) {
-      console.error("Error creating employee:", error);
+  useEffect(() => {
+    // Fetch list of provinces conditionally based on input.province
+    if (input.regency) {
+      dispatch(fetchDistrict(employeeIdRegency));
     }
-  };
+  }, [input.regency, employeeIdRegency, dispatch]);
+
+  useEffect(() => {
+    // Fetch list of provinces conditionally based on input.province
+    if (input.district) {
+      dispatch(fetchVillage(employeeIdDistrict));
+    }
+  }, [input.district, employeeIdDistrict, dispatch]);
 
   return (
     <>
@@ -133,17 +234,8 @@ export default function AddEmployee() {
           <div className="card" style={{ background: "#212332" }}>
             <div className="page-header" style={{ margin: "20px 20px 20px 20px" }}>
               <div className="page-leftheader">
-                <h4 className="page-title mb-0 text-primary">Add New Employee</h4>
+                <h4 className="page-title mb-0 text-primary">Edit Employee</h4>
               </div>
-              {/* <div className="page-rightheader">
-                <div className="btn-list">
-                  <Link to="/add-employee-excel">
-                    <button className="btn btn-secondary">
-                      <i className="fe fe-plus me-2"></i> Add New Data Bulk
-                    </button>
-                  </Link>
-                </div>
-              </div> */}
             </div>
 
             <div
@@ -176,53 +268,27 @@ export default function AddEmployee() {
                     Province <span className="text-red">*</span>
                   </label>
                   <Autocomplete
+                    name="province"
+                    value={dataProvince.find((option) => option.id === containsDigitsProvince) || null}
+                    onChange={(event, value) => handleAutocompleteChange("province", value)}
+                    options={dataProvince}
+                    getOptionLabel={(option) => option.name}
                     disablePortal
                     id="combo-box-demo"
-                    options={modifiedDataProvince}
-                    getOptionLabel={(option) => option.label}
-                    onChange={handleProvinceChange1}
                     sx={{ width: "100%", height: "20%" }}
-                    renderInput={(params) => <TextField {...params} placeholder="Select Province" />}
+                    renderInput={(params) => <TextField {...params} label="Select Province" onChange={handleChange} />}
                   />
                 </div>
               </div>
-              {/* <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">
-                    Province <span className="text-red">*</span>
-                  </label>
-                  <select
-                    onChange={handleChange}
-                    name="province"
-                    value={input.province}
-                    key={input.key}
-                    className={`form-select ${errorMessages.province}`}
-                    aria-label="select example"
-                    style={{
-                      background: "#2B2E3F",
-                      color: "#fff",
-                      border: "1px solid #707070",
-                    }}
-                  >
-                    <option value="">Select Province</option>
-                    {dataProvince.map((province) => (
-                      <option key={province.name} value={province.id}>
-                        {province.name}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="text-danger">{errorMessages.province}</p>
-                </div>
-              </div> */}
               <div className="col-md-12">
                 <div className="form-group">
                   <label className="form-label">
                     Regency <span className="text-red">*</span>
                   </label>
                   <select
-                    onChange={handleChange}
                     name="regency"
-                    value={input.regency}
+                    value={containsDigitsRegency}
+                    onChange={handleChange}
                     className="form-select"
                     aria-label="select example"
                     style={{
@@ -246,9 +312,9 @@ export default function AddEmployee() {
                     District <span className="text-red">*</span>
                   </label>
                   <select
-                    onChange={handleChange}
                     name="district"
-                    value={input.district}
+                    value={containsDigitsDistrict}
+                    onChange={handleChange}
                     className="form-select"
                     aria-label="select example"
                     style={{
@@ -272,9 +338,9 @@ export default function AddEmployee() {
                     Village <span className="text-red">*</span>
                   </label>
                   <select
-                    onChange={handleChange}
                     name="village"
-                    value={input.village}
+                    value={containsDigitsVillage}
+                    onChange={handleChange}
                     className="form-select"
                     aria-label="select example"
                     style={{
@@ -316,14 +382,12 @@ export default function AddEmployee() {
         <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
           <Modal.Title>CONFIRMATION</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to create employee?</Modal.Body>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to update employee?</Modal.Body>
         <Modal.Footer style={{ background: "#2B2E3F" }}>
           <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
             Close
           </Button>
-          <Button onClick={handleSubmit} variant="secondary">
-            Confirm
-          </Button>
+          <Button onClick={handleSubmit} variant="secondary">Confirm</Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchEmployee } from "../../../store/actions/thunks";
+import { fetchEmployee } from "../../store/actions/thunks";
 import Row from "./EmployeeTableRaw";
 import SearchComponent from "./SearchEmployee";
 

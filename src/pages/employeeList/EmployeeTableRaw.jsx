@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { deleteEmployee } from "../../../store/actions/thunks";
+import { deleteEmployee } from "../../store/actions/thunks";
 import { useDispatch } from "react-redux";
 
 export default function Row({ index, employee }) {

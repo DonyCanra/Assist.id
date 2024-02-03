@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/common/Layout";
-import Employee from "../pages/Employee/employeeList/EmployeeList";
-import AddEmployee from "../pages/Employee/addEmployee/AddEmployee";
-import EditEmployee from "../pages/Employee/editEmployee/EditEmployee";
+import Employee from "../pages/employeeList/EmployeeList";
+import AddEmployee from "../pages/addEmployee/AddEmployee";
+import EditEmployee from "../pages/editEmployee/EditEmployee";
 
 const router = createBrowserRouter([
   {
