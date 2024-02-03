@@ -1,10 +1,10 @@
-import { EMPLOYEE_DETAIL_SUCCESS } from "../actions/actionTypes";
+import { EMPLOYEE_FETCH_DETAIL_SUCCESS } from "../actions/actionTypes";
 
-const inisialState = { employee: [] };
+const initialState = { employee: [] };
 
-function detailEmployeeReducer(state = inisialState, action) {
+function detailEmployeeReducer(state = initialState, action) {
   switch (action.type) {
-    case EMPLOYEE_DETAIL_SUCCESS:
+    case EMPLOYEE_FETCH_DETAIL_SUCCESS:
       return {
         ...state,
         employee: action.payload,

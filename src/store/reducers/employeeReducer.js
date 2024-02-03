@@ -1,8 +1,8 @@
 import { EMPLOYEE_FETCH_SUCCESS } from "../actions/actionTypes";
 
-const inisialState = { employees: [] };
+const initialState = { employees: [] };
 
-function employeeReducer(state = inisialState, action) {
+function employeeReducer(state = initialState, action) {
   switch (action.type) {
     case EMPLOYEE_FETCH_SUCCESS:
       return {

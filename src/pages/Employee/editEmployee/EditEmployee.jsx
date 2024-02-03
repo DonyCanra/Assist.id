@@ -1,98 +1,63 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchDetailEmployee, updateEmployee } from "../../../store/actions/thunks";
-import { Modal, Button } from "react-bootstrap";
-import { formatCurrencyRupiah, parseCurrencyRupiah } from "../../../utils/formatCurrency";
-import "./editEmployee.css";
 
-export default function EditEmployee() {
-  const { employee } = useSelector((state) => {
-    return state.employee;
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import { Modal, Button } from "react-bootstrap";
+import "./editEmployee.css"
+import { fetchDetailEmployee, fetchDistrict, fetchProvince, fetchRegency, fetchVillage, updateEmployee } from "../../../store/actions/thunks";
+
+export default function AddEmployee() {
+  const { employee } = useSelector((state) => state.employee);
+  const { province } = useSelector((state) => state.province);
+  const { regency } = useSelector((state) => state.regency);
+  const { district } = useSelector((state) => state.district);
+  const { village } = useSelector((state) => state.village);
+
+  // console.log(employee, "detail");
+
+  const dataProvince = province;
+  const dataRegency = regency;
+  const dataDistrict = district;
+  const dataVillage = village;
+
+  const [input, setInput] = useState({
+    name: "",
+    address: "",
+    province: "",
+    regency: "",
+    district: "",
+    village: "",
   });
+
+  // console.log(input, "input");
+
+  const employeeProvince = dataProvince.find((obj) => obj.name === input.province);
+  const employeeRegency = dataRegency.find((obj) => obj.name === input.regency);
+  const employeeDistrict = dataDistrict.find((obj) => obj.name === input.district);
+  const employeeVillage = dataVillage.find((obj) => obj.name === input.village);
+
+  const employeeIdProvince = employeeProvince ? employeeProvince.id : "";
+  const employeeIdRegency = employeeRegency ? employeeRegency.id : "";
+  const employeeIdDistrict = employeeDistrict ? employeeDistrict.id : "";
+  const employeeIdVillage = employeeVillage ? employeeVillage.id : "";
+
+  const containsDigits = (inputString) => /\d/.test(inputString);
+
+  const containsDigitsProvince = containsDigits(input.province) ? input.province : employeeIdProvince;
+  const containsDigitsRegency = containsDigits(input.regency) ? input.regency : employeeIdRegency;
+  const containsDigitsDistrict = containsDigits(input.district) ? input.district : employeeIdDistrict;
+  const containsDigitsVillage = containsDigits(input.village) ? input.village : employeeIdVillage;
+
+  // console.log(containsDigitsProvince, "1");
+  // console.log(containsDigitsRegency, "2");
+  // console.log(containsDigitsDistrict, "3");
+  // console.log(containsDigitsVillage, "4");
 
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [input, setInput] = useState({
-    id: id,
-    name: "",
-    nik: "",
-    phoneNumber: "",
-    email: "",
-    maxAmount: 0,
-    employeeStatus: "",
-  });
-
-  const [errorMessages, setErrorMessages] = useState({
-    name: "",
-    nik: "",
-    phoneNumber: "",
-    email: "",
-    maxAmount: null,
-  });
-
-  useEffect(() => {
-    if (employee) {
-      setInput({
-        id: employee.id,
-        name: employee.name,
-        nik: employee.nik,
-        phoneNumber: employee.phoneNumber,
-        email: employee.email,
-        maxAmount: employee.maxAmount,
-        employeeStatus: employee.employeeStatus,
-      });
-    }
-  }, [employee]);
-
-  useEffect(() => {
-    dispatch(fetchDetailEmployee(id));
-  }, [dispatch, id]);
-
-  const handleChange = (event) => {
-    const { value, name, type, checked } = event.target;
-
-    // Batasi panjang karakter untuk name
-    if (name === "name" && value.length > 49) {
-      return; // Kembalikan jika panjang karakter melebihi batas
-    }
-
-    // Batasi panjang karakter untuk phone number
-    if (name === "phoneNumber" && value.length > 13) {
-      return; // Kembalikan jika panjang karakter melebihi batas
-    }
-
-    // Validasi phoneNumber agar hanya berisi angka
-    if (name === "phoneNumber" && !/^\d+$/.test(value)) {
-      return; // Kembalikan jika phoneNumber tidak berisi angka
-    }
-
-    // Batasi panjang karakter untuk phone number
-    if (name === "nik" && value.length > 16) {
-      return; // Kembalikan jika panjang karakter melebihi batas
-    }
-
-    if (name === "maxAmount") {
-      const numericValue = value.trim() !== "" ? parseCurrencyRupiah(value) : 0;
-      setInput((prevInput) => ({
-        ...prevInput,
-        [name]: numericValue,
-      }));
-    } else {
-      setInput((prevInput) => ({
-        ...prevInput,
-        [name]: type === "checkbox" ? checked : value,
-      }));
-    }
-
-    // Set pesan kesalahan menjadi kosong setiap kali ada perubahan pada input
-    setErrorMessages((prevErrors) => ({
-      ...prevErrors,
-      [name]: "",
-    }));
-  };
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
@@ -100,60 +65,167 @@ export default function EditEmployee() {
   const handleShowConfirmationModal = () => setShowConfirmationModal(true);
 
   const handleCancel = () => {
-    navigate("/employee");
+    navigate("/");
   };
 
-  const handleUpdateEmployee = async (event) => {
+  const handleAutocompleteChange = (name, value) => {
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value ? value.id : "",
+    }));
+
+    // Check the name of the input field and fetch data accordingly
+    switch (name) {
+      case "province":
+        dispatch(fetchRegency(value ? value.id : ""));
+        setInput((prevInput) => ({
+          ...prevInput,
+          regency: "",
+          district: "",
+          village: "",
+        }));
+        break;
+      case "regency":
+        dispatch(fetchDistrict(value ? value.id : ""));
+        setInput((prevInput) => ({
+          ...prevInput,
+          district: "",
+          village: "",
+        }));
+        break;
+      case "district":
+        dispatch(fetchVillage(value ? value.id : ""));
+        setInput((prevInput) => ({
+          ...prevInput,
+          village: "",
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+
+    // Check the name of the input field and fetch data accordingly
+    switch (name) {
+      case "province":
+        dispatch(fetchRegency(value));
+        setInput((prevInput) => ({
+          ...prevInput,
+          regency: "",
+          district: "",
+          village: "",
+        }));
+        break;
+      case "regency":
+        dispatch(fetchDistrict(value));
+        setInput((prevInput) => ({
+          ...prevInput,
+          district: "",
+          village: "",
+        }));
+        break;
+      case "district":
+        dispatch(fetchVillage(value));
+        setInput((prevInput) => ({
+          ...prevInput,
+          village: "",
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const selectedProvince = dataProvince.find((obj) => obj.id === input.province);
+  const selectedRegency = dataRegency.find((obj) => obj.id === input.regency);
+  const selectedDistrict = dataDistrict.find((obj) => obj.id === input.district);
+  const selectedVillage = dataVillage.find((obj) => obj.id === input.village);
+
+  const inputProvince = selectedProvince ? selectedProvince.name : "";
+  const inputRegency = selectedRegency ? selectedRegency.name : "";
+  const inputDistrict = selectedDistrict ? selectedDistrict.name : "";
+  const inputVillage = selectedVillage ? selectedVillage.name : "";
+
+  const inputUpdateEmployee = {
+    nama: input.name,
+    jalan: input.address,
+    provinsi: inputProvince ? inputProvince : input.province,
+    kabupaten: inputRegency ? inputRegency : input.regency,
+    kecamatan: inputDistrict ? inputDistrict : input.district,
+    kelurahan: inputVillage ? inputVillage : input.village,
+  };
+
+  // console.log(inputUpdateEmployee, "inputtt");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     event.persist();
 
-    input.maxAmount = parseFloat(input.maxAmount);
-
-    input.id = id;
-
-    if (typeof input.employeeStatus === "boolean") {
-      input.employeeStatus = input.employeeStatus ? "Active" : "InActive";
-    }
-    const dataInput = {
-      data: [input],
-    };
-
-    // Validate input before updating employee
-    const validationErrors = validateInput(input);
-    if (Object.keys(validationErrors).length > 0) {
-      setErrorMessages(validationErrors);
-      return;
-    }
-
     try {
-      await dispatch(updateEmployee(dataInput));
+      await dispatch(updateEmployee(inputUpdateEmployee, id));
       handleCloseConfirmationModal();
-      navigate("/employee");
+      navigate("/");
     } catch (error) {
       console.error("Error updating employee:", error);
     }
   };
 
-  const validateInput = (data) => {
-    const errors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneNumberRegex = /^\d{9,13}$/;
+  useEffect(() => {
+    if (employee) {
+      const employeeProvince = employee.provinsi || "";
+      const employeeRegency = employee.kabupaten || "";
+      const employeeDistrict = employee.kecamatan || "";
+      const employeeVillage = employee.kelurahan || "";
 
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        if (!data[key]) {
-          errors[key] = `This field is required ${key.charAt(0).toUpperCase() + key.slice(1).replace(/([a-z])([A-Z])/g, "$1 $2")}`;
-        } else if (key === "nik" && data[key].length !== 16) {
-          errors[key] = "NIK must be 16 characters.";
-        } else if (key === "email" && !emailRegex.test(data[key])) {
-          errors[key] = "Format email not valid.";
-        } else if (key === "phoneNumber" && !phoneNumberRegex.test(data[key])) {
-          errors[key] = "Phone number must be between 9 and 13 digits.";
-        }
-      }
+      setInput({
+        name: employee.nama,
+        address: employee.jalan,
+        province: employeeProvince,
+        regency: employeeRegency,
+        district: employeeDistrict,
+        village: employeeVillage,
+      });
     }
-    return errors;
-  };
+  }, [employee]);
+
+  useEffect(() => {
+    // Fetch list of detail employee
+    dispatch(fetchDetailEmployee(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    // Fetch list of provinces
+    dispatch(fetchProvince());
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Fetch list of provinces conditionally based on input.province
+    if (input.province) {
+      dispatch(fetchRegency(employeeIdProvince));
+    }
+  }, [input.province, employeeIdProvince, dispatch]);
+
+  useEffect(() => {
+    // Fetch list of provinces conditionally based on input.province
+    if (input.regency) {
+      dispatch(fetchDistrict(employeeIdRegency));
+    }
+  }, [input.regency, employeeIdRegency, dispatch]);
+
+  useEffect(() => {
+    // Fetch list of provinces conditionally based on input.province
+    if (input.district) {
+      dispatch(fetchVillage(employeeIdDistrict));
+    }
+  }, [input.district, employeeIdDistrict, dispatch]);
 
   return (
     <>
@@ -180,87 +252,112 @@ export default function EditEmployee() {
                     Name <span className="text-red">*</span>
                   </label>
                   <input value={input.name} onChange={handleChange} name="name" type="text" className="form-control" placeholder="Input name employee" />
-                  <p className="text-danger">{errorMessages.name}</p>
                 </div>
               </div>
               <div className="col-md-12">
                 <div className="form-group">
                   <label className="form-label">
-                    NIK <span className="text-red">*</span>
+                    Address <span className="text-red">*</span>
                   </label>
-                  <input value={input.nik} onChange={handleChange} name="nik" type="text" className="form-control" placeholder="Input NIK employee" />
-                  <p className="text-danger">{errorMessages.nik}</p>
+                  <input value={input.address} onChange={handleChange} name="address" type="text" className="form-control" placeholder="Input name employee" />
                 </div>
               </div>
               <div className="col-md-12">
                 <div className="form-group">
                   <label className="form-label">
-                    Phone Number <span className="text-red">*</span>
+                    Province <span className="text-red">*</span>
                   </label>
-                  <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" type="text" className="form-control" placeholder="Input phone number employee" />
-                  <p className="text-danger">{errorMessages.phoneNumber}</p>
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">
-                    Email <span className="text-red">*</span>
-                  </label>
-                  <input value={input.email} onChange={handleChange} name="email" type="text" className="form-control" placeholder="Input email empoyee" />
-                  <p className="text-danger">{errorMessages.email}</p>
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="form-label">
-                    Max Amount <span className="text-red">*</span>
-                  </label>
-                  <input
-                    value={Number.isNaN(input.maxAmount) ? 0 : formatCurrencyRupiah(input.maxAmount)}
-                    onChange={handleChange}
-                    name="maxAmount"
-                    type="text" // Menggunakan type "text" agar dapat menampilkan format rupiah dan menerima input teks
-                    className="form-control"
-                    placeholder="Input max amount employee"
+                  <Autocomplete
+                    name="province"
+                    value={dataProvince.find((option) => option.id === containsDigitsProvince) || null}
+                    onChange={(event, value) => handleAutocompleteChange("province", value)}
+                    options={dataProvince}
+                    getOptionLabel={(option) => option.name}
+                    disablePortal
+                    id="combo-box-demo"
+                    sx={{ width: "100%", height: "20%" }}
+                    renderInput={(params) => <TextField {...params} label="Select Province" onChange={handleChange} />}
                   />
-                  <p className="text-danger">{errorMessages.maxAmount}</p>
                 </div>
               </div>
-              <div className="col-sm-6 col-md-6">
+              <div className="col-md-12">
                 <div className="form-group">
                   <label className="form-label">
-                    Status <span className="text-red">*</span>
+                    Regency <span className="text-red">*</span>
                   </label>
-                  <div className="form-group">
-                    <label
-                      className="custom-switch"
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      {/* <span className="custom-switch-description me-2">Check Box</span> */}
-                      <input checked={input.employeeStatus} onChange={handleChange} name="employeeStatus" className="custom-switch-input" type="checkbox" />
-                      <span className="custom-switch-indicator custom-switch-indicator-lg"></span>
-                    </label>
-                    <h1
-                      style={{
-                        position: "absolute",
-                        color: "#FFF",
-                        fontSize: "15px",
-                        fontStyle: "normal",
-                        fontWeight: "400",
-                        lineHeight: "normal",
-                        left: "9%", // Mengatur posisi horizontal di tengah
-                        top: "65%", // Mengatur posisi vertical di tengah
-                        transform: "translate(-50%, -50%)", // Membuat h1 berada tepat di tengah
-                      }}
-                    >
-                      {input.employeeStatus ? "Active" : ""}
-                    </h1>
-                  </div>
+                  <select
+                    name="regency"
+                    value={containsDigitsRegency}
+                    onChange={handleChange}
+                    className="form-select"
+                    aria-label="select example"
+                    style={{
+                      background: "#2B2E3F",
+                      color: "#fff",
+                      border: "1px solid #707070",
+                    }}
+                  >
+                    <option value="">Select Regency</option>
+                    {dataRegency.map((regency) => (
+                      <option key={regency.id} value={regency.id}>
+                        {regency.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
-
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    District <span className="text-red">*</span>
+                  </label>
+                  <select
+                    name="district"
+                    value={containsDigitsDistrict}
+                    onChange={handleChange}
+                    className="form-select"
+                    aria-label="select example"
+                    style={{
+                      background: "#2B2E3F",
+                      color: "#fff",
+                      border: "1px solid #707070",
+                    }}
+                  >
+                    <option value="">Select District</option>
+                    {dataDistrict.map((district) => (
+                      <option key={district.id} value={district.id}>
+                        {district.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="form-label">
+                    Village <span className="text-red">*</span>
+                  </label>
+                  <select
+                    name="village"
+                    value={containsDigitsVillage}
+                    onChange={handleChange}
+                    className="form-select"
+                    aria-label="select example"
+                    style={{
+                      background: "#2B2E3F",
+                      color: "#fff",
+                      border: "1px solid #707070",
+                    }}
+                  >
+                    <option value="">Select Village</option>
+                    {dataVillage.map((village) => (
+                      <option key={village.id} value={village.id}>
+                        {village.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
               <div className="col-md-12">
                 <div className="page-header">
                   <div className="page-leftheader">
@@ -285,14 +382,12 @@ export default function EditEmployee() {
         <Modal.Header style={{ background: "#2B2E3F" }} closeButton>
           <Modal.Title>CONFIRMATION</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to edit employee?</Modal.Body>
+        <Modal.Body style={{ background: "#2B2E3F" }}>Are you sure to update employee?</Modal.Body>
         <Modal.Footer style={{ background: "#2B2E3F" }}>
           <Button variant="btn btn-danger" onClick={handleCloseConfirmationModal}>
             Close
           </Button>
-          <Button variant="secondary" onClick={handleUpdateEmployee}>
-            Confirm
-          </Button>
+          <Button onClick={handleSubmit} variant="secondary">Confirm</Button>
         </Modal.Footer>
       </Modal>
     </>

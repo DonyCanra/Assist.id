@@ -1,70 +1,18 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchEmployee } from "../../../store/actions/thunks";
 
 export default function SearchComponent() {
   const [isCardOneVisible, setCardOneVisible] = useState(true);
-  const [input, setInput] = useState({
-    isCandidate: "No",
-    employeeStatus: "",
-    registerStatus: "",
-    name: "",
-    nik: "",
-    email: "",
-    phoneNumber: "",
-    page: 1,
-    limit: 10,
-  });
-
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-    setInput({
-      ...input,
-      [name]: value,
-    });
-  };
-
-  const handleReset = () => {
-    setInput({
-      isCandidate: "No",
-      employeeStatus: "",
-      registerStatus: "",
-      name: "",
-      nik: "",
-      email: "",
-      phoneNumber: "",
-      page: 1,
-      limit: 10,
-    });
-
-    // Fetch employee data with default values
-    dispatch(
-      fetchEmployee({
-        isCandidate: "No",
-        employeeStatus: "",
-        registerStatus: "",
-        name: "",
-        nik: "",
-        email: "",
-        phoneNumber: "",
-        page: 1,
-        limit: 10,
-      })
-    );
-  };
-
-  const dispatch = useDispatch();
-
-  const handleFilter = async (event) => {
-    event.preventDefault();
-    await dispatch(fetchEmployee(input));
-  };
 
   const toggleCardVisibility = () => {
     setCardOneVisible(!isCardOneVisible);
   };
 
+  const handleSearch = () => {
+    alert("Belum di buat")
+  };
+
   return (
+    <>
     <div
       className="card-body text-white"
       style={{
@@ -101,75 +49,41 @@ export default function SearchComponent() {
             <div className="row row-sm">
               <div className="col-lg">
                 <label className="form-label">Name</label>
-                <input value={input.name} onChange={handleChange} name="name" className="form-control mb-4" placeholder="Input name" type="text" />
+                <input name="name" className="form-control mb-4" placeholder="Input name" type="text" />
               </div>
               <div className="col-lg">
-                <label className="form-label">Phone Number</label>
-                <input value={input.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control mb-4" placeholder="Input phone number" type="text" />
+                <label className="form-label">Address</label>
+                <input name="phoneNumber" className="form-control mb-4" placeholder="Input address" type="text" />
               </div>
-              <div className="col-lg mb-3">
-                <label className="form-label">Registered Status</label>
-                <select
-                  value={input.registerStatus}
-                  onChange={handleChange}
-                  name="registerStatus"
-                  className="form-select"
-                  aria-label="select example"
-                  style={{
-                    background: "#2B2E3F",
-                    color: "#fff",
-                    border: "1px solid #707070",
-                  }}
-                >
-                  <option disabled value="">
-                    Open this select menu
-                  </option>
-                  <option value="Active">Registered</option>
-                  <option value="InActive">Not Registered</option>
-                </select>
+              <div className="col-lg">
+                <label className="form-label">Province</label>
+                <input name="phoneNumber" className="form-control mb-4" placeholder="Input province" type="text" />
               </div>
             </div>
             <div className="row row-sm">
               <div className="col-lg">
-                <label className="form-label">NIK</label>
-                <input value={input.nik} onChange={handleChange} name="nik" className="form-control mb-4" placeholder="Input NIK" type="text" />
+                <label className="form-label">Regency</label>
+                <input name="nik" className="form-control mb-4" placeholder="Input regency" type="text" />
               </div>
               <div className="col-lg">
-                <label className="form-label">Email</label>
-                <input value={input.email} onChange={handleChange} name="email" className="form-control mb-4" placeholder="Input email" type="text" />
+                <label className="form-label">District</label>
+                <input name="email" className="form-control mb-4" placeholder="Input district" type="text" />
               </div>
-              <div className="col-lg mb-3">
-                <label className="form-label">Employee Status</label>
-                <select
-                  value={input.employeeStatus}
-                  onChange={handleChange}
-                  name="employeeStatus"
-                  className="form-select"
-                  aria-label="select example"
-                  style={{
-                    background: "#2B2E3F",
-                    color: "#fff",
-                    border: "1px solid #707070",
-                  }}
-                >
-                  <option disabled value="">
-                    Open this select menu
-                  </option>
-                  <option value="Active">Active</option>
-                  <option value="InActive">InActive</option>
-                </select>
+              <div className="col-lg">
+                <label className="form-label">Village</label>
+                <input name="email" className="form-control mb-4" placeholder="Input village" type="text" />
               </div>
             </div>
             <div className="row row-sm">
               <div className="col-lg">
                 <div className="page-header">
                   <div className="page-leftheader">
-                    <button onClick={handleReset} className="btn btn-danger page-leftheader">
+                    <button className="btn btn-danger page-leftheader">
                       Reset
                     </button>
                   </div>
                   <div className="page-rightheader">
-                    <button onClick={handleFilter} className="btn btn-primary ms-1 page-rightheader" type="submit">
+                    <button onClick={handleSearch} className="btn btn-primary ms-1 page-rightheader">
                       Search
                     </button>
                   </div>
@@ -180,5 +94,6 @@ export default function SearchComponent() {
         </div>
       )}
     </div>
+    </>
   );
 }
